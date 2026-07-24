@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import { getFeaturedProducts } from '../lib/products';
+import { SITE } from '../config/brand';
+
+const featured = await getFeaturedProducts(8);
+---
+
+<Base path="/">
+  <!-- Hero -->
+  <section class="mx-auto max-w-6xl px-4 pt-14 pb-10 text-center md:pt-24 md:pb-16">
+    <p class="text-xs uppercase tracking-[0.25em] text-wine/70">Hand-picked · One of a kind</p>
+    <h1 class="mx-auto mt-4 max-w-3xl font-display text-4xl leading-tight text-wine md:text-6xl">
+      {SITE.tagline}
+    </h1>
+    <p class="mx-auto mt-5 max-w-xl text-base text-ink/70 md:text-lg">
+      {SITE.description}
+    </p>
+    <div class="mt-8 flex justify-center gap-3">
+      <a href="/shop" class="rounded-full bg-wine px-7 py-3 text-sm font-semibold text-cream hover:bg-wine-deep">
+        Shop the drop
+      </a>
+      <a href="/about" class="rounded-full border border-wine/30 px-7 py-3 text-sm font-semibold text-wine hover:border-wine">
+        The story
+      </a>
+    </div>
+  </section>
+
+  <!-- Featured -->
+  <section class="mx-auto max-w-6xl px-4">
+    <div class="mb-6 flex items-end justify-between">
+      <h2 class="font-display text-2xl text-ink md:text-3xl">Just in</h2>
+      <a href="/shop" class="text-sm font-medium text-wine hover:underline">See everything</a>
+    </div>
+    <ProductGrid products={featured} />
+  </section>
+</Base>

@@ -1,0 +1,22 @@
+# build output
+dist/
+.output/
+.vercel/
+
+# dependencies
+node_modules/
+studio/node_modules/
+
+# secrets — never commit real keys
+.env
+.env.local
+.env.production
+studio/.env*
+
+# astro
+.astro/
+
+# os / editor
+.DS_Store
+*.log
+npm-debug.log*

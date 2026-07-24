@@ -1,0 +1,53 @@
+/**
+ * Single source of truth for brand identity, commerce rules, and palette.
+ *
+ * DOMAIN IS TBA. When the domain is chosen (curatedbytati.com / taticurated.com /
+ * other), update SITE.url and SITE.domain here and nowhere else. Every page, the
+ * sitemap, canonical tags, and JSON-LD read from this file.
+ */
+
+export const SITE = {
+  name: 'Curated by Tati',
+  shortName: 'Curated by Tati',
+  // TBA — placeholder until the domain is registered. One-line change.
+  url: 'https://curatedbytati.com',
+  domain: 'curatedbytati.com',
+  tagline: 'Unique cute finds, hand-picked and one of a kind.',
+  description:
+    'Curated by Tati is a hand-picked secondhand shop of one-of-a-kind cute finds. Coquette dresses, y2k denim, statement heels, and trending sneakers. Every piece is unique, so once it sells it is gone.',
+  // Warm, emoji-forward voice pulled from her Depop bio.
+  bioVoice: "I'm selling unique cute finds. Every piece is hand-picked and one of a kind. Offers welcomed, ships in 1 to 3 days.",
+  depop: 'https://www.depop.com/curatedbytati_/',
+  instagram: '', // TBA — add handle when ready
+  email: '', // TBA — order + support email
+} as const;
+
+/**
+ * Commerce rules. Because inventory is one-of-a-kind (quantity 1), "sold" is a
+ * boolean, never a count. Shipping is a flat rate collected at Stripe Checkout;
+ * Tati prints labels herself (Pirate Ship / Shippo). Tax is off for the MVP and
+ * becomes a one-line Stripe Tax toggle in Phase 2 once she registers.
+ */
+export const COMMERCE = {
+  currency: 'usd',
+  // Flat domestic shipping in cents. Mirrors her Depop "seller covers small shipping" model.
+  shippingFlatRateCents: 500,
+  // Countries she will ship to at checkout.
+  shipToCountries: ['US'] as const,
+  // Minutes a checkout session holds an item as "reserved" before it frees back up.
+  reserveMinutes: 30,
+} as const;
+
+/**
+ * Palette derived from her burgundy serif badge + coquette / y2k product mix.
+ * Consumed by tailwind.config.mjs. Codex styles against these tokens.
+ */
+export const PALETTE = {
+  wine: '#6E2433', // brand mark burgundy
+  wineDeep: '#511824',
+  blush: '#F5E4E7', // soft coquette pink
+  blushDeep: '#E9C6CD',
+  cream: '#FBF7F2', // editorial off-white background
+  ink: '#241C1E', // near-black text, warm
+  gold: '#C9A227', // sparing accent
+} as const;

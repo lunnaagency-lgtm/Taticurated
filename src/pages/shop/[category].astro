@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import { getProductsByCategory } from '../../lib/products';
+import { CATEGORIES } from '../../lib/types';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((c) => ({ params: { category: c.slug }, props: { label: c.label } }));
+}
+
+const { category } = Astro.params;
+const { label } = Astro.props as { label: string };
+const products = await getProductsByCategory(category!);
+---
+
+<Base title={label} path={`/shop/${category}`} description={`${label} at Curated by Tati. Hand-picked, one-of-a-kind secondhand pieces.`}>
+  <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+    <h1 class="font-display text-3xl text-wine md:text-4xl">{label}</h1>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      <a href="/shop" class="rounded-full border border-wine/25 px-4 py-1.5 text-sm text-ink/70 hover:border-wine hover:text-wine">All</a>
+      {CATEGORIES.map((c) => (
+        <a
+          href={`/shop/${c.slug}`}
+          class:list={[
+            'rounded-full px-4 py-1.5 text-sm',
+            c.slug === category ? 'bg-wine text-cream' : 'border border-wine/25 text-ink/70 hover:border-wine hover:text-wine',
+          ]}
+        >
+          {c.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-10">
+      <ProductGrid products={products} />
+    </div>
+  </section>
+</Base>

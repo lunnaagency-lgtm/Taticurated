@@ -1,0 +1,65 @@
+---
+import type { Product } from '../lib/types';
+import { formatPrice } from '../lib/types';
+
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+const available = product.status === 'available';
+---
+
+{available ? (
+  <button
+    data-buy
+    data-slug={product.slug}
+    class="w-full rounded-full bg-wine px-6 py-4 text-base font-semibold text-cream transition hover:bg-wine-deep disabled:cursor-not-allowed disabled:opacity-60"
+  >
+    Buy now · {formatPrice(product.priceCents)}
+  </button>
+) : (
+  <button
+    disabled
+    class="w-full cursor-not-allowed rounded-full bg-ink/20 px-6 py-4 text-base font-semibold text-ink/60"
+  >
+    {product.status === 'sold' ? 'Sold' : 'On hold'}
+  </button>
+)}
+<p data-buy-error class="mt-2 hidden text-sm text-wine" role="alert"></p>
+
+<script>
+  document.querySelectorAll('button[data-buy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const button = btn as HTMLButtonElement;
+      const slug = button.dataset.slug;
+      const errorEl = button.parentElement?.querySelector('[data-buy-error]') as HTMLElement | null;
+      if (!slug) return;
+
+      button.disabled = true;
+      const original = button.textContent;
+      button.textContent = 'Taking you to checkout…';
+      if (errorEl) errorEl.classList.add('hidden');
+
+      try {
+        const res = await fetch('/api/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug }),
+        });
+        const data = await res.json();
+        if (res.ok && data.url) {
+          window.location.href = data.url;
+          return;
+        }
+        throw new Error(data.error || 'Something went wrong. Please try again.');
+      } catch (err) {
+        button.disabled = false;
+        button.textContent = original;
+        if (errorEl) {
+          errorEl.textContent = (err as Error).message;
+          errorEl.classList.remove('hidden');
+        }
+      }
+    });
+  });
+</script>

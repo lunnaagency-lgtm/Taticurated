@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config/brand';
+
+// FAQ schema helps this page get surfaced and cited by AI answer engines.
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is Curated by Tati?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Curated by Tati is a hand-picked secondhand shop of one-of-a-kind cute finds: coquette dresses, y2k pieces, statement heels, and trending sneakers. Every item is unique, so once it sells it is gone.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does shipping work?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Orders ship in 1 to 3 days with flat-rate shipping added at checkout.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Are items returnable?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Because each piece is one of a kind and secondhand, all sales are final.',
+      },
+    },
+  ],
+};
+---
+
+<Base title="The story" path="/about" description="The story behind Curated by Tati, a hand-picked one-of-a-kind secondhand shop." jsonLd={[faqSchema]}>
+  <section class="mx-auto max-w-2xl px-4 py-14 md:py-20">
+    <h1 class="font-display text-4xl text-wine md:text-5xl">Curated, not mass-produced.</h1>
+    <div class="mt-8 space-y-5 text-lg leading-relaxed text-ink/80">
+      <p>{SITE.bioVoice}</p>
+      <p>
+        Every piece here is chosen by hand, one at a time. No restocks, no duplicates, no algorithm
+        deciding what you see. If it speaks to you, it is probably the only one.
+      </p>
+      <p>
+        What started as sharing my favorite finds turned into a whole shop of them. Thank you for
+        being part of it.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-2xl bg-blush/40 p-6">
+      <h2 class="font-display text-xl text-wine">Good to know</h2>
+      <ul class="mt-3 space-y-2 text-sm text-ink/75">
+        <li>· Every item is one of a kind. Once it sells, it is gone.</li>
+        <li>· Ships in 1 to 3 days, flat-rate shipping.</li>
+        <li>· All sales final. Offers always welcome.</li>
+      </ul>
+    </div>
+
+    <div class="mt-10">
+      <a href="/shop" class="rounded-full bg-wine px-7 py-3 text-sm font-semibold text-cream hover:bg-wine-deep">
+        Shop the finds
+      </a>
+    </div>
+  </section>
+</Base>

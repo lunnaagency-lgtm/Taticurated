@@ -1,0 +1,23 @@
+---
+import { SITE } from '../config/brand';
+---
+
+<footer id="footer" class="mt-24 border-t border-blush-deep/40 bg-blush/30">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+      <div class="max-w-sm">
+        <p class="font-display text-xl text-wine">{SITE.name}</p>
+        <p class="mt-2 text-sm text-ink/70">{SITE.bioVoice}</p>
+      </div>
+      <nav aria-label="Footer" class="flex flex-col gap-2 text-sm">
+        <a href="/shop" class="hover:text-wine">Shop all</a>
+        <a href="/about" class="hover:text-wine">About</a>
+        {SITE.depop && <a href={SITE.depop} class="hover:text-wine" rel="noopener">Depop</a>}
+        {SITE.instagram && <a href={SITE.instagram} class="hover:text-wine" rel="noopener">Instagram</a>}
+      </nav>
+    </div>
+    <p class="mt-10 text-xs text-ink/50">
+      Every piece is one of a kind. Once it sells, it is gone. All sales final.
+    </p>
+  </div>
+</footer>

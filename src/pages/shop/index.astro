@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import { getAllProducts } from '../../lib/products';
+import { CATEGORIES } from '../../lib/types';
+
+const products = await getAllProducts();
+---
+
+<Base title="Shop all" path="/shop" description="Every one-of-a-kind piece in the Curated by Tati shop. Coquette dresses, y2k denim, statement heels, and trending sneakers.">
+  <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
+    <h1 class="font-display text-3xl text-wine md:text-4xl">Shop all</h1>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      <a href="/shop" class="rounded-full bg-wine px-4 py-1.5 text-sm font-medium text-cream">All</a>
+      {CATEGORIES.map((c) => (
+        <a href={`/shop/${c.slug}`} class="rounded-full border border-wine/25 px-4 py-1.5 text-sm text-ink/70 hover:border-wine hover:text-wine">
+          {c.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="mt-10">
+      <ProductGrid products={products} />
+    </div>
+  </section>
+</Base>

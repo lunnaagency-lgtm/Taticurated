@@ -1,0 +1,43 @@
+---
+import type { Product } from '../lib/types';
+import { formatPrice } from '../lib/types';
+
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+const img = product.images[0];
+const isSold = product.status === 'sold';
+---
+
+<a href={`/product/${product.slug}`} class="group block">
+  <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-blush">
+    {img ? (
+      <img
+        src={img.url}
+        alt={img.alt}
+        loading="lazy"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    ) : (
+      <!-- Branded placeholder until real Depop photos are uploaded in Sanity. Never stock. -->
+      <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-4 text-center">
+        <span class="font-display text-lg text-wine/70">{product.title}</span>
+      </div>
+    )}
+    {isSold && (
+      <div class="absolute inset-0 flex items-center justify-center bg-cream/70">
+        <span class="rounded-full bg-ink px-4 py-1 text-xs font-semibold uppercase tracking-wide text-cream">
+          Sold
+        </span>
+      </div>
+    )}
+  </div>
+  <div class="mt-3">
+    <p class="text-sm font-medium text-ink group-hover:text-wine">{product.title}</p>
+    <div class="mt-1 flex items-center gap-2 text-sm text-ink/60">
+      <span>{formatPrice(product.priceCents)}</span>
+      {product.size && <span>· {product.size}</span>}
+    </div>
+  </div>
+</a>

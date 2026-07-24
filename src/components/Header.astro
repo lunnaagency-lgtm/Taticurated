@@ -1,0 +1,23 @@
+---
+import { SITE } from '../config/brand';
+import { CATEGORIES } from '../lib/types';
+---
+
+<header class="border-b border-blush-deep/40 bg-cream/90 backdrop-blur sticky top-0 z-40">
+  <div class="mx-auto max-w-6xl px-4">
+    <div class="flex items-center justify-between py-4">
+      <a href="/" class="font-display text-2xl tracking-tight text-wine">
+        {SITE.name}
+      </a>
+      <nav aria-label="Categories" class="hidden gap-6 md:flex">
+        <a href="/shop" class="text-sm font-medium hover:text-wine">Shop all</a>
+        {CATEGORIES.map((c) => (
+          <a href={`/shop/${c.slug}`} class="text-sm text-ink/70 hover:text-wine">{c.label}</a>
+        ))}
+      </nav>
+      <a href="/shop" class="rounded-full bg-wine px-4 py-2 text-sm font-medium text-cream hover:bg-wine-deep md:hidden">
+        Shop
+      </a>
+    </div>
+  </div>
+</header>

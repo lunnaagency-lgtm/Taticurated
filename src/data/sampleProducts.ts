@@ -1,0 +1,183 @@
+import type { Product } from '../lib/types';
+
+/**
+ * Seed catalog modeled on curatedbytati_'s real Depop shop (coquette + y2k
+ * streetwear). Used automatically whenever SANITY_PROJECT_ID is unset, so the
+ * storefront builds, renders, and can be styled before any account exists.
+ *
+ * NOTE: prices/sizes here are representative reconstructions, not her exact
+ * listings (only the Nike Air Max at $44.99 was confirmed). Tati enters real
+ * values + real photos in Sanity; this file can be deleted once the CMS is live.
+ * Images are intentionally empty so the UI shows branded placeholders, never stock.
+ */
+export const sampleProducts: Product[] = [
+  {
+    id: 'sample-air-max-dia',
+    slug: 'nike-air-max-dia-light-violet',
+    title: 'Nike Air Max Dia Light Violet',
+    brand: 'Nike',
+    size: 'US 9.5',
+    condition: 'Like new',
+    colors: ['pink', 'white'],
+    category: 'shoes',
+    priceCents: 4499,
+    description:
+      'Nike Air Max Dia in soft white and pink. Barely worn, clean soles, so cute for spring. One of a kind, once it is gone it is gone.',
+    images: [],
+    status: 'available',
+    featured: true,
+  },
+  {
+    id: 'sample-lace-dress',
+    slug: 'pink-lace-cottagecore-mini-dress',
+    title: 'Pink Lace Cottagecore Mini Dress',
+    brand: null,
+    size: 'S',
+    condition: 'Good',
+    colors: ['pink'],
+    category: 'dresses',
+    priceCents: 3800,
+    description:
+      'Dreamy blush lace mini with puff sleeves. Coquette-core perfection for date nights and garden days.',
+    images: [],
+    status: 'available',
+    featured: true,
+  },
+  {
+    id: 'sample-blue-maryjanes',
+    slug: 'baby-blue-heart-buckle-mary-janes',
+    title: 'Baby Blue Heart-Buckle Mary Janes',
+    brand: null,
+    size: 'US 8',
+    condition: 'Like new',
+    colors: ['blue'],
+    category: 'shoes',
+    priceCents: 3400,
+    description:
+      'Powder blue Mary Janes with a heart buckle and scalloped strap. The softest y2k doll-core finish.',
+    images: [],
+    status: 'available',
+    featured: true,
+  },
+  {
+    id: 'sample-yellow-heels',
+    slug: 'neon-yellow-lace-up-heels',
+    title: 'Neon Yellow Lace-Up Heels',
+    brand: null,
+    size: 'US 8.5',
+    condition: 'Good',
+    colors: ['yellow'],
+    category: 'shoes',
+    priceCents: 3200,
+    description:
+      'Highlighter-yellow strappy heels that lace up the ankle. A whole outfit on their own.',
+    images: [],
+    status: 'available',
+  },
+  {
+    id: 'sample-yellow-bag',
+    slug: 'neon-yellow-shoulder-bag',
+    title: 'Neon Yellow Shoulder Bag',
+    brand: null,
+    size: 'One size',
+    condition: 'Good',
+    colors: ['yellow'],
+    category: 'bags',
+    priceCents: 2200,
+    description:
+      'Compact neon shoulder bag with a sleek silhouette. The pop of color every neutral fit needs.',
+    images: [],
+    status: 'available',
+  },
+  {
+    id: 'sample-vans-checkerboard',
+    slug: 'vans-checkerboard-slip-ons',
+    title: 'Vans Checkerboard Slip-Ons',
+    brand: 'Vans',
+    size: 'US 8',
+    condition: 'Good',
+    colors: ['blue', 'white'],
+    category: 'shoes',
+    priceCents: 4200,
+    description:
+      'Classic navy and white checkerboard Vans slip-ons. Broken in just right, endlessly wearable.',
+    images: [],
+    status: 'available',
+  },
+  {
+    id: 'sample-velour-pants',
+    slug: 'olive-velour-lounge-pants',
+    title: 'Olive Velour Lounge Pants',
+    brand: null,
+    size: 'M',
+    condition: 'Good',
+    colors: ['green'],
+    category: 'bottoms',
+    priceCents: 2800,
+    description:
+      'Buttery olive velour flares with a low-rise y2k cut. Juicy-era energy, thrifted and one of a kind.',
+    images: [],
+    status: 'available',
+  },
+  {
+    id: 'sample-green-camp-shirt',
+    slug: 'sage-ribbed-camp-shirt',
+    title: 'Sage Ribbed Camp Shirt',
+    brand: null,
+    size: 'M',
+    condition: 'Like new',
+    colors: ['green'],
+    category: 'tops',
+    priceCents: 1800,
+    description:
+      'Ribbed sage short-sleeve camp shirt with a boxy fit. Layer it open or button it up.',
+    images: [],
+    status: 'sold',
+  },
+  {
+    id: 'sample-pleated-shorts',
+    slug: 'black-pleated-mini-skort',
+    title: 'Black Pleated Mini Skort',
+    brand: null,
+    size: 'S',
+    condition: 'Good',
+    colors: ['black'],
+    category: 'bottoms',
+    priceCents: 1600,
+    description:
+      'Black pleated skort with a built-in short. Preppy, flirty, and endlessly mixable.',
+    images: [],
+    status: 'available',
+  },
+  {
+    id: 'sample-white-nikes',
+    slug: 'white-nike-running-sneakers',
+    title: 'White Nike Running Sneakers',
+    brand: 'Nike',
+    size: 'US 9',
+    condition: 'Good',
+    colors: ['white', 'silver'],
+    category: 'shoes',
+    priceCents: 4800,
+    description:
+      'Clean white and silver Nike runners with a chunky sole. Goes with the whole closet.',
+    images: [],
+    status: 'available',
+  },
+  {
+    id: 'sample-sugar-thrillz-dress',
+    slug: 'sugar-thrillz-babydoll-dress',
+    title: 'Sugar Thrillz Babydoll Dress',
+    brand: 'Sugar Thrillz',
+    size: 'L',
+    condition: 'Like new',
+    colors: ['cream'],
+    category: 'dresses',
+    priceCents: 4499,
+    description:
+      'Whimsical Sugar Thrillz babydoll with delicate detailing. Fairy-core romance in a size L.',
+    images: [],
+    status: 'available',
+    featured: true,
+  },
+];

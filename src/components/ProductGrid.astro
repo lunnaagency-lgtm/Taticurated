@@ -1,0 +1,17 @@
+---
+import type { Product } from '../lib/types';
+import ProductCard from './ProductCard.astro';
+
+interface Props {
+  products: Product[];
+}
+const { products } = Astro.props;
+---
+
+{products.length === 0 ? (
+  <p class="py-16 text-center text-ink/60">No pieces here yet. Check back soon.</p>
+) : (
+  <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+    {products.map((product) => <ProductCard product={product} />)}
+  </div>
+)}

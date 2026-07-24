@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config/brand';
+---
+
+<Base title="Thank you" path="/success" noindex={true}>
+  <section class="mx-auto max-w-xl px-4 py-24 text-center">
+    <p class="text-4xl">💌</p>
+    <h1 class="mt-4 font-display text-3xl text-wine md:text-4xl">Thank you, it's yours!</h1>
+    <p class="mt-4 text-ink/75">
+      Your order is confirmed and a receipt is on its way to your email. {SITE.name} ships in 1 to 3
+      days. Since every piece is one of a kind, you just took home something no one else has.
+    </p>
+    <a href="/shop" class="mt-8 inline-block rounded-full bg-wine px-7 py-3 text-sm font-semibold text-cream hover:bg-wine-deep">
+      Keep browsing
+    </a>
+  </section>
+</Base>
