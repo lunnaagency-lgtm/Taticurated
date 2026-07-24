@@ -8,7 +8,7 @@ import vercel from '@astrojs/vercel/serverless';
 // (fast + crawlable for Google and AI answer engines), while inventory pages and
 // /api/* routes run on-demand via `export const prerender = false`.
 export default defineConfig({
-  site: 'https://curatedbytati.com',
+  site: 'https://taticurated.com',
   output: 'hybrid',
   adapter: vercel({ webAnalytics: { enabled: true } }),
   integrations: [

@@ -9,9 +9,10 @@
 export const SITE = {
   name: 'Curated by Tati',
   shortName: 'Curated by Tati',
-  // TBA — placeholder until the domain is registered. One-line change.
-  url: 'https://curatedbytati.com',
-  domain: 'curatedbytati.com',
+  // Domain chosen 2026-07-24: taticurated.com. Display name stays "Curated by Tati"
+  // (her existing badge / Depop identity). Swap SITE.name if that ever changes.
+  url: 'https://taticurated.com',
+  domain: 'taticurated.com',
   tagline: 'Unique cute finds, hand-picked and one of a kind.',
   description:
     'Curated by Tati is a hand-picked secondhand shop of one-of-a-kind cute finds. Coquette dresses, y2k denim, statement heels, and trending sneakers. Every piece is unique, so once it sells it is gone.',
@@ -36,6 +37,29 @@ export const COMMERCE = {
   shipToCountries: ['US'] as const,
   // Minutes a checkout session holds an item as "reserved" before it frees back up.
   reserveMinutes: 30,
+} as const;
+
+/**
+ * Marketing offers, all in one place.
+ *
+ * - Welcome: first-visit email capture. The code is shown after signup and entered
+ *   at Stripe Checkout (allow_promotion_codes is on). Create a matching Stripe
+ *   promotion code with this exact value + percentage.
+ * - Bundle: "add N pieces, get X% off the order." NOTE: honoring this needs a cart
+ *   (multi-item checkout). The current store is single-item checkout, so the bundle
+ *   is advertised now and enforced once the cart lands. See CODEX_BRIEF / README.
+ */
+export const MARKETING = {
+  welcomeCapture: true,
+  welcomeDiscountPercent: 10,
+  welcomeCode: 'TATI10',
+  bundle: {
+    enabled: true,
+    minItems: 3,
+    discountPercent: 10,
+    code: 'BUNDLE10',
+    message: 'Bundle up. Add 3 pieces to your order and get 10% off.',
+  },
 } as const;
 
 /**

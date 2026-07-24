@@ -53,8 +53,15 @@ palette, and shipping rate. Change the domain in one place when it is chosen.
 3. Add a webhook endpoint -> `https://<your-domain>/api/webhook`, events
    `checkout.session.completed` and `checkout.session.expired` -> copy the signing
    secret into `STRIPE_WEBHOOK_SECRET`
-4. Test a purchase with card `4242 4242 4242 4242`. Confirm the item flips to sold.
-5. Flip to live keys when ready.
+4. Create two promotion codes (Products -> Coupons): **TATI10** (10% off, the welcome
+   offer) and **BUNDLE10** (10% off, the bundle). `allow_promotion_codes` is already on
+   at checkout, so buyers can enter them. Match the values in `MARKETING` in
+   `src/config/brand.ts`.
+5. Test a purchase with card `4242 4242 4242 4242`. Confirm the item flips to sold.
+6. Flip to live keys when ready.
+
+Email capture: set `EMAIL_WEBHOOK_URL` to any inbound webhook (Klaviyo/Mailchimp/Beehiiv,
+or Zapier/Make) to collect welcome signups. Without it, signups are logged only.
 
 ### 3. Vercel (hosting)
 1. Push this repo to GitHub, import into Vercel (framework auto-detected as Astro).
@@ -74,4 +81,7 @@ llms.txt), and a working-but-plain UI so the whole thing runs today.
 **Delegated to Codex — see `CODEX_BRIEF.md`:** the full visual buildout (elevated
 components, gallery, mobile polish, copy) against this scaffold's contracts.
 
-**Phase 2 (later):** email capture + drop alerts, Stripe Tax, richer filtering.
+**Phase 2 (in progress):** welcome email capture (done, endpoint + config), FAQ + about
+build (via Codex), and a **cart**. The bundle offer ("3 pieces = 10% off") needs a cart
+(multi-item checkout); the store is single-item today, so the bundle is advertised now and
+enforced once the cart lands. Then Stripe Tax and richer filtering.

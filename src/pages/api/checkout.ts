@@ -47,6 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
+    allow_promotion_codes: true, // lets buyers apply the welcome code (e.g. TATI10)
     line_items: [
       {
         quantity: 1,

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://curatedbytati.com/sitemap-index.xml
+Sitemap: https://taticurated.com/sitemap-index.xml
