@@ -45,7 +45,7 @@ const colorTokens = product.colors
       <div class="editorial-frame flex h-full w-full items-center justify-center bg-gradient-to-br from-blush via-cream to-blush-deep p-8 text-center">
         <div>
           <span class="mx-auto mb-5 block h-px w-12 bg-wine/30"></span>
-          <span class="font-display text-xl leading-snug text-wine/75">{product.title}</span>
+          <span class="font-display text-xl leading-snug text-wine/85">{product.title}</span>
           <span class="mx-auto mt-5 block h-px w-12 bg-wine/30"></span>
         </div>
       </div>
@@ -67,9 +67,9 @@ const colorTokens = product.colors
     )}
   </div>
   <div class="px-1 pt-4">
-    {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-wine/55">{product.brand}</p>}
+    {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-wine/80">{product.brand}</p>}
     <p class="mt-1 font-display text-lg leading-snug text-ink transition group-hover:text-wine">{product.title}</p>
-    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/60">
+    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/80">
       <span class="font-bold text-wine">{formatPrice(product.priceCents)}</span>
       {product.size && <span>Size {product.size}</span>}
       {product.condition && <span class="hidden sm:inline">{product.condition}</span>}

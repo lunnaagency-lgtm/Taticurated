@@ -7,7 +7,7 @@ import { markSold, markAvailable } from '../../lib/inventory';
 export const prerender = false;
 
 /**
- * POST /api/webhook  — Stripe events. This is the authoritative sold-out mechanism.
+ * POST /api/webhook. Stripe events. This is the authoritative sold-out mechanism.
  *
  *   checkout.session.completed -> item is paid for -> mark sold
  *   checkout.session.expired   -> buyer never paid -> free the reservation

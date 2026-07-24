@@ -3,7 +3,14 @@ import { MARKETING } from '../config/brand';
 const { minItems, discountPercent } = MARKETING.bundle;
 ---
 
-<div data-cart-drawer data-min={minItems} data-pct={discountPercent} class="fixed inset-0 z-[90] hidden">
+<div
+  data-cart-drawer
+  data-min={minItems}
+  data-pct={discountPercent}
+  class="fixed inset-0 z-[90] hidden"
+  aria-hidden="true"
+>
+  <p data-cart-live class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
   <div data-cart-overlay class="absolute inset-0 bg-ink/45 backdrop-blur-sm"></div>
 
   <aside
@@ -11,6 +18,7 @@ const { minItems, discountPercent } = MARKETING.bundle;
     role="dialog"
     aria-modal="true"
     aria-label="Your bag"
+    tabindex="-1"
     class="absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col bg-cream shadow-[0_24px_80px_rgba(81,24,36,0.28)] transition-transform duration-300 ease-out"
   >
     <header class="flex items-center justify-between border-b border-wine/10 px-6 py-5">
@@ -27,7 +35,7 @@ const { minItems, discountPercent } = MARKETING.bundle;
 
     <div data-cart-empty class="hidden flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
       <p class="font-display text-2xl text-wine">Your bag is empty.</p>
-      <p class="text-sm text-ink/60">Every piece is one of a kind. When you find one you love, add it here.</p>
+      <p class="text-sm text-ink/80">Every piece is one of a kind. When you find one you love, add it here.</p>
       <a href="/shop" data-cart-close class="mt-2 rounded-full bg-wine px-6 py-3 text-sm font-bold text-cream transition hover:bg-wine-deep">
         Shop the finds
       </a>
@@ -41,10 +49,10 @@ const { minItems, discountPercent } = MARKETING.bundle;
         class="mb-4 hidden rounded-2xl border border-wine/15 bg-blush/50 px-4 py-3 text-sm font-medium text-wine"
       ></div>
       <div class="flex items-center justify-between text-sm">
-        <span class="text-ink/65">Subtotal</span>
+        <span class="text-ink/80">Subtotal</span>
         <span data-cart-subtotal class="font-display text-xl text-wine">$0</span>
       </div>
-      <p class="mt-1 text-xs text-ink/50">Shipping and any discount codes are applied at checkout.</p>
+      <p class="mt-1 text-xs text-ink/80">Shipping and any discount codes are applied at checkout.</p>
       <button
         data-cart-checkout
         type="button"
@@ -76,6 +84,11 @@ const { minItems, discountPercent } = MARKETING.bundle;
   const bundleNoteEl = drawer?.querySelector<HTMLElement>('[data-bundle-note]');
   const checkoutBtn = drawer?.querySelector<HTMLButtonElement>('[data-cart-checkout]');
   const errorEl = drawer?.querySelector<HTMLElement>('[data-cart-error]');
+  const closeBtn = drawer?.querySelector<HTMLButtonElement>('[data-cart-close]');
+  const liveRegion = drawer?.querySelector<HTMLElement>('[data-cart-live]');
+  let previousFocus: HTMLElement | null = null;
+  let closeTimer: number | undefined;
+  const backgroundState = new Map<HTMLElement, boolean>();
 
   const MIN = Number(drawer?.dataset.min) || 3;
   const PCT = Number(drawer?.dataset.pct) || 10;
@@ -92,11 +105,24 @@ const { minItems, discountPercent } = MARKETING.bundle;
       { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c] as string
     ));
 
+  const bagCountLabel = (count: number) => `${count} ${count === 1 ? 'item' : 'items'} in bag`;
+
+  const announce = (message: string) => {
+    if (!liveRegion) return;
+    liveRegion.textContent = '';
+    window.requestAnimationFrame(() => {
+      liveRegion.textContent = message;
+    });
+  };
+
   function updateCounts() {
     const count = cartCount();
     document.querySelectorAll<HTMLElement>('[data-cart-count]').forEach((el) => {
       el.textContent = String(count);
       el.classList.toggle('hidden', count === 0);
+    });
+    document.querySelectorAll<HTMLElement>('[data-cart-toggle]').forEach((button) => {
+      button.setAttribute('aria-label', `Open bag, ${count} ${count === 1 ? 'item' : 'items'}`);
     });
   }
 
@@ -114,8 +140,8 @@ const { minItems, discountPercent } = MARKETING.bundle;
       .map((l) => {
         const media = l.image
           ? `<img src="${escapeHtml(l.image)}" alt="" class="h-full w-full object-cover" />`
-          : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-2 text-center"><span class="font-display text-xs leading-tight text-wine/70">${escapeHtml(l.title)}</span></div>`;
-        const size = l.size ? `<span class="text-xs text-ink/55">Size ${escapeHtml(l.size)}</span>` : '';
+          : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-2 text-center"><span class="font-display text-xs leading-tight text-wine/85">${escapeHtml(l.title)}</span></div>`;
+        const size = l.size ? `<span class="text-xs text-ink/80">Size ${escapeHtml(l.size)}</span>` : '';
         return `<li class="flex gap-4 py-4">
           <a href="/product/${encodeURIComponent(l.slug)}" aria-label="View ${escapeHtml(l.title)}" class="h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-blush">${media}</a>
           <div class="flex flex-1 flex-col">
@@ -123,7 +149,7 @@ const { minItems, discountPercent } = MARKETING.bundle;
             ${size}
             <div class="mt-auto flex items-center justify-between">
               <span class="font-bold text-wine">${money(l.priceCents)}</span>
-              <button data-remove="${escapeHtml(l.slug)}" type="button" aria-label="Remove ${escapeHtml(l.title)} from bag" class="text-xs text-ink/50 underline underline-offset-4 transition hover:text-wine">Remove</button>
+              <button data-remove="${escapeHtml(l.slug)}" type="button" aria-label="Remove ${escapeHtml(l.title)} from bag" class="inline-flex min-h-11 min-w-11 items-center justify-center text-xs text-ink/80 underline underline-offset-4 transition hover:text-wine">Remove</button>
             </div>
           </div>
         </li>`;
@@ -147,20 +173,62 @@ const { minItems, discountPercent } = MARKETING.bundle;
     updateCounts();
   }
 
+  const setBackgroundInert = (inert: boolean) => {
+    if (!drawer) return;
+    if (inert) {
+      backgroundState.clear();
+      Array.from(document.body.children).forEach((element) => {
+        if (!(element instanceof HTMLElement) || element === drawer || element.tagName === 'SCRIPT') return;
+        backgroundState.set(element, element.hasAttribute('inert'));
+        element.setAttribute('inert', '');
+      });
+      return;
+    }
+
+    backgroundState.forEach((wasInert, element) => {
+      if (!wasInert) element.removeAttribute('inert');
+    });
+    backgroundState.clear();
+  };
+
+  const focusableElements = () => {
+    if (!panel) return [];
+    return Array.from(
+      panel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
+    ).filter((element) => !element.closest('.hidden, [hidden], [aria-hidden="true"]') && element.getClientRects().length > 0);
+  };
+
   const open = () => {
     if (!drawer || !panel) return;
+    const wasOpen = !drawer.classList.contains('hidden');
+    if (!wasOpen) {
+      previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setBackgroundInert(true);
+    }
+    if (closeTimer) window.clearTimeout(closeTimer);
+    window.dispatchEvent(new CustomEvent('menu:close'));
     render();
     drawer.classList.remove('hidden');
-    window.requestAnimationFrame(() => panel.classList.remove('translate-x-full'));
+    drawer.setAttribute('aria-hidden', 'false');
+    window.requestAnimationFrame(() => {
+      panel.classList.remove('translate-x-full');
+      if (!wasOpen) closeBtn?.focus();
+    });
     document.body.classList.add('overflow-hidden');
   };
 
   const close = () => {
-    if (!drawer || !panel) return;
+    if (!drawer || !panel || drawer.classList.contains('hidden')) return;
     panel.classList.add('translate-x-full');
-    window.setTimeout(() => {
+    closeTimer = window.setTimeout(() => {
       drawer.classList.add('hidden');
+      drawer.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('overflow-hidden');
+      setBackgroundInert(false);
+      previousFocus?.focus();
+      previousFocus = null;
     }, 300);
   };
 
@@ -175,16 +243,47 @@ const { minItems, discountPercent } = MARKETING.bundle;
   );
   drawer?.querySelector('[data-cart-overlay]')?.addEventListener('click', close);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && drawer && !drawer.classList.contains('hidden')) close();
+    if (!drawer || drawer.classList.contains('hidden')) return;
+    if (e.key === 'Escape') {
+      close();
+      return;
+    }
+    if (e.key !== 'Tab' || !panel) return;
+
+    const focusable = focusableElements();
+    if (!focusable.length) {
+      e.preventDefault();
+      panel.focus();
+      return;
+    }
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (!panel.contains(document.activeElement)) {
+      e.preventDefault();
+      (e.shiftKey ? last : first).focus();
+    } else if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
   });
 
   itemsEl?.addEventListener('click', (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-remove]');
     if (btn?.dataset.remove) {
+      const removed = getCart().find((line) => line.slug === btn.dataset.remove);
       removeFromCart(btn.dataset.remove);
       render();
+      announce(`Removed ${removed?.title ?? 'item'} from bag. ${bagCountLabel(cartCount())}.`);
     }
   });
+
+  window.addEventListener('cart:announce', ((event: CustomEvent<{ message?: string }>) => {
+    if (event.detail.message) announce(event.detail.message);
+  }) as EventListener);
 
   checkoutBtn?.addEventListener('click', async () => {
     const slugs = getCart().map((l) => l.slug);

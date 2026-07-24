@@ -26,7 +26,7 @@ import { MARKETING, SITE } from '../config/brand';
         <h2 class="mt-4 max-w-2xl font-display text-4xl leading-tight text-wine md:text-5xl">
           The best finds do not wait around.
         </h2>
-        <p class="mt-4 max-w-xl text-sm leading-7 text-ink/65">
+        <p class="mt-4 max-w-xl text-sm leading-7 text-ink/80">
           Join for fresh drops, styling notes, and {MARKETING.welcomeDiscountPercent}% off your first order.
         </p>
         <div class="mt-7">
@@ -36,24 +36,33 @@ import { MARKETING, SITE } from '../config/brand';
 
       <div class="grid grid-cols-2 gap-8 border-t border-wine/15 pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
         <nav aria-label="Shop links" class="flex flex-col gap-3 text-sm">
-          <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/60">Browse</p>
+          <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Browse</p>
           <a href="/shop" class="transition hover:text-wine">Shop all</a>
           <a href="/shop/dresses" class="transition hover:text-wine">Dresses</a>
           <a href="/shop/shoes" class="transition hover:text-wine">Shoes</a>
           <a href="/shop/bags" class="transition hover:text-wine">Bags</a>
         </nav>
         <nav aria-label="Brand links" class="flex flex-col gap-3 text-sm">
-          <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/60">Tati</p>
+          <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Tati</p>
           <a href="/about" class="transition hover:text-wine">Our story</a>
           <a href="/faq" class="transition hover:text-wine">FAQ</a>
           {SITE.email && <a href={`mailto:${SITE.email}`} class="transition hover:text-wine">Contact</a>}
           {SITE.depop && <a href={SITE.depop} class="transition hover:text-wine" rel="noopener noreferrer">Depop</a>}
           {SITE.instagram && <a href={SITE.instagram} class="transition hover:text-wine" rel="noopener noreferrer">Instagram</a>}
         </nav>
+        <nav aria-label="Policy links" class="col-span-2 border-t border-wine/15 pt-6">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Policies</p>
+          <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm">
+            <a href="/privacy" class="transition hover:text-wine">Privacy</a>
+            <a href="/terms" class="transition hover:text-wine">Terms</a>
+            <a href="/shipping" class="transition hover:text-wine">Shipping</a>
+            <a href="/returns" class="transition hover:text-wine">Returns</a>
+          </div>
+        </nav>
       </div>
     </div>
 
-    <div class="mt-14 flex flex-col gap-3 border-t border-wine/15 pt-6 text-xs text-ink/50 sm:flex-row sm:items-center sm:justify-between">
+    <div class="mt-14 flex flex-col gap-3 border-t border-wine/15 pt-6 text-xs text-ink/80 sm:flex-row sm:items-center sm:justify-between">
       <p>© {new Date().getFullYear()} {SITE.name}. Unique cute finds, chosen one at a time.</p>
       <p>Every piece is one of a kind. Once it sells, it is gone. All sales final.</p>
     </div>

@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config/brand';
+---
+
+<Base
+  title="Returns policy draft"
+  path="/returns"
+  description={`A draft returns policy for ${SITE.name}, including final sale terms and how to report an item that arrives not as described.`}
+>
+  <section class="mx-auto max-w-4xl px-4 py-10 sm:px-6 md:py-16">
+    <div class="rounded-[2rem] border border-wine/10 bg-cream/80 px-6 py-10 shadow-[0_18px_60px_rgba(81,24,36,0.06)] sm:px-10 md:px-14 md:py-14">
+      <p class="eyebrow">Policy draft</p>
+      <h1 class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">Returns policy.</h1>
+      <div class="mt-6 rounded-2xl border border-wine/15 bg-blush/45 p-4 text-sm leading-6 text-ink/80">
+        This draft is not legal advice. Please review and adapt these terms.
+      </div>
+
+      <div class="mt-10 space-y-9 text-base leading-8 text-ink/80">
+        <section>
+          <h2 class="font-display text-2xl text-ink">All sales are final</h2>
+          <p class="mt-3">
+            Every piece is one of a kind and secondhand. All sales are final. Customers should review the
+            listing description, condition, measurements, and photos before purchasing.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl text-ink">An item that arrives not as described</h2>
+          <p class="mt-3">
+            If an item arrives not as described in its listing, contact
+            <a class="font-bold text-wine underline underline-offset-4" href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>
+            as soon as possible. Include the order email, the item name, a description of the issue, and
+            clear photos. The store will review the report and provide next steps.
+          </p>
+          <p class="mt-3">Do not send an item back unless return instructions are provided.</p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl text-ink">Contact</h2>
+          <p class="mt-3">
+            Questions about this returns draft can be sent to
+            <a class="font-bold text-wine underline underline-offset-4" href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config/brand';
+---
+
+<Base
+  title="Privacy policy draft"
+  path="/privacy"
+  description={`A draft privacy policy for ${SITE.name}, including email marketing, order details, Stripe payments, and contact information.`}
+>
+  <section class="mx-auto max-w-4xl px-4 py-10 sm:px-6 md:py-16">
+    <div class="rounded-[2rem] border border-wine/10 bg-cream/80 px-6 py-10 shadow-[0_18px_60px_rgba(81,24,36,0.06)] sm:px-10 md:px-14 md:py-14">
+      <p class="eyebrow">Policy draft</p>
+      <h1 class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">Privacy policy.</h1>
+      <div class="mt-6 rounded-2xl border border-wine/15 bg-blush/45 p-4 text-sm leading-6 text-ink/80">
+        This draft is not legal advice. Please review and adapt these terms.
+      </div>
+
+      <div class="mt-10 space-y-9 text-base leading-8 text-ink/80">
+        <section>
+          <h2 class="font-display text-2xl text-ink">Information collected</h2>
+          <p class="mt-3">
+            {SITE.name} collects an email address when someone joins the marketing list. When a customer
+            places an order, order and shipping details are collected through Stripe so the purchase can
+            be processed and shipped.
+          </p>
+          <p class="mt-3">
+            Payment card information is handled by Stripe. This site does not store payment card data.
+          </p>
+          <p class="mt-3">
+            The site also uses browser storage on the customer’s device to remember bag contents and
+            whether the welcome offer has already been shown.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl text-ink">How information is used</h2>
+          <p class="mt-3">
+            Order and shipping details are used to process purchases, fulfill orders, share tracking
+            information, provide customer support, and keep order records. Marketing email addresses are
+            used to share store news, product drops, styling notes, and offers.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl text-ink">Service providers</h2>
+          <p class="mt-3">
+            Stripe processes payments and related order information. The store’s email provider processes
+            subscriber email addresses for marketing delivery. These providers handle information for the
+            services they provide to the store.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl text-ink">Marketing choices</h2>
+          <p class="mt-3">
+            To opt out of marketing messages, use the unsubscribe option in a marketing email or contact
+            <a class="font-bold text-wine underline underline-offset-4" href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl text-ink">Contact</h2>
+          <p class="mt-3">
+            Questions about this privacy draft can be sent to
+            <a class="font-bold text-wine underline underline-offset-4" href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+</Base>

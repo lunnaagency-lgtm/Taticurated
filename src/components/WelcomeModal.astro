@@ -37,7 +37,7 @@ import { MARKETING } from '../config/brand';
             <div class="mx-auto grid aspect-[4/5] max-w-52 place-items-center rounded-[7rem_7rem_1.5rem_1.5rem] border border-wine/15 bg-gradient-to-b from-cream/80 to-blush-deep/70 p-8 text-center shadow-sm">
               <div>
                 <span class="block font-display text-5xl text-wine">C</span>
-                <span class="mt-2 block text-[0.6rem] font-bold uppercase tracking-[0.24em] text-wine/65">
+                <span class="mt-2 block text-[0.6rem] font-bold uppercase tracking-[0.24em] text-wine/85">
                   Curated for you
                 </span>
               </div>
@@ -53,7 +53,7 @@ import { MARKETING } from '../config/brand';
           <h2 id="welcome-title" class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">
             Take {MARKETING.welcomeDiscountPercent}% off your first order.
           </h2>
-          <p id="welcome-description" class="mt-5 text-sm leading-7 text-ink/65">
+          <p id="welcome-description" class="mt-5 text-sm leading-7 text-ink/80">
             Join Tati’s list for first looks at one of a kind finds. Your welcome code appears right here.
           </p>
 
@@ -66,7 +66,7 @@ import { MARKETING } from '../config/brand';
               autocomplete="email"
               required
               placeholder="Email address"
-              class="min-h-[3.25rem] w-full rounded-full border border-wine/20 bg-white px-5 text-sm text-ink outline-none transition placeholder:text-ink/40 focus:border-wine focus:ring-4 focus:ring-blush-deep/50"
+              class="min-h-[3.25rem] w-full rounded-full border border-wine/20 bg-white px-5 text-sm text-ink outline-none transition placeholder:text-ink/65 focus:border-wine focus:ring-4 focus:ring-blush-deep/50"
             />
             <button
               type="submit"
@@ -78,7 +78,7 @@ import { MARKETING } from '../config/brand';
           </form>
 
           <div data-welcome-success class="mt-7 hidden rounded-3xl border border-wine/15 bg-blush/60 p-5" aria-live="polite">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/65">Your welcome code</p>
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/80">Your welcome code</p>
             <div class="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-cream p-3">
               <strong data-welcome-code class="font-display text-2xl tracking-wider text-wine"></strong>
               <button
@@ -89,13 +89,13 @@ import { MARKETING } from '../config/brand';
                 Copy code
               </button>
             </div>
-            <p data-welcome-success-message class="mt-3 text-sm text-ink/65"></p>
+            <p data-welcome-success-message class="mt-3 text-sm text-ink/80"></p>
             <a href="/shop" class="mt-5 inline-flex text-sm font-bold text-wine underline decoration-2 underline-offset-4">
               Find your piece
             </a>
           </div>
 
-          <button data-welcome-close type="button" class="mt-5 text-xs text-ink/50 underline underline-offset-4 hover:text-wine">
+          <button data-welcome-close type="button" class="mt-5 text-xs text-ink/80 underline underline-offset-4 hover:text-wine">
             No thank you, I will keep browsing
           </button>
         </div>

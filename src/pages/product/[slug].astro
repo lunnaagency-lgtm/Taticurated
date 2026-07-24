@@ -61,13 +61,13 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
   jsonLd={[productSchema, faqSchema(productFaq)]}
 >
   <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-14">
-    <nav aria-label="Breadcrumb" class="mb-6 text-xs text-ink/50">
+    <nav aria-label="Breadcrumb" class="mb-6 text-xs text-ink/80">
       <ol class="flex flex-wrap items-center gap-2">
         <li><a href="/" class="transition hover:text-wine">Home</a></li>
         <li aria-hidden="true">/</li>
         <li><a href="/shop" class="transition hover:text-wine">Shop</a></li>
         <li aria-hidden="true">/</li>
-        <li class="text-ink/75" aria-current="page">{product.title}</li>
+        <li class="text-ink/80" aria-current="page">{product.title}</li>
       </ol>
     </nav>
 
@@ -109,7 +109,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
                   <span class="mx-auto block h-px w-16 bg-wine/30"></span>
                   <span class="mt-7 block font-display text-4xl leading-tight text-wine/75">{product.title}</span>
                   <span class="mx-auto mt-7 block h-px w-16 bg-wine/30"></span>
-                  <span class="mt-5 block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-wine/50">
+                  <span class="mt-5 block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-wine/85">
                     Product photo coming soon
                   </span>
                 </div>
@@ -128,7 +128,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
         <div class="rounded-[2rem] border border-wine/10 bg-cream/80 p-6 shadow-[0_18px_60px_rgba(81,24,36,0.06)] backdrop-blur sm:p-8">
           <div class="flex items-start justify-between gap-5">
             <div>
-              {product.brand && <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/60">{product.brand}</p>}
+              {product.brand && <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/80">{product.brand}</p>}
               <h1 class="mt-2 font-display text-4xl leading-tight text-ink md:text-5xl">{product.title}</h1>
             </div>
             <button
@@ -165,7 +165,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
             {product.status === 'available' && <BuyButton product={product} />}
           </div>
 
-          <div class="mt-5 grid grid-cols-3 gap-2 text-center text-[0.64rem] font-bold uppercase tracking-[0.08em] text-ink/55">
+          <div class="mt-5 grid grid-cols-3 gap-2 text-center text-[0.64rem] font-bold uppercase tracking-[0.08em] text-ink/80">
             <span class="rounded-2xl bg-blush/35 px-2 py-3">Flat rate shipping</span>
             <span class="rounded-2xl bg-blush/35 px-2 py-3">Ships in 1 to 3 days</span>
             <span class="rounded-2xl bg-blush/35 px-2 py-3">All sales final</span>
@@ -175,7 +175,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
             <dl class="mt-8 divide-y divide-wine/10 border-t border-wine/10 text-sm">
               {details.map(([label, value]) => (
                 <div class="flex justify-between gap-6 py-3.5">
-                  <dt class="text-ink/55">{label}</dt>
+                  <dt class="text-ink/80">{label}</dt>
                   <dd class="text-right font-bold text-ink">{value}</dd>
                 </div>
               ))}
@@ -184,10 +184,10 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
 
           <div class="mt-7 border-t border-wine/10 pt-7">
             <h2 class="font-display text-2xl text-ink">The details</h2>
-            <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/70">{product.description}</p>
+            <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/80">{product.description}</p>
           </div>
 
-          <p class="mt-7 rounded-2xl border border-wine/10 bg-blush/35 p-4 text-sm leading-6 text-ink/65">
+          <p class="mt-7 rounded-2xl border border-wine/10 bg-blush/35 p-4 text-sm leading-6 text-ink/80">
             This is the only one. If it feels like your piece, it will not be restocked after it sells.
           </p>
         </div>

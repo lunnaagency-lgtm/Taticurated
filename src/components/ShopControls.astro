@@ -72,7 +72,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
           <span data-active-filter-count class="hidden min-w-5 rounded-full bg-wine px-1.5 py-0.5 text-center text-[0.65rem] text-cream"></span>
         </button>
 
-        <label class="flex items-center gap-2 text-sm text-ink/65">
+        <label class="flex items-center gap-2 text-sm text-ink/80">
           <span class="hidden sm:inline">Sort by</span>
           <select
             data-sort
@@ -98,7 +98,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
           <button
             data-clear-filters
             type="button"
-            class="text-xs font-bold text-wine/65 underline decoration-wine/25 underline-offset-4 transition hover:text-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+            class="text-xs font-bold text-wine/80 underline decoration-wine/25 underline-offset-4 transition hover:text-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
           >
             Clear
           </button>
@@ -112,7 +112,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
                 {facet.options.map((option) => (
                   <label class="cursor-pointer">
                     <input class="peer sr-only" type="checkbox" name={facet.name} value={option.value} />
-                    <span class="inline-flex min-h-9 items-center rounded-full border border-wine/15 bg-cream/75 px-3 py-2 text-xs font-bold text-ink/65 transition hover:border-wine/45 peer-checked:border-wine peer-checked:bg-wine peer-checked:text-cream peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-wine">
+                    <span class="inline-flex min-h-9 items-center rounded-full border border-wine/15 bg-cream/75 px-3 py-2 text-xs font-bold text-ink/80 transition hover:border-wine/45 peer-checked:border-wine peer-checked:bg-wine peer-checked:text-cream peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-wine">
                       {option.label}
                     </span>
                   </label>
@@ -124,10 +124,10 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
           <fieldset>
             <legend class="text-xs font-bold uppercase tracking-[0.14em] text-wine">Price</legend>
             <div class="mt-3 grid grid-cols-2 gap-3">
-              <label class="text-xs font-bold text-ink/55">
+              <label class="text-xs font-bold text-ink/80">
                 Minimum
                 <span class="mt-1.5 flex min-h-11 items-center rounded-xl border border-wine/15 bg-cream px-3 focus-within:border-wine focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-wine">
-                  <span aria-hidden="true" class="text-ink/40">$</span>
+                  <span aria-hidden="true" class="text-ink/80">$</span>
                   <input
                     data-price-min
                     type="number"
@@ -136,14 +136,14 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
                     max={maxPriceDollars}
                     step="1"
                     placeholder={String(minPriceDollars)}
-                    class="w-full border-0 bg-transparent px-1 text-sm font-bold text-ink outline-none"
+                    class="w-full border-0 bg-transparent px-1 text-sm font-bold text-ink outline-none placeholder:text-ink/65"
                   />
                 </span>
               </label>
-              <label class="text-xs font-bold text-ink/55">
+              <label class="text-xs font-bold text-ink/80">
                 Maximum
                 <span class="mt-1.5 flex min-h-11 items-center rounded-xl border border-wine/15 bg-cream px-3 focus-within:border-wine focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-wine">
-                  <span aria-hidden="true" class="text-ink/40">$</span>
+                  <span aria-hidden="true" class="text-ink/80">$</span>
                   <input
                     data-price-max
                     type="number"
@@ -152,14 +152,14 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
                     max={maxPriceDollars}
                     step="1"
                     placeholder={String(maxPriceDollars)}
-                    class="w-full border-0 bg-transparent px-1 text-sm font-bold text-ink outline-none"
+                    class="w-full border-0 bg-transparent px-1 text-sm font-bold text-ink outline-none placeholder:text-ink/65"
                   />
                 </span>
               </label>
             </div>
           </fieldset>
 
-          <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-wine/10 bg-cream/70 px-4 py-3 text-sm font-bold text-ink/70">
+          <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-wine/10 bg-cream/70 px-4 py-3 text-sm font-bold text-ink/80">
             <input
               data-hide-sold
               type="checkbox"
@@ -183,7 +183,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
 
         <div data-filter-empty hidden class="rounded-[2rem] border border-wine/10 bg-blush/35 px-6 py-16 text-center">
           <p class="font-display text-3xl text-wine">No pieces match just yet.</p>
-          <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-ink/60">
+          <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-ink/80">
             Try a different detail, or clear the filters to see the full edit again.
           </p>
           <button

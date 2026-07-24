@@ -28,7 +28,7 @@ const line = {
   <button
     type="button"
     disabled
-    class="w-full cursor-not-allowed rounded-full bg-ink/10 px-6 py-4 text-base font-bold text-ink/55"
+    class="w-full cursor-not-allowed rounded-full bg-ink/10 px-6 py-4 text-base font-bold text-ink/80"
   >
     {product.status === 'sold' ? 'Sold' : 'On hold'}
   </button>
@@ -46,10 +46,16 @@ const line = {
     rest();
 
     btn.addEventListener('click', () => {
-      const { added } = addToCart(line);
+      const { added, lines } = addToCart(line);
       window.dispatchEvent(new CustomEvent('cart:open'));
       if (added) {
         btn.textContent = 'Added to bag';
+        const count = lines.length;
+        window.dispatchEvent(new CustomEvent('cart:announce', {
+          detail: {
+            message: `Added ${line.title} to bag. ${count} ${count === 1 ? 'item' : 'items'} in bag.`,
+          },
+        }));
         window.setTimeout(rest, 1400);
       }
     });
