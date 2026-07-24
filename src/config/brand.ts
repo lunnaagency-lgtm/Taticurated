@@ -6,15 +6,15 @@
  */
 
 export const SITE = {
-  name: 'Curated by Tati',
-  shortName: 'Curated by Tati',
-  // Domain chosen 2026-07-24: taticurated.com. Display name stays "Curated by Tati"
-  // (her existing badge / Depop identity). Swap SITE.name if that ever changes.
+  name: 'Tati Curated',
+  shortName: 'Tati Curated',
+  // Display name matches the domain: Tati Curated (taticurated.com). Her Depop badge
+  // reads "Curated by Tati", kept only as an alias in FAQ copy and the Depop link.
   url: 'https://taticurated.com',
   domain: 'taticurated.com',
   tagline: 'Unique cute finds, hand-picked and one of a kind.',
   description:
-    'Curated by Tati is a hand-picked secondhand shop of one-of-a-kind cute finds. Coquette dresses, y2k denim, statement heels, and trending sneakers. Every piece is unique, so once it sells it is gone.',
+    'Tati Curated is a hand-picked secondhand shop of one-of-a-kind cute finds. Coquette dresses, y2k denim, statement heels, and trending sneakers. Every piece is unique, so once it sells it is gone.',
   // Warm, emoji-forward voice pulled from her Depop bio.
   bioVoice: "I'm selling unique cute finds. Every piece is hand-picked and one of a kind. Offers are welcome on Depop. Orders ship in 1 to 3 days.",
   depop: 'https://www.depop.com/curatedbytati_/',
