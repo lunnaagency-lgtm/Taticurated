@@ -4,16 +4,31 @@ import { formatPrice } from '../lib/types';
 
 interface Props {
   product: Product;
+  createdIndex?: number;
 }
-const { product } = Astro.props;
+const { product, createdIndex = 0 } = Astro.props;
 const img = product.images[0];
 const isSold = product.status === 'sold';
 const isReserved = product.status === 'reserved';
 const categoryLabel = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+const normalizeFacet = (value: string | null) => value?.trim().toLocaleLowerCase('en-US') ?? '';
+const colorTokens = product.colors
+  .map((color) => encodeURIComponent(normalizeFacet(color)))
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <a
   href={`/product/${product.slug}`}
+  data-product-card
+  data-size={normalizeFacet(product.size)}
+  data-brand={normalizeFacet(product.brand)}
+  data-condition={normalizeFacet(product.condition)}
+  data-colors={colorTokens}
+  data-category={normalizeFacet(product.category)}
+  data-price={product.priceCents}
+  data-status={product.status}
+  data-created-index={createdIndex}
   class="group block rounded-[1.6rem] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-wine"
 >
   <div class="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-blush shadow-[0_8px_35px_rgba(81,24,36,0.05)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_18px_45px_rgba(81,24,36,0.13)]">

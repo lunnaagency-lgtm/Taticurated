@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import ProductGrid from '../../components/ProductGrid.astro';
+import ShopControls from '../../components/ShopControls.astro';
 import { getProductsByCategory } from '../../lib/products';
 import { CATEGORIES } from '../../lib/types';
 
@@ -42,8 +42,8 @@ const products = await getProductsByCategory(category!);
       ))}
     </nav>
 
-    <div class="mt-12">
-      <ProductGrid products={products} />
+    <div class="mt-10">
+      <ShopControls products={products} />
     </div>
   </section>
 </Base>

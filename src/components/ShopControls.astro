@@ -1,0 +1,311 @@
+---
+import type { Product } from '../lib/types';
+import ProductGrid from './ProductGrid.astro';
+
+interface Props {
+  products: Product[];
+}
+
+interface FacetOption {
+  label: string;
+  value: string;
+}
+
+const { products } = Astro.props;
+
+const normalizeFacet = (value: string) => value.trim().toLocaleLowerCase('en-US');
+
+const facetOptions = (values: Array<string | null>, encode = false): FacetOption[] => {
+  const unique = new Map<string, string>();
+
+  values.forEach((value) => {
+    const label = value?.trim();
+    if (!label) return;
+
+    const normalized = normalizeFacet(label);
+    if (!unique.has(normalized)) unique.set(normalized, label);
+  });
+
+  return Array.from(unique, ([normalized, label]) => ({
+    label,
+    value: encode ? encodeURIComponent(normalized) : normalized,
+  })).sort((a, b) => a.label.localeCompare(b.label));
+};
+
+const facets = [
+  { name: 'size', label: 'Size', options: facetOptions(products.map((product) => product.size)) },
+  { name: 'brand', label: 'Brand', options: facetOptions(products.map((product) => product.brand)) },
+  { name: 'condition', label: 'Condition', options: facetOptions(products.map((product) => product.condition)) },
+  { name: 'color', label: 'Color', options: facetOptions(products.flatMap((product) => product.colors), true) },
+].filter((facet) => facet.options.length > 0);
+
+const prices = products.map((product) => product.priceCents);
+const minPriceCents = prices.length ? Math.min(...prices) : 0;
+const maxPriceCents = prices.length ? Math.max(...prices) : 0;
+const minPriceDollars = Math.floor(minPriceCents / 100);
+const maxPriceDollars = Math.ceil(maxPriceCents / 100);
+---
+
+{products.length === 0 ? (
+  <ProductGrid products={products} />
+) : (
+  <section
+    data-shop-controls
+    data-min-price={minPriceCents}
+    data-max-price={maxPriceCents}
+    aria-label="Browse shop pieces"
+  >
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-wine/10 pb-5">
+      <p data-result-count aria-live="polite" aria-atomic="true" class="text-sm font-bold text-wine">
+        {products.length} {products.length === 1 ? 'piece' : 'pieces'}
+      </p>
+
+      <div class="flex items-center gap-3">
+        <button
+          data-filter-toggle
+          type="button"
+          aria-expanded="false"
+          aria-controls="shop-filter-panel"
+          class="inline-flex min-h-11 items-center gap-2 rounded-full border border-wine/20 bg-cream px-4 text-sm font-bold text-wine transition hover:border-wine hover:bg-blush/45 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine md:hidden"
+        >
+          Filters
+          <span data-active-filter-count class="hidden min-w-5 rounded-full bg-wine px-1.5 py-0.5 text-center text-[0.65rem] text-cream"></span>
+        </button>
+
+        <label class="flex items-center gap-2 text-sm text-ink/65">
+          <span class="hidden sm:inline">Sort by</span>
+          <select
+            data-sort
+            class="min-h-11 rounded-full border border-wine/20 bg-cream py-2 pl-4 pr-9 text-sm font-bold text-wine transition hover:border-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+          >
+            <option value="newest">Newest</option>
+            <option value="price-ascending">Price low to high</option>
+            <option value="price-descending">Price high to low</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="mt-8 md:grid md:grid-cols-[14rem_minmax(0,1fr)] md:items-start md:gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
+      <aside
+        id="shop-filter-panel"
+        data-filter-panel
+        class="hidden rounded-[1.75rem] border border-wine/10 bg-blush/25 p-5 md:sticky md:top-24 md:block lg:p-6"
+        aria-label="Shop filters"
+      >
+        <div class="flex items-center justify-between gap-4">
+          <h2 class="font-display text-2xl text-wine">Refine the edit.</h2>
+          <button
+            data-clear-filters
+            type="button"
+            class="text-xs font-bold text-wine/65 underline decoration-wine/25 underline-offset-4 transition hover:text-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+          >
+            Clear
+          </button>
+        </div>
+
+        <form data-filter-form class="mt-6 space-y-7">
+          {facets.map((facet) => (
+            <fieldset>
+              <legend class="text-xs font-bold uppercase tracking-[0.14em] text-wine">{facet.label}</legend>
+              <div class="mt-3 flex flex-wrap gap-2">
+                {facet.options.map((option) => (
+                  <label class="cursor-pointer">
+                    <input class="peer sr-only" type="checkbox" name={facet.name} value={option.value} />
+                    <span class="inline-flex min-h-9 items-center rounded-full border border-wine/15 bg-cream/75 px-3 py-2 text-xs font-bold text-ink/65 transition hover:border-wine/45 peer-checked:border-wine peer-checked:bg-wine peer-checked:text-cream peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-wine">
+                      {option.label}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          ))}
+
+          <fieldset>
+            <legend class="text-xs font-bold uppercase tracking-[0.14em] text-wine">Price</legend>
+            <div class="mt-3 grid grid-cols-2 gap-3">
+              <label class="text-xs font-bold text-ink/55">
+                Minimum
+                <span class="mt-1.5 flex min-h-11 items-center rounded-xl border border-wine/15 bg-cream px-3 focus-within:border-wine focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-wine">
+                  <span aria-hidden="true" class="text-ink/40">$</span>
+                  <input
+                    data-price-min
+                    type="number"
+                    inputmode="decimal"
+                    min={minPriceDollars}
+                    max={maxPriceDollars}
+                    step="1"
+                    placeholder={String(minPriceDollars)}
+                    class="w-full border-0 bg-transparent px-1 text-sm font-bold text-ink outline-none"
+                  />
+                </span>
+              </label>
+              <label class="text-xs font-bold text-ink/55">
+                Maximum
+                <span class="mt-1.5 flex min-h-11 items-center rounded-xl border border-wine/15 bg-cream px-3 focus-within:border-wine focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-wine">
+                  <span aria-hidden="true" class="text-ink/40">$</span>
+                  <input
+                    data-price-max
+                    type="number"
+                    inputmode="decimal"
+                    min={minPriceDollars}
+                    max={maxPriceDollars}
+                    step="1"
+                    placeholder={String(maxPriceDollars)}
+                    class="w-full border-0 bg-transparent px-1 text-sm font-bold text-ink outline-none"
+                  />
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-wine/10 bg-cream/70 px-4 py-3 text-sm font-bold text-ink/70">
+            <input
+              data-hide-sold
+              type="checkbox"
+              class="size-4 rounded border-wine/30 text-wine accent-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+            />
+            Hide sold pieces
+          </label>
+        </form>
+
+        <button
+          data-filter-close
+          type="button"
+          class="mt-7 min-h-12 w-full rounded-full bg-wine px-5 text-sm font-bold text-cream transition hover:bg-wine-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine md:hidden"
+        >
+          View pieces
+        </button>
+      </aside>
+
+      <div class="mt-8 min-w-0 md:mt-0">
+        <ProductGrid products={products} filterable={true} />
+
+        <div data-filter-empty hidden class="rounded-[2rem] border border-wine/10 bg-blush/35 px-6 py-16 text-center">
+          <p class="font-display text-3xl text-wine">No pieces match just yet.</p>
+          <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-ink/60">
+            Try a different detail, or clear the filters to see the full edit again.
+          </p>
+          <button
+            data-clear-filters
+            type="button"
+            class="mt-6 inline-flex min-h-11 items-center rounded-full bg-wine px-6 py-3 text-sm font-bold text-cream transition hover:bg-wine-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+          >
+            Clear filters
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<script>
+  const shopRoots = document.querySelectorAll<HTMLElement>('[data-shop-controls]');
+
+  shopRoots.forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-filter-form]');
+    const grid = root.querySelector<HTMLElement>('[data-product-grid]');
+    const resultCount = root.querySelector<HTMLElement>('[data-result-count]');
+    const emptyState = root.querySelector<HTMLElement>('[data-filter-empty]');
+    const sort = root.querySelector<HTMLSelectElement>('[data-sort]');
+    const priceMin = root.querySelector<HTMLInputElement>('[data-price-min]');
+    const priceMax = root.querySelector<HTMLInputElement>('[data-price-max]');
+    const hideSold = root.querySelector<HTMLInputElement>('[data-hide-sold]');
+    const filterToggle = root.querySelector<HTMLButtonElement>('[data-filter-toggle]');
+    const filterPanel = root.querySelector<HTMLElement>('[data-filter-panel]');
+    const filterClose = root.querySelector<HTMLButtonElement>('[data-filter-close]');
+    const activeFilterCount = root.querySelector<HTMLElement>('[data-active-filter-count]');
+
+    if (!form || !grid || !resultCount || !emptyState || !sort || !priceMin || !priceMax || !hideSold) return;
+
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>('[data-product-card]'));
+    const defaultMinPrice = Number(root.dataset.minPrice ?? 0);
+    const defaultMaxPrice = Number(root.dataset.maxPrice ?? 0);
+
+    const selectedValues = (name: string) => new Set(
+      Array.from(form.querySelectorAll<HTMLInputElement>(`input[name="${name}"]:checked`))
+        .map((input) => input.value),
+    );
+
+    const update = () => {
+      const sizes = selectedValues('size');
+      const brands = selectedValues('brand');
+      const conditions = selectedValues('condition');
+      const colors = selectedValues('color');
+      const enteredMin = Number.parseFloat(priceMin.value);
+      const enteredMax = Number.parseFloat(priceMax.value);
+      const minimumPrice = Number.isFinite(enteredMin) ? Math.round(enteredMin * 100) : defaultMinPrice;
+      const maximumPrice = Number.isFinite(enteredMax) ? Math.round(enteredMax * 100) : defaultMaxPrice;
+
+      const orderedCards = [...cards].sort((a, b) => {
+        const aPrice = Number(a.dataset.price ?? 0);
+        const bPrice = Number(b.dataset.price ?? 0);
+        const aCreatedIndex = Number(a.dataset.createdIndex ?? 0);
+        const bCreatedIndex = Number(b.dataset.createdIndex ?? 0);
+
+        if (sort.value === 'price-ascending') return aPrice - bPrice || aCreatedIndex - bCreatedIndex;
+        if (sort.value === 'price-descending') return bPrice - aPrice || aCreatedIndex - bCreatedIndex;
+        return aCreatedIndex - bCreatedIndex;
+      });
+
+      let visibleCount = 0;
+
+      orderedCards.forEach((card) => {
+        const cardColors = new Set((card.dataset.colors ?? '').split(' ').filter(Boolean));
+        const price = Number(card.dataset.price ?? 0);
+        const matches =
+          (sizes.size === 0 || sizes.has(card.dataset.size ?? '')) &&
+          (brands.size === 0 || brands.has(card.dataset.brand ?? '')) &&
+          (conditions.size === 0 || conditions.has(card.dataset.condition ?? '')) &&
+          (colors.size === 0 || Array.from(colors).some((color) => cardColors.has(color))) &&
+          price >= minimumPrice &&
+          price <= maximumPrice &&
+          (!hideSold.checked || card.dataset.status !== 'sold');
+
+        card.hidden = !matches;
+        if (matches) visibleCount += 1;
+        grid.append(card);
+      });
+
+      resultCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'piece' : 'pieces'}`;
+      grid.hidden = visibleCount === 0;
+      emptyState.hidden = visibleCount !== 0;
+
+      const selectedFilterTotal =
+        form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]:checked').length +
+        (priceMin.value ? 1 : 0) +
+        (priceMax.value ? 1 : 0);
+
+      if (activeFilterCount) {
+        activeFilterCount.textContent = String(selectedFilterTotal);
+        activeFilterCount.classList.toggle('hidden', selectedFilterTotal === 0);
+      }
+    };
+
+    form.addEventListener('input', update);
+    sort.addEventListener('change', update);
+
+    root.querySelectorAll<HTMLButtonElement>('[data-clear-filters]').forEach((button) => {
+      button.addEventListener('click', () => {
+        form.reset();
+        update();
+      });
+    });
+
+    filterToggle?.addEventListener('click', () => {
+      if (!filterPanel) return;
+      const opening = filterPanel.classList.contains('hidden');
+      filterPanel.classList.toggle('hidden');
+      filterToggle.setAttribute('aria-expanded', String(opening));
+      if (opening) filterPanel.querySelector<HTMLElement>('input, button')?.focus();
+    });
+
+    filterClose?.addEventListener('click', () => {
+      filterPanel?.classList.add('hidden');
+      filterToggle?.setAttribute('aria-expanded', 'false');
+      filterToggle?.focus();
+    });
+
+    update();
+  });
+</script>
