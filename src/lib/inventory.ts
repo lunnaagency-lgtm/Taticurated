@@ -17,9 +17,30 @@ async function setStatus(
   return true;
 }
 
-/** Hold an item while a Checkout session is live. Records the session for later reconciliation. */
-export function markReserved(id: string, checkoutSessionId: string): Promise<boolean> {
-  return setStatus(id, 'reserved', { reservedBy: checkoutSessionId });
+/**
+ * Atomically hold an item for a Checkout session, only if it is still available.
+ * Uses Sanity's ifRevisionId as a compare-and-set: if another request reserved or sold
+ * the item between this read and write, the revision no longer matches and the commit
+ * throws, so two shoppers can never both hold the same one-of-a-kind piece. Returns true
+ * in sample / no-CMS mode, where there is no shared inventory to guard.
+ */
+export async function reserveIfAvailable(id: string, checkoutSessionId: string): Promise<boolean> {
+  if (!sanityWrite || !sanityFresh) return true;
+  const doc = await sanityFresh.fetch<{ _rev?: string; status?: string } | null>(
+    /* groq */ `*[_id == $id][0]{_rev, status}`,
+    { id },
+  );
+  if (!doc || !doc._rev || doc.status !== 'available') return false;
+  try {
+    await sanityWrite
+      .patch(id)
+      .ifRevisionId(doc._rev)
+      .set({ status: 'reserved', reservedBy: checkoutSessionId })
+      .commit({ visibility: 'async' });
+    return true;
+  } catch {
+    return false; // revision changed: another request won the race
+  }
 }
 
 /** Final state after a paid Checkout. */

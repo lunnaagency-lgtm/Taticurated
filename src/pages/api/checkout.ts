@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import Stripe from 'stripe';
 import { getProductBySlug, getFreshStatus } from '../../lib/products';
 import { getStripe } from '../../lib/stripe';
-import { markReserved } from '../../lib/inventory';
+import { reserveIfAvailable, markAvailable } from '../../lib/inventory';
 import { getEnv } from '../../lib/env';
 import { COMMERCE, MARKETING } from '../../config/brand';
 
@@ -139,9 +139,27 @@ export const POST: APIRoute = async ({ request }) => {
     cancel_url: cancelUrl,
   });
 
-  // Best-effort hold on every item. No-ops in sample-data mode; the webhook is the
-  // source of truth for sold/expired.
-  await Promise.all(available.map((p) => markReserved(p.id, session.id).catch(() => {})));
+  // Atomically hold every item now that we have the session id. If a concurrent shopper
+  // won any piece between the availability check and here, roll back the holds we took,
+  // cancel the Stripe session, and tell the cart which slug to drop.
+  const held: typeof available = [];
+  let lost: (typeof available)[number] | null = null;
+  for (const product of available) {
+    if (await reserveIfAvailable(product.id, session.id)) held.push(product);
+    else {
+      lost = product;
+      break;
+    }
+  }
+
+  if (lost) {
+    await Promise.all(held.map((p) => markAvailable(p.id, session.id).catch(() => {})));
+    await stripe.checkout.sessions.expire(session.id).catch(() => {});
+    return json(
+      { error: 'Sorry, one of those just sold. Please review your bag and try again.', unavailable: [lost.slug] },
+      409,
+    );
+  }
 
   return json({ url: session.url, unavailable });
 };
