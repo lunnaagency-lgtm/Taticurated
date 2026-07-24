@@ -1,0 +1,55 @@
+---
+import type { Product } from '../lib/types';
+
+interface Props {
+  product: Product;
+}
+const { product } = Astro.props;
+const available = product.status === 'available';
+const line = {
+  slug: product.slug,
+  title: product.title,
+  priceCents: product.priceCents,
+  image: product.images[0]?.url ?? null,
+  size: product.size,
+};
+---
+
+{available ? (
+  <button
+    data-add-to-cart
+    data-line={JSON.stringify(line)}
+    class="w-full rounded-full bg-wine px-6 py-4 text-base font-bold text-cream shadow-[0_10px_30px_rgba(110,36,51,0.18)] transition hover:-translate-y-0.5 hover:bg-wine-deep hover:shadow-[0_14px_34px_rgba(110,36,51,0.25)] disabled:cursor-not-allowed disabled:opacity-60"
+  >
+    Add to bag
+  </button>
+) : (
+  <button
+    disabled
+    class="w-full cursor-not-allowed rounded-full bg-ink/10 px-6 py-4 text-base font-bold text-ink/55"
+  >
+    {product.status === 'sold' ? 'Sold' : 'On hold'}
+  </button>
+)}
+
+<script>
+  import { addToCart, isInCart } from '../lib/cart';
+
+  document.querySelectorAll<HTMLButtonElement>('button[data-add-to-cart]').forEach((btn) => {
+    const line = JSON.parse(btn.dataset.line || '{}');
+
+    const rest = () => {
+      btn.textContent = isInCart(line.slug) ? 'In your bag. View' : 'Add to bag';
+    };
+    rest();
+
+    btn.addEventListener('click', () => {
+      const { added } = addToCart(line);
+      window.dispatchEvent(new CustomEvent('cart:open'));
+      if (added) {
+        btn.textContent = 'Added to bag';
+        window.setTimeout(rest, 1400);
+      }
+    });
+  });
+</script>

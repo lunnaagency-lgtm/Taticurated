@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import BuyButton from '../../components/BuyButton.astro';
+import AddToCartButton from '../../components/AddToCartButton.astro';
 import Faq from '../../components/Faq.astro';
 import { getAllProducts } from '../../lib/products';
 import { FAQ, faqSchema } from '../../lib/faq';
@@ -155,8 +156,9 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
             </span>
           </div>
 
-          <div class="mt-7">
-            <BuyButton product={product} />
+          <div class="mt-7 space-y-3">
+            <AddToCartButton product={product} />
+            {product.status === 'available' && <BuyButton product={product} />}
           </div>
 
           <div class="mt-5 grid grid-cols-3 gap-2 text-center text-[0.64rem] font-bold uppercase tracking-[0.08em] text-ink/55">

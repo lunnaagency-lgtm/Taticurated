@@ -46,6 +46,7 @@ export const CATEGORIES = [
   { slug: 'shoes', label: 'Shoes' },
   { slug: 'bags', label: 'Bags' },
   { slug: 'accessories', label: 'Accessories' },
+  { slug: 'home-decor', label: 'Home decor' },
 ] as const;
 
 export function formatPrice(cents: number): string {

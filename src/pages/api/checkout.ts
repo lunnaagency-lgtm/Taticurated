@@ -1,29 +1,41 @@
 import type { APIRoute } from 'astro';
+import Stripe from 'stripe';
 import { getProductBySlug, getFreshStatus } from '../../lib/products';
 import { getStripe } from '../../lib/stripe';
 import { markReserved } from '../../lib/inventory';
 import { getEnv } from '../../lib/env';
-import { SITE, COMMERCE } from '../../config/brand';
+import { COMMERCE, MARKETING } from '../../config/brand';
 
 export const prerender = false; // runs on-demand at the edge/serverless
 
 /**
- * POST /api/checkout  { slug: string }
+ * POST /api/checkout   { slug: string }  or  { slugs: string[] }
  *
- * Creates a Stripe Checkout Session for a single one-of-a-kind item. The price and
- * availability are read on the server from our own catalog, so a tampered client
- * request cannot change what is charged or buy a sold item. Returns { url } to
- * redirect the buyer to Stripe's hosted, PCI-compliant Checkout.
+ * Creates one Stripe Checkout Session for one or more one-of-a-kind items (the cart).
+ * Price and availability are read on the server from our own catalog with an uncached
+ * read, so a tampered client cannot change the amount charged or buy a sold item.
+ * Items already gone are returned in `unavailable` so the cart can prune them.
+ *
+ * Bundle: when the number of available items reaches MARKETING.bundle.minItems, the
+ * discount is auto-applied using the Stripe coupon id in STRIPE_BUNDLE_COUPON_ID.
+ * Stripe forbids combining `discounts` with `allow_promotion_codes`, so when no coupon
+ * id is configured we instead leave promo codes open (the code can be typed at Stripe).
  */
 export const POST: APIRoute = async ({ request }) => {
-  let slug: string | undefined;
+  let slugs: string[] = [];
   try {
     const body = await request.json();
-    slug = body?.slug;
+    if (Array.isArray(body?.slugs)) {
+      slugs = body.slugs.filter((s: unknown): s is string => typeof s === 'string');
+    } else if (typeof body?.slug === 'string') {
+      slugs = [body.slug];
+    }
   } catch {
     return json({ error: 'Invalid request body.' }, 400);
   }
-  if (!slug) return json({ error: 'Missing product slug.' }, 400);
+
+  slugs = [...new Set(slugs)];
+  if (!slugs.length) return json({ error: 'Your cart is empty.' }, 400);
 
   const stripe = getStripe();
   if (!stripe) {
@@ -33,41 +45,64 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  const product = await getProductBySlug(slug);
-  if (!product) return json({ error: 'Item not found.' }, 404);
+  // Authoritative, uncached availability check for every item.
+  const available = [] as NonNullable<Awaited<ReturnType<typeof getProductBySlug>>>[];
+  const unavailable: string[] = [];
+  for (const slug of slugs) {
+    const product = await getProductBySlug(slug);
+    if (!product) {
+      unavailable.push(slug);
+      continue;
+    }
+    const liveStatus = await getFreshStatus(slug);
+    if ((liveStatus ?? product.status) !== 'available') {
+      unavailable.push(slug);
+      continue;
+    }
+    available.push(product);
+  }
 
-  // Authoritative, uncached availability check: static pages can be briefly stale,
-  // so confirm against the source before creating a charge for a one-of-a-kind item.
-  const liveStatus = await getFreshStatus(slug);
-  if ((liveStatus ?? product.status) !== 'available') {
-    return json({ error: 'Sorry, this one just sold or is on hold.' }, 409);
+  if (!available.length) {
+    return json({ error: 'Sorry, those just sold or are on hold.', unavailable }, 409);
   }
 
   const origin = getEnv('PUBLIC_SITE_URL') || new URL(request.url).origin;
 
+  const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = available.map((product) => ({
+    quantity: 1,
+    price_data: {
+      currency: COMMERCE.currency,
+      unit_amount: product.priceCents,
+      product_data: {
+        name: product.title,
+        description:
+          [product.brand, product.size, product.condition].filter(Boolean).join(' • ') || undefined,
+        images: product.images.slice(0, 1).map((i) => i.url).filter(Boolean),
+        metadata: { productId: product.id, slug: product.slug },
+      },
+    },
+  }));
+
+  // Bundle discount: auto-apply when eligible and a coupon is configured; otherwise
+  // keep promo codes open so a welcome/bundle code can still be entered at Stripe.
+  const bundleEligible = available.length >= MARKETING.bundle.minItems;
+  const bundleCoupon = getEnv('STRIPE_BUNDLE_COUPON_ID');
+  const discountConfig: Partial<Stripe.Checkout.SessionCreateParams> =
+    bundleEligible && bundleCoupon
+      ? { discounts: [{ coupon: bundleCoupon }] }
+      : { allow_promotion_codes: true };
+
+  const productIds = available.map((p) => p.id).join(',');
+  const cancelUrl =
+    available.length === 1
+      ? `${origin}/product/${available[0].slug}?checkout=cancelled`
+      : `${origin}/shop?checkout=cancelled`;
+
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
-    allow_promotion_codes: true, // lets buyers apply the welcome code (e.g. TATI10)
-    line_items: [
-      {
-        quantity: 1,
-        price_data: {
-          currency: COMMERCE.currency,
-          unit_amount: product.priceCents,
-          product_data: {
-            name: product.title,
-            description: [product.brand, product.size, product.condition]
-              .filter(Boolean)
-              .join(' • ') || undefined,
-            images: product.images.slice(0, 1).map((i) => i.url).filter(Boolean),
-            metadata: { productId: product.id, slug: product.slug },
-          },
-        },
-      },
-    ],
-    shipping_address_collection: {
-      allowed_countries: [...COMMERCE.shipToCountries],
-    },
+    ...discountConfig,
+    line_items,
+    shipping_address_collection: { allowed_countries: [...COMMERCE.shipToCountries] },
     shipping_options: [
       {
         shipping_rate_data: {
@@ -77,18 +112,18 @@ export const POST: APIRoute = async ({ request }) => {
         },
       },
     ],
-    // Hold the item for the reserve window, then Stripe expires the session and our
-    // webhook frees it back up. Stripe requires 30 min to 24 h.
+    // One shared shipment for the whole cart. Session expiry frees the reservations.
     expires_at: Math.floor(Date.now() / 1000) + Math.max(30, COMMERCE.reserveMinutes) * 60,
-    metadata: { productId: product.id, slug: product.slug },
+    metadata: { productIds },
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/product/${product.slug}?checkout=cancelled`,
+    cancel_url: cancelUrl,
   });
 
-  // Best-effort hold. No-ops in sample-data mode; the webhook is the source of truth.
-  await markReserved(product.id, session.id).catch(() => {});
+  // Best-effort hold on every item. No-ops in sample-data mode; the webhook is the
+  // source of truth for sold/expired.
+  await Promise.all(available.map((p) => markReserved(p.id, session.id).catch(() => {})));
 
-  return json({ url: session.url });
+  return json({ url: session.url, unavailable });
 };
 
 function json(data: unknown, status = 200): Response {

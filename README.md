@@ -54,9 +54,10 @@ palette, and shipping rate. Change the domain in one place when it is chosen.
    `checkout.session.completed` and `checkout.session.expired` -> copy the signing
    secret into `STRIPE_WEBHOOK_SECRET`
 4. Create two promotion codes (Products -> Coupons): **TATI10** (10% off, the welcome
-   offer) and **BUNDLE10** (10% off, the bundle). `allow_promotion_codes` is already on
-   at checkout, so buyers can enter them. Match the values in `MARKETING` in
-   `src/config/brand.ts`.
+   offer) and **BUNDLE10** (10% off, the bundle). `allow_promotion_codes` is on at
+   checkout, so buyers can enter them. Match the values in `MARKETING` in
+   `src/config/brand.ts`. For the bundle to apply automatically at 3+ items (no typing),
+   also copy the bundle coupon's id into `STRIPE_BUNDLE_COUPON_ID`.
 5. Test a purchase with card `4242 4242 4242 4242`. Confirm the item flips to sold.
 6. Flip to live keys when ready.
 
@@ -81,7 +82,10 @@ llms.txt), and a working-but-plain UI so the whole thing runs today.
 **Delegated to Codex — see `CODEX_BRIEF.md`:** the full visual buildout (elevated
 components, gallery, mobile polish, copy) against this scaffold's contracts.
 
-**Phase 2 (in progress):** welcome email capture (done, endpoint + config), FAQ + about
-build (via Codex), and a **cart**. The bundle offer ("3 pieces = 10% off") needs a cart
-(multi-item checkout); the store is single-item today, so the bundle is advertised now and
-enforced once the cart lands. Then Stripe Tax and richer filtering.
+**Phase 2 (done):** welcome email capture (10% off, TATI10), FAQ across pages + about
+build, home decor category, and a **cart** with add to bag, a slide-out drawer, live bundle
+progress, and one multi-item Stripe Checkout that auto-applies the 3-for-10% bundle. Buyers
+can also "Buy it now" for a single piece.
+
+**Phase 3 (next):** Stripe Tax when registered, richer filtering, drop alerts on the email
+list, and real product photography replacing the placeholders.

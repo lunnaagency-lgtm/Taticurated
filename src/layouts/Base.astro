@@ -6,6 +6,7 @@ import '@fontsource/open-sauce-sans/700.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WelcomeModal from '../components/WelcomeModal.astro';
+import CartDrawer from '../components/CartDrawer.astro';
 import { SITE } from '../config/brand';
 
 interface Props {
@@ -90,6 +91,7 @@ const schema = [...baseSchema, ...jsonLd];
     </main>
     <Footer />
     <WelcomeModal />
+    <CartDrawer />
   </body>
 </html>
 

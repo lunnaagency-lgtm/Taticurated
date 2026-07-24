@@ -55,6 +55,7 @@ export default defineType({
           { title: 'Shoes', value: 'shoes' },
           { title: 'Bags', value: 'bags' },
           { title: 'Accessories', value: 'accessories' },
+          { title: 'Home decor', value: 'home-decor' },
         ],
       },
       validation: (r) => r.required(),

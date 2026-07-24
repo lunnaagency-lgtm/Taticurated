@@ -37,16 +37,16 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     switch (event.type) {
       case 'checkout.session.completed': {
-        const productId = (event.data.object as Stripe.Checkout.Session).metadata?.productId;
-        if (productId) {
-          await markSold(productId);
-          await triggerRebuild(); // refresh the static grids/pages so it shows as sold
+        const ids = productIdsFrom(event.data.object as Stripe.Checkout.Session);
+        if (ids.length) {
+          await Promise.all(ids.map((id) => markSold(id)));
+          await triggerRebuild(); // refresh the static grids/pages so items show as sold
         }
         break;
       }
       case 'checkout.session.expired': {
-        const productId = (event.data.object as Stripe.Checkout.Session).metadata?.productId;
-        if (productId) await markAvailable(productId);
+        const ids = productIdsFrom(event.data.object as Stripe.Checkout.Session);
+        await Promise.all(ids.map((id) => markAvailable(id)));
         break;
       }
       default:
@@ -63,6 +63,17 @@ export const POST: APIRoute = async ({ request }) => {
     headers: { 'Content-Type': 'application/json' },
   });
 };
+
+/**
+ * Product ids attached at checkout. Cart orders set metadata.productIds (comma
+ * separated); older single-item sessions used metadata.productId. Support both.
+ */
+function productIdsFrom(session: Stripe.Checkout.Session): string[] {
+  const many = session.metadata?.productIds;
+  if (many) return many.split(',').map((s) => s.trim()).filter(Boolean);
+  const one = session.metadata?.productId;
+  return one ? [one] : [];
+}
 
 /**
  * Optional: ping a Vercel Deploy Hook so the static storefront rebuilds with the
