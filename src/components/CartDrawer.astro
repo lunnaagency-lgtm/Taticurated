@@ -117,13 +117,13 @@ const { minItems, discountPercent } = MARKETING.bundle;
           : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-2 text-center"><span class="font-display text-xs leading-tight text-wine/70">${escapeHtml(l.title)}</span></div>`;
         const size = l.size ? `<span class="text-xs text-ink/55">Size ${escapeHtml(l.size)}</span>` : '';
         return `<li class="flex gap-4 py-4">
-          <a href="/product/${encodeURIComponent(l.slug)}" class="h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-blush">${media}</a>
+          <a href="/product/${encodeURIComponent(l.slug)}" aria-label="View ${escapeHtml(l.title)}" class="h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-blush">${media}</a>
           <div class="flex flex-1 flex-col">
             <a href="/product/${encodeURIComponent(l.slug)}" class="font-display text-lg leading-snug text-ink hover:text-wine">${escapeHtml(l.title)}</a>
             ${size}
             <div class="mt-auto flex items-center justify-between">
               <span class="font-bold text-wine">${money(l.priceCents)}</span>
-              <button data-remove="${escapeHtml(l.slug)}" class="text-xs text-ink/50 underline underline-offset-4 transition hover:text-wine">Remove</button>
+              <button data-remove="${escapeHtml(l.slug)}" type="button" aria-label="Remove ${escapeHtml(l.title)} from bag" class="text-xs text-ink/50 underline underline-offset-4 transition hover:text-wine">Remove</button>
             </div>
           </div>
         </li>`;

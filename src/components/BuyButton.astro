@@ -13,12 +13,14 @@ const available = product.status === 'available';
   <button
     data-buy
     data-slug={product.slug}
+    type="button"
     class="w-full rounded-full border-2 border-wine bg-transparent px-6 py-3.5 text-base font-bold text-wine transition hover:bg-wine hover:text-cream disabled:cursor-not-allowed disabled:opacity-60"
   >
     Buy it now. {formatPrice(product.priceCents)}
   </button>
 ) : (
   <button
+    type="button"
     disabled
     class="w-full cursor-not-allowed rounded-full bg-ink/10 px-6 py-4 text-base font-bold text-ink/55"
   >

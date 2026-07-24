@@ -30,15 +30,16 @@ npm install
 npm run dev      # http://localhost:4321
 ```
 
-`src/config/brand.ts` is the single source of truth for name, **domain (TBA)**,
+`src/config/brand.ts` is the single source of truth for name, domain
+(`taticurated.com`),
 palette, and shipping rate. Change the domain in one place when it is chosen.
 
-## Going live (the credentialed steps — Tati / Nour do these)
+## Going live (the credentialed steps that Tati or Nour complete)
 
 > These require creating accounts and handling secret keys, so they are done by you,
 > not by an assistant. Never commit `.env`.
 
-### 1. Sanity (catalog) — project already created: `9hd2noq7`
+### 1. Sanity (catalog), project already created: `9hd2noq7`
 The studio is pre-wired to this project. Do NOT run `sanity init` or create a new project.
 1. `cd studio && npm install && npx sanity login`
 2. `npm run deploy` (from `studio/`) -> hosted studio at `https://<name>.sanity.studio`
@@ -81,13 +82,16 @@ or Zapier/Make) to collect welcome signups. Without it, signups are logged only.
 reservation hold, sold-out), Sanity schema, GEO (Product/Store/FAQ schema, sitemap,
 llms.txt), and a working-but-plain UI so the whole thing runs today.
 
-**Delegated to Codex — see `CODEX_BRIEF.md`:** the full visual buildout (elevated
-components, gallery, mobile polish, copy) against this scaffold's contracts.
+**Visual layer:** the full build brief is preserved in `CODEX_BRIEF.md`. The
+components, gallery, mobile presentation, and copy are implemented against the
+scaffold's contracts.
 
 **Phase 2 (done):** welcome email capture (10% off, TATI10), FAQ across pages + about
 build, home decor category, and a **cart** with add to bag, a slide-out drawer, live bundle
 progress, and one multi-item Stripe Checkout that auto-applies the 3-for-10% bundle. Buyers
 can also "Buy it now" for a single piece.
 
-**Phase 3 (next):** Stripe Tax when registered, richer filtering, drop alerts on the email
-list, and real product photography replacing the placeholders.
+**Phase 3 (done):** client side shop filtering and sorting.
+
+**Next:** Stripe Tax when registered, drop alerts on the email list, and real product
+photography replacing the placeholders.

@@ -45,8 +45,9 @@ export const POST: APIRoute = async ({ request }) => {
         break;
       }
       case 'checkout.session.expired': {
-        const ids = productIdsFrom(event.data.object as Stripe.Checkout.Session);
-        await Promise.all(ids.map((id) => markAvailable(id)));
+        const session = event.data.object as Stripe.Checkout.Session;
+        const ids = productIdsFrom(session);
+        await Promise.all(ids.map((id) => markAvailable(id, session.id)));
         break;
       }
       default:
@@ -84,7 +85,8 @@ async function triggerRebuild(): Promise<void> {
   const hook = getEnv('VERCEL_DEPLOY_HOOK_URL');
   if (!hook) return;
   try {
-    await fetch(hook, { method: 'POST' });
+    const res = await fetch(hook, { method: 'POST' });
+    if (!res.ok) console.error(`Deploy hook returned HTTP ${res.status}`);
   } catch (err) {
     console.error('Deploy hook ping failed:', err);
   }

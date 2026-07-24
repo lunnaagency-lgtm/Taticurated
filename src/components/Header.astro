@@ -15,11 +15,8 @@ import { CATEGORIES } from '../lib/types';
       <a href="/" class="relative z-10 font-display text-2xl tracking-tight text-wine sm:text-[1.7rem]">
         {SITE.name}
       </a>
-      <nav aria-label="Main navigation" class="hidden items-center gap-6 lg:flex">
+      <nav aria-label="Main navigation" class="hidden items-center gap-7 lg:flex">
         <a href="/shop" class="text-sm font-bold text-ink transition hover:text-wine">Shop all</a>
-        {CATEGORIES.map((c) => (
-          <a href={`/shop/${c.slug}`} class="text-sm text-ink/65 transition hover:text-wine">{c.label}</a>
-        ))}
         <a href="/about" class="text-sm text-ink/65 transition hover:text-wine">Our story</a>
         <a href="/faq" class="text-sm text-ink/65 transition hover:text-wine">FAQ</a>
       </nav>

@@ -18,7 +18,11 @@ const { product } = Astro.props as { product: Product };
 
 const priceStr = (product.priceCents / 100).toFixed(2);
 const availability =
-  product.status === 'sold' ? 'https://schema.org/SoldOut' : 'https://schema.org/InStock';
+  product.status === 'sold'
+    ? 'https://schema.org/SoldOut'
+    : product.status === 'reserved'
+      ? 'https://schema.org/LimitedAvailability'
+      : 'https://schema.org/InStock';
 
 const productSchema = {
   '@context': 'https://schema.org',

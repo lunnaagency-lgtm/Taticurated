@@ -1,9 +1,8 @@
 /**
  * Single source of truth for brand identity, commerce rules, and palette.
  *
- * DOMAIN IS TBA. When the domain is chosen (curatedbytati.com / taticurated.com /
- * other), update SITE.url and SITE.domain here and nowhere else. Every page, the
- * sitemap, canonical tags, and JSON-LD read from this file.
+ * The chosen domain is taticurated.com. Keep SITE.url and SITE.domain aligned.
+ * Every page, canonical tag, and JSON-LD block reads from this file.
  */
 
 export const SITE = {
@@ -17,7 +16,7 @@ export const SITE = {
   description:
     'Curated by Tati is a hand-picked secondhand shop of one-of-a-kind cute finds. Coquette dresses, y2k denim, statement heels, and trending sneakers. Every piece is unique, so once it sells it is gone.',
   // Warm, emoji-forward voice pulled from her Depop bio.
-  bioVoice: "I'm selling unique cute finds. Every piece is hand-picked and one of a kind. Offers welcomed, ships in 1 to 3 days.",
+  bioVoice: "I'm selling unique cute finds. Every piece is hand-picked and one of a kind. Offers are welcome on Depop. Orders ship in 1 to 3 days.",
   depop: 'https://www.depop.com/curatedbytati_/',
   instagram: '', // add handle when ready
   email: 'taticuratedshop@gmail.com', // official order and support inbox
@@ -45,9 +44,8 @@ export const COMMERCE = {
  * - Welcome: first-visit email capture. The code is shown after signup and entered
  *   at Stripe Checkout (allow_promotion_codes is on). Create a matching Stripe
  *   promotion code with this exact value + percentage.
- * - Bundle: "add N pieces, get X% off the order." NOTE: honoring this needs a cart
- *   (multi-item checkout). The current store is single-item checkout, so the bundle
- *   is advertised now and enforced once the cart lands. See CODEX_BRIEF / README.
+ * - Bundle: add N pieces and get X% off the order. The cart and checkout enforce
+ *   the configured threshold when the matching Stripe coupon is available.
  */
 export const MARKETING = {
   welcomeCapture: true,

@@ -36,6 +36,9 @@ export const POST: APIRoute = async ({ request }) => {
 
   slugs = [...new Set(slugs)];
   if (!slugs.length) return json({ error: 'Your cart is empty.' }, 400);
+  if (slugs.length > 40) {
+    return json({ error: 'Too many items in one order. Please check out in smaller batches.' }, 400);
+  }
 
   const stripe = getStripe();
   if (!stripe) {
@@ -66,8 +69,19 @@ export const POST: APIRoute = async ({ request }) => {
     available.push(product);
   }
 
-  if (!available.length) {
-    return json({ error: 'Sorry, those just sold or are on hold.', unavailable }, 409);
+  // If anything requested is gone, stop and report it rather than quietly checking out
+  // the rest. The cart prunes the returned slugs on a 409 and the shopper re-confirms.
+  if (unavailable.length) {
+    return json(
+      {
+        error:
+          available.length > 0
+            ? 'Some pieces just sold and were removed from your bag. Review and check out again.'
+            : 'Sorry, those just sold or are on hold.',
+        unavailable,
+      },
+      409,
+    );
   }
 
   const origin = getEnv('PUBLIC_SITE_URL') || new URL(request.url).origin;

@@ -22,7 +22,7 @@ export const sampleProducts: Product[] = [
     category: 'shoes',
     priceCents: 4499,
     description:
-      'Nike Air Max Dia in soft white and pink. Barely worn, clean soles, so cute for spring. One of a kind, once it is gone it is gone.',
+      'Nike Air Max Dia in soft white and pink. Barely worn, clean soles, so cute for spring. One of a kind. Once it is gone it is gone.',
     images: [],
     status: 'available',
     featured: true,

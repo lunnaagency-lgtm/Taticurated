@@ -87,6 +87,8 @@ export default defineType({
       title: 'Description',
       type: 'text',
       rows: 4,
+      description: 'A sentence or two. Used on the page and in search + AI results.',
+      validation: (r) => r.required().min(10),
     }),
     defineField({
       name: 'status',

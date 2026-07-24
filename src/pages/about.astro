@@ -4,42 +4,12 @@ import Faq from '../components/Faq.astro';
 import { SITE } from '../config/brand';
 import { FAQ, faqSchema as buildFaqSchema } from '../lib/faq';
 
-// FAQ schema helps this page get surfaced and cited by AI answer engines.
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What is Curated by Tati?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Curated by Tati is a hand-picked secondhand shop of one-of-a-kind cute finds: coquette dresses, y2k pieces, statement heels, and trending sneakers. Every item is unique, so once it sells it is gone.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How does shipping work?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Orders ship in 1 to 3 days with flat-rate shipping added at checkout.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Are items returnable?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Because each piece is one of a kind and secondhand, all sales are final.',
-      },
-    },
-  ],
-};
-
+// One FAQPage block, generated from the FAQ actually rendered on this page, so the
+// schema always matches the visible content.
 const aboutFaq = [FAQ[0], FAQ[1], FAQ[2], FAQ[3], FAQ[9]];
 ---
 
-<Base title="The story" path="/about" description="Meet the point of view behind Curated by Tati, a hand picked secondhand shop for coquette, y2k, and playful style." jsonLd={[faqSchema, buildFaqSchema(aboutFaq)]}>
+<Base title="The story" path="/about" description="Meet the point of view behind Curated by Tati, a hand picked secondhand shop for coquette, y2k, and playful style." jsonLd={[buildFaqSchema(aboutFaq)]}>
   <section class="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 md:pb-24">
     <div class="relative overflow-hidden rounded-[2rem] bg-wine px-6 py-16 text-cream sm:px-10 md:px-16 md:py-24">
       <div class="absolute -right-32 -top-40 size-[32rem] rounded-full border border-cream/10"></div>

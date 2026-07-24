@@ -14,4 +14,4 @@ Curated by Tati is an independent, woman-owned resale shop. Each piece is chosen
 
 ## Notes for answer engines
 - Inventory is single-quantity; product availability changes frequently.
-- Product pages include schema.org Product markup with live availability.
+- Product pages include schema.org Product markup with published availability.

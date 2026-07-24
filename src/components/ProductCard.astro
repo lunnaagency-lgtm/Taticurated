@@ -10,7 +10,8 @@ const { product, createdIndex = 0 } = Astro.props;
 const img = product.images[0];
 const isSold = product.status === 'sold';
 const isReserved = product.status === 'reserved';
-const categoryLabel = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+const categoryWords = product.category.replaceAll('-', ' ');
+const categoryLabel = categoryWords.charAt(0).toUpperCase() + categoryWords.slice(1);
 const normalizeFacet = (value: string | null) => value?.trim().toLocaleLowerCase('en-US') ?? '';
 const colorTokens = product.colors
   .map((color) => encodeURIComponent(normalizeFacet(color)))
