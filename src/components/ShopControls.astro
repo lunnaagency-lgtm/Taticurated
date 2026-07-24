@@ -86,11 +86,11 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
       </div>
     </div>
 
-    <div class="mt-8 md:grid md:grid-cols-[14rem_minmax(0,1fr)] md:items-start md:gap-8 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
+    <div class="mt-8 md:grid md:grid-cols-[13rem_minmax(0,1fr)] md:items-start md:gap-6 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-10">
       <aside
         id="shop-filter-panel"
         data-filter-panel
-        class="hidden rounded-[1.75rem] border border-wine/10 bg-blush/25 p-5 md:sticky md:top-24 md:block lg:p-6"
+        class="hidden rounded-card border border-wine/10 bg-blush/25 p-5 shadow-card md:sticky md:top-24 md:block lg:p-6"
         aria-label="Shop filters"
       >
         <div class="flex items-center justify-between gap-4">
@@ -98,7 +98,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
           <button
             data-clear-filters
             type="button"
-            class="text-xs font-bold text-wine/80 underline decoration-wine/25 underline-offset-4 transition hover:text-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+            class="inline-flex min-h-11 items-center text-xs font-bold text-wine/80 underline decoration-wine/25 underline-offset-4 transition hover:text-wine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
           >
             Clear
           </button>
@@ -112,7 +112,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
                 {facet.options.map((option) => (
                   <label class="cursor-pointer">
                     <input class="peer sr-only" type="checkbox" name={facet.name} value={option.value} />
-                    <span class="inline-flex min-h-9 items-center rounded-full border border-wine/15 bg-cream/75 px-3 py-2 text-xs font-bold text-ink/80 transition hover:border-wine/45 peer-checked:border-wine peer-checked:bg-wine peer-checked:text-cream peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-wine">
+                    <span class="inline-flex min-h-11 items-center rounded-full border border-wine/15 bg-cream/75 px-3 py-2 text-xs font-bold text-ink/80 transition hover:border-wine/45 peer-checked:border-wine peer-checked:bg-wine peer-checked:text-cream peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-wine">
                       {option.label}
                     </span>
                   </label>
@@ -159,7 +159,7 @@ const maxPriceDollars = Math.ceil(maxPriceCents / 100);
             </div>
           </fieldset>
 
-          <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-wine/10 bg-cream/70 px-4 py-3 text-sm font-bold text-ink/80">
+          <label class="flex min-h-11 cursor-pointer items-center gap-3 rounded-2xl border border-wine/10 bg-cream/70 px-4 py-3 text-sm font-bold text-ink/80">
             <input
               data-hide-sold
               type="checkbox"

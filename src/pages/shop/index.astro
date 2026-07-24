@@ -7,7 +7,7 @@ import { CATEGORIES } from '../../lib/types';
 const products = await getAllProducts();
 ---
 
-<Base title="Shop all" path="/shop" description="Every one of a kind piece in the Curated by Tati shop. Coquette dresses, y2k denim, statement heels, and trending sneakers.">
+<Base title="Shop all" path="/shop" description="Every one of a kind piece in the Tati Curated shop. Coquette dresses, y2k denim, statement heels, and trending sneakers.">
   <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-16">
     <div class="flex flex-col gap-4 border-b border-wine/10 pb-8 md:flex-row md:items-end md:justify-between">
       <div>
@@ -20,10 +20,10 @@ const products = await getAllProducts();
       <p class="text-sm font-bold text-wine">{products.length} unique pieces</p>
     </div>
 
-    <nav aria-label="Shop categories" class="mt-7 flex gap-2 overflow-x-auto pb-2">
-      <a href="/shop" aria-current="page" class="shrink-0 rounded-full bg-wine px-5 py-2.5 text-sm font-bold text-cream">All</a>
+    <nav aria-label="Shop categories" class="scroll-row mt-7 flex max-w-full gap-2 overflow-x-auto pb-2">
+      <a href="/shop" aria-current="page" class="inline-flex min-h-11 shrink-0 items-center rounded-full bg-wine px-5 py-2.5 text-sm font-bold text-cream">All</a>
       {CATEGORIES.map((c) => (
-        <a href={`/shop/${c.slug}`} class="shrink-0 rounded-full border border-wine/20 px-5 py-2.5 text-sm font-bold text-ink/80 transition hover:border-wine hover:text-wine">
+        <a href={`/shop/${c.slug}`} class="inline-flex min-h-11 shrink-0 items-center rounded-full border border-wine/20 px-5 py-2.5 text-sm font-bold text-ink/80 transition hover:border-wine hover:bg-blush/35 hover:text-wine">
           {c.label}
         </a>
       ))}

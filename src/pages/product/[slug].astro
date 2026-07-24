@@ -74,7 +74,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
     <div class="grid gap-9 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
       <div data-gallery class="grid gap-3 sm:grid-cols-[5.5rem_1fr] sm:items-start">
         {product.images.length > 1 && (
-          <div class="order-2 flex gap-2 overflow-x-auto pb-1 sm:order-1 sm:flex-col sm:overflow-visible">
+          <div class="scroll-row order-2 flex max-w-full gap-2 overflow-x-auto pb-2 sm:order-1 sm:flex-col sm:overflow-visible">
             {product.images.slice(0, 6).map((img, index) => (
               <button
                 type="button"
@@ -84,23 +84,36 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
                 aria-label={`View image ${index + 1} of ${product.images.length}`}
                 aria-pressed={index === 0 ? 'true' : 'false'}
                 class:list={[
-                  'aspect-square w-[4.5rem] shrink-0 overflow-hidden rounded-2xl border-2 bg-blush p-0.5 transition sm:w-full',
+                  'aspect-square min-h-11 w-[4.5rem] shrink-0 overflow-hidden rounded-2xl border-2 bg-blush p-0.5 transition sm:w-full',
                   index === 0 ? 'border-wine' : 'border-transparent hover:border-wine/35',
                 ]}
               >
-                <img src={img.url} alt="" class="h-full w-full rounded-[0.8rem] object-cover" loading={index === 0 ? 'eager' : 'lazy'} />
+                <img
+                  src={img.url}
+                  alt=""
+                  width={img.width}
+                  height={img.height}
+                  class="h-full w-full rounded-xl object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
               </button>
             ))}
           </div>
         )}
 
         <div class:list={['order-1 sm:order-2', product.images.length <= 1 && 'sm:col-span-2']}>
-          <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-blush shadow-[0_18px_60px_rgba(81,24,36,0.09)]">
+          <div class="relative aspect-[4/5] overflow-hidden rounded-panel border border-wine/10 bg-blush shadow-panel">
         {product.images[0] ? (
               <img
                 data-gallery-main
                 src={product.images[0].url}
                 alt={product.images[0].alt}
+                width={product.images[0].width}
+                height={product.images[0].height}
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
                 class="h-full w-full object-cover transition-opacity duration-200"
               />
         ) : (
@@ -125,7 +138,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
       </div>
 
       <aside class="lg:sticky lg:top-32 lg:self-start">
-        <div class="rounded-[2rem] border border-wine/10 bg-cream/80 p-6 shadow-[0_18px_60px_rgba(81,24,36,0.06)] backdrop-blur sm:p-8">
+        <div class="rounded-panel border border-wine/10 bg-cream/80 p-6 shadow-panel backdrop-blur sm:p-8">
           <div class="flex items-start justify-between gap-5">
             <div>
               {product.brand && <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/80">{product.brand}</p>}
@@ -165,10 +178,10 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
             {product.status === 'available' && <BuyButton product={product} />}
           </div>
 
-          <div class="mt-5 grid grid-cols-3 gap-2 text-center text-[0.64rem] font-bold uppercase tracking-[0.08em] text-ink/80">
+          <div class="mt-5 grid grid-cols-2 gap-2 text-center text-[0.68rem] font-bold uppercase leading-5 tracking-[0.08em] text-ink/80 min-[420px]:grid-cols-3">
             <span class="rounded-2xl bg-blush/35 px-2 py-3">Flat rate shipping</span>
             <span class="rounded-2xl bg-blush/35 px-2 py-3">Ships in 1 to 3 days</span>
-            <span class="rounded-2xl bg-blush/35 px-2 py-3">All sales final</span>
+            <span class="col-span-2 rounded-2xl bg-blush/35 px-2 py-3 min-[420px]:col-span-1">All sales final</span>
           </div>
 
           {details.length > 0 && (
@@ -234,7 +247,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
         if (navigator.share) {
           await navigator.share({
             title: document.title,
-            text: 'Look at this one of a kind find from Curated by Tati.',
+            text: 'Look at this one of a kind find from Tati Curated.',
             url: window.location.href,
           });
           return;

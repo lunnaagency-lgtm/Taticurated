@@ -30,14 +30,18 @@ const colorTokens = product.colors
   data-price={product.priceCents}
   data-status={product.status}
   data-created-index={createdIndex}
-  class="group block rounded-[1.6rem] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-wine"
+  class="group block rounded-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-wine"
 >
-  <div class="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-blush shadow-[0_8px_35px_rgba(81,24,36,0.05)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_18px_45px_rgba(81,24,36,0.13)]">
+  <div class="relative aspect-[4/5] overflow-hidden rounded-card border border-wine/10 bg-blush shadow-card transition duration-500 group-hover:-translate-y-1 group-hover:shadow-card-hover">
     {img ? (
       <img
         src={img.url}
         alt={img.alt}
-        loading="lazy"
+        width={img.width}
+        height={img.height}
+        loading={createdIndex === 0 ? 'eager' : 'lazy'}
+        fetchpriority={createdIndex === 0 ? 'high' : 'auto'}
+        decoding="async"
         class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
       />
     ) : (
@@ -69,10 +73,10 @@ const colorTokens = product.colors
   <div class="px-1 pt-4">
     {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-wine/80">{product.brand}</p>}
     <p class="mt-1 font-display text-lg leading-snug text-ink transition group-hover:text-wine">{product.title}</p>
-    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/80">
+    <div class="mt-2 flex flex-col items-start gap-1 text-sm text-ink/80 min-[375px]:flex-row min-[375px]:flex-wrap min-[375px]:items-center min-[375px]:gap-x-3">
       <span class="font-bold text-wine">{formatPrice(product.priceCents)}</span>
       {product.size && <span>Size {product.size}</span>}
-      {product.condition && <span class="hidden sm:inline">{product.condition}</span>}
+      {product.condition && <span class="hidden md:inline">{product.condition}</span>}
     </div>
   </div>
 </a>

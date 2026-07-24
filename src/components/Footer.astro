@@ -35,28 +35,28 @@ import { MARKETING, SITE } from '../config/brand';
       </div>
 
       <div class="grid grid-cols-2 gap-8 border-t border-wine/15 pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
-        <nav aria-label="Shop links" class="flex flex-col gap-3 text-sm">
+        <nav aria-label="Shop links" class="flex flex-col gap-1 text-sm">
           <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Browse</p>
-          <a href="/shop" class="transition hover:text-wine">Shop all</a>
-          <a href="/shop/dresses" class="transition hover:text-wine">Dresses</a>
-          <a href="/shop/shoes" class="transition hover:text-wine">Shoes</a>
-          <a href="/shop/bags" class="transition hover:text-wine">Bags</a>
+          <a href="/shop" class="inline-flex min-h-11 items-center transition hover:text-wine">Shop all</a>
+          <a href="/shop/dresses" class="inline-flex min-h-11 items-center transition hover:text-wine">Dresses</a>
+          <a href="/shop/shoes" class="inline-flex min-h-11 items-center transition hover:text-wine">Shoes</a>
+          <a href="/shop/bags" class="inline-flex min-h-11 items-center transition hover:text-wine">Bags</a>
         </nav>
-        <nav aria-label="Brand links" class="flex flex-col gap-3 text-sm">
+        <nav aria-label="Brand links" class="flex flex-col gap-1 text-sm">
           <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Tati</p>
-          <a href="/about" class="transition hover:text-wine">Our story</a>
-          <a href="/faq" class="transition hover:text-wine">FAQ</a>
-          {SITE.email && <a href={`mailto:${SITE.email}`} class="transition hover:text-wine">Contact</a>}
-          {SITE.depop && <a href={SITE.depop} class="transition hover:text-wine" rel="noopener noreferrer">Depop</a>}
-          {SITE.instagram && <a href={SITE.instagram} class="transition hover:text-wine" rel="noopener noreferrer">Instagram</a>}
+          <a href="/about" class="inline-flex min-h-11 items-center transition hover:text-wine">Our story</a>
+          <a href="/faq" class="inline-flex min-h-11 items-center transition hover:text-wine">FAQ</a>
+          {SITE.email && <a href={`mailto:${SITE.email}`} class="inline-flex min-h-11 items-center transition hover:text-wine">Contact</a>}
+          {SITE.depop && <a href={SITE.depop} class="inline-flex min-h-11 items-center transition hover:text-wine" rel="noopener noreferrer">Depop</a>}
+          {SITE.instagram && <a href={SITE.instagram} class="inline-flex min-h-11 items-center transition hover:text-wine" rel="noopener noreferrer">Instagram</a>}
         </nav>
         <nav aria-label="Policy links" class="col-span-2 border-t border-wine/15 pt-6">
           <p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Policies</p>
-          <div class="flex flex-wrap gap-x-5 gap-y-3 text-sm">
-            <a href="/privacy" class="transition hover:text-wine">Privacy</a>
-            <a href="/terms" class="transition hover:text-wine">Terms</a>
-            <a href="/shipping" class="transition hover:text-wine">Shipping</a>
-            <a href="/returns" class="transition hover:text-wine">Returns</a>
+          <div class="flex flex-wrap gap-x-5 text-sm">
+            <a href="/privacy" class="inline-flex min-h-11 items-center transition hover:text-wine">Privacy</a>
+            <a href="/terms" class="inline-flex min-h-11 items-center transition hover:text-wine">Terms</a>
+            <a href="/shipping" class="inline-flex min-h-11 items-center transition hover:text-wine">Shipping</a>
+            <a href="/returns" class="inline-flex min-h-11 items-center transition hover:text-wine">Returns</a>
           </div>
         </nav>
       </div>

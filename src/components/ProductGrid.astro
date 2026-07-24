@@ -23,8 +23,8 @@ const { products, filterable = false } = Astro.props;
   <div
     data-product-grid={filterable ? '' : undefined}
     class:list={[
-      'grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:gap-x-6 lg:gap-y-14',
-      filterable ? 'lg:grid-cols-3' : 'lg:grid-cols-4',
+      'grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-5 lg:gap-x-6 lg:gap-y-14',
+      filterable ? 'xl:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4',
     ]}
   >
     {products.map((product, index) => <ProductCard product={product} createdIndex={index} />)}

@@ -10,7 +10,12 @@ const featured = await getFeaturedProducts(8);
 const homeFaq = [FAQ[0], FAQ[1], FAQ[3], FAQ[7], FAQ[9]];
 ---
 
-<Base path="/" jsonLd={[faqSchema(homeFaq)]}>
+<Base
+  title="One of a kind coquette and y2k finds"
+  path="/"
+  description="Tati Curated is a romantic secondhand shop for one of a kind coquette dresses, y2k pieces, statement shoes, and colorful accessories, all chosen by Tati."
+  jsonLd={[faqSchema(homeFaq)]}
+>
   <section class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 md:pb-20 md:pt-8">
     <div class="relative overflow-hidden rounded-[2rem] border border-wine/10 bg-blush/40">
       <div class="grid min-h-[39rem] md:grid-cols-[1.12fr_0.88fr]">
@@ -20,7 +25,7 @@ const homeFaq = [FAQ[0], FAQ[1], FAQ[3], FAQ[7], FAQ[9]];
             Your closet’s next little obsession.
           </h1>
           <p class="mt-6 max-w-xl text-base leading-7 text-ink/80 md:text-lg md:leading-8">
-            Tati Curated is a romantic edit of coquette dresses, y2k pieces, statement shoes, and colorful accessories. Every find is chosen one at a time.
+            A romantic secondhand edit of coquette dresses, y2k pieces, statement shoes, and colorful accessories. Every find is chosen one at a time.
           </p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-full bg-wine px-7 text-sm font-bold text-cream shadow-[0_10px_30px_rgba(110,36,51,0.18)] transition hover:-translate-y-0.5 hover:bg-wine-deep">
@@ -64,7 +69,7 @@ const homeFaq = [FAQ[0], FAQ[1], FAQ[3], FAQ[7], FAQ[9]];
         <p class="eyebrow">Freshly curated</p>
         <h2 class="mt-3 font-display text-4xl text-ink md:text-5xl">Just in.</h2>
       </div>
-      <a href="/shop" class="shrink-0 text-sm font-bold text-wine underline decoration-blush-deep decoration-2 underline-offset-4 hover:decoration-wine">
+      <a href="/shop" class="inline-flex min-h-11 shrink-0 items-center text-sm font-bold text-wine underline decoration-blush-deep decoration-2 underline-offset-4 hover:decoration-wine">
         See everything
       </a>
     </div>
@@ -99,7 +104,7 @@ const homeFaq = [FAQ[0], FAQ[1], FAQ[3], FAQ[7], FAQ[9]];
         <a
           href={href}
           class:list={[
-            'group flex min-h-64 flex-col justify-between overflow-hidden rounded-[1.75rem] border p-6 transition hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(81,24,36,0.1)]',
+            'group flex min-h-64 flex-col justify-between overflow-hidden rounded-card border p-6 shadow-card transition hover:-translate-y-1 hover:shadow-card-hover',
             index % 2 === 0 ? 'border-wine/10 bg-blush/45' : 'border-wine/10 bg-cream',
           ]}
         >

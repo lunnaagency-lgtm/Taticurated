@@ -20,7 +20,7 @@ const {
 } = Astro.props;
 ---
 
-<section id={id} class="mx-auto max-w-6xl scroll-mt-32 px-4 py-16 md:py-24">
+<section id={id} class="mx-auto max-w-6xl scroll-mt-32 px-4 py-12 sm:px-6 md:py-20">
   <div class="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
     <div class="lg:sticky lg:top-36 lg:self-start">
       <p class="eyebrow">{eyebrow}</p>
@@ -31,7 +31,7 @@ const {
       {showAllLink && (
         <a
           href="/faq"
-          class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-wine underline decoration-blush-deep decoration-2 underline-offset-4 transition hover:decoration-wine"
+          class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-wine underline decoration-blush-deep decoration-2 underline-offset-4 transition hover:decoration-wine"
         >
           Visit the full FAQ
           <span aria-hidden="true">→</span>
@@ -42,7 +42,7 @@ const {
     <div class="border-t border-wine/15">
       {items.map((item, index) => (
         <details class="faq-item group border-b border-wine/15" open={index === 0}>
-          <summary class="flex cursor-pointer list-none items-start justify-between gap-6 py-6 text-left">
+          <summary class="flex min-h-11 cursor-pointer list-none items-start justify-between gap-6 py-6 text-left">
             <span class="font-display text-xl leading-snug text-ink md:text-2xl">{item.q}</span>
             <span
               class="mt-1 grid size-8 shrink-0 place-items-center rounded-full border border-wine/20 text-lg text-wine transition group-open:rotate-45 group-open:bg-wine group-open:text-cream"

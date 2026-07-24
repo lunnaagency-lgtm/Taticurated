@@ -18,6 +18,16 @@ export default {
         display: ['"Playfair Display Variable"', 'Georgia', 'serif'],
         sans: ['"Open Sauce Sans"', 'system-ui', 'sans-serif'],
       },
+      borderRadius: {
+        card: '1.5rem',
+        panel: '2rem',
+      },
+      boxShadow: {
+        card: '0 8px 35px rgba(81, 24, 36, 0.06)',
+        'card-hover': '0 18px 45px rgba(81, 24, 36, 0.13)',
+        panel: '0 18px 60px rgba(81, 24, 36, 0.08)',
+        overlay: '0 24px 80px rgba(81, 24, 36, 0.28)',
+      },
     },
   },
   plugins: [],

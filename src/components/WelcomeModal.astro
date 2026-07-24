@@ -14,12 +14,12 @@ import { MARKETING } from '../config/brand';
       aria-modal="true"
       aria-labelledby="welcome-title"
       aria-describedby="welcome-description"
-      class="relative w-full max-w-3xl overflow-hidden rounded-[2rem] bg-cream shadow-[0_24px_80px_rgba(81,24,36,0.28)]"
+      class="relative w-full max-w-3xl overflow-hidden rounded-panel bg-cream shadow-overlay"
     >
       <button
         data-welcome-close
         type="button"
-        class="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full bg-cream/90 text-xl text-wine shadow-sm transition hover:bg-blush focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+        class="absolute right-4 top-4 z-10 grid size-11 place-items-center rounded-full border border-wine/10 bg-cream/90 text-xl text-wine shadow-card transition hover:border-wine hover:bg-blush focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
         aria-label="Close welcome offer"
       >
         ×
@@ -84,18 +84,18 @@ import { MARKETING } from '../config/brand';
               <button
                 data-copy-code
                 type="button"
-                class="rounded-full border border-wine/20 px-4 py-2 text-xs font-bold text-wine transition hover:border-wine"
+                class="inline-flex min-h-11 items-center rounded-full border border-wine/20 px-4 py-2 text-xs font-bold text-wine transition hover:border-wine hover:bg-cream"
               >
                 Copy code
               </button>
             </div>
             <p data-welcome-success-message class="mt-3 text-sm text-ink/80"></p>
-            <a href="/shop" class="mt-5 inline-flex text-sm font-bold text-wine underline decoration-2 underline-offset-4">
+            <a href="/shop" class="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-wine underline decoration-2 underline-offset-4">
               Find your piece
             </a>
           </div>
 
-          <button data-welcome-close type="button" class="mt-5 text-xs text-ink/80 underline underline-offset-4 hover:text-wine">
+          <button data-welcome-close type="button" class="mt-3 inline-flex min-h-11 items-center text-xs text-ink/80 underline underline-offset-4 hover:text-wine">
             No thank you, I will keep browsing
           </button>
         </div>

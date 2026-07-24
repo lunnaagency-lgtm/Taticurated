@@ -19,14 +19,14 @@ const { minItems, discountPercent } = MARKETING.bundle;
     aria-modal="true"
     aria-label="Your bag"
     tabindex="-1"
-    class="absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col bg-cream shadow-[0_24px_80px_rgba(81,24,36,0.28)] transition-transform duration-300 ease-out"
+    class="absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col bg-cream shadow-overlay transition-transform duration-300 ease-out"
   >
     <header class="flex items-center justify-between border-b border-wine/10 px-6 py-5">
       <h2 class="font-display text-2xl text-wine">Your bag</h2>
       <button
         data-cart-close
         type="button"
-        class="grid size-10 place-items-center rounded-full border border-wine/15 text-xl text-wine transition hover:bg-blush focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+        class="grid size-11 place-items-center rounded-full border border-wine/15 text-xl text-wine transition hover:border-wine hover:bg-blush focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
         aria-label="Close bag"
       >
         ×
@@ -36,7 +36,7 @@ const { minItems, discountPercent } = MARKETING.bundle;
     <div data-cart-empty class="hidden flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
       <p class="font-display text-2xl text-wine">Your bag is empty.</p>
       <p class="text-sm text-ink/80">Every piece is one of a kind. When you find one you love, add it here.</p>
-      <a href="/shop" data-cart-close class="mt-2 rounded-full bg-wine px-6 py-3 text-sm font-bold text-cream transition hover:bg-wine-deep">
+      <a href="/shop" data-cart-close class="mt-2 inline-flex min-h-12 items-center rounded-full bg-wine px-6 py-3 text-sm font-bold text-cream transition hover:bg-wine-deep">
         Shop the finds
       </a>
     </div>
@@ -139,13 +139,13 @@ const { minItems, discountPercent } = MARKETING.bundle;
     itemsEl.innerHTML = lines
       .map((l) => {
         const media = l.image
-          ? `<img src="${escapeHtml(l.image)}" alt="" class="h-full w-full object-cover" />`
+          ? `<img src="${escapeHtml(l.image)}" alt="" width="80" height="96" loading="lazy" decoding="async" class="h-full w-full object-cover" />`
           : `<div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-2 text-center"><span class="font-display text-xs leading-tight text-wine/85">${escapeHtml(l.title)}</span></div>`;
         const size = l.size ? `<span class="text-xs text-ink/80">Size ${escapeHtml(l.size)}</span>` : '';
         return `<li class="flex gap-4 py-4">
           <a href="/product/${encodeURIComponent(l.slug)}" aria-label="View ${escapeHtml(l.title)}" class="h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-blush">${media}</a>
           <div class="flex flex-1 flex-col">
-            <a href="/product/${encodeURIComponent(l.slug)}" class="font-display text-lg leading-snug text-ink hover:text-wine">${escapeHtml(l.title)}</a>
+            <a href="/product/${encodeURIComponent(l.slug)}" class="inline-flex min-h-11 items-center font-display text-lg leading-snug text-ink hover:text-wine">${escapeHtml(l.title)}</a>
             ${size}
             <div class="mt-auto flex items-center justify-between">
               <span class="font-bold text-wine">${money(l.priceCents)}</span>

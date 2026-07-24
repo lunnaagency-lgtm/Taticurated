@@ -13,7 +13,7 @@ const { label } = Astro.props as { label: string };
 const products = await getProductsByCategory(category!);
 ---
 
-<Base title={label} path={`/shop/${category}`} description={`${label} at Curated by Tati. Hand picked, one of a kind secondhand pieces.`}>
+<Base title={label} path={`/shop/${category}`} description={`${label} at Tati Curated. Hand picked, one of a kind secondhand pieces.`}>
   <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-16">
     <div class="flex flex-col gap-4 border-b border-wine/10 pb-8 md:flex-row md:items-end md:justify-between">
       <div>
@@ -26,15 +26,15 @@ const products = await getProductsByCategory(category!);
       <p class="text-sm font-bold text-wine">{products.length} unique pieces</p>
     </div>
 
-    <nav aria-label="Shop categories" class="mt-7 flex gap-2 overflow-x-auto pb-2">
-      <a href="/shop" class="shrink-0 rounded-full border border-wine/20 px-5 py-2.5 text-sm font-bold text-ink/80 transition hover:border-wine hover:text-wine">All</a>
+    <nav aria-label="Shop categories" class="scroll-row mt-7 flex max-w-full gap-2 overflow-x-auto pb-2">
+      <a href="/shop" class="inline-flex min-h-11 shrink-0 items-center rounded-full border border-wine/20 px-5 py-2.5 text-sm font-bold text-ink/80 transition hover:border-wine hover:bg-blush/35 hover:text-wine">All</a>
       {CATEGORIES.map((c) => (
         <a
           href={`/shop/${c.slug}`}
           aria-current={c.slug === category ? 'page' : undefined}
           class:list={[
-            'shrink-0 rounded-full px-5 py-2.5 text-sm font-bold transition',
-            c.slug === category ? 'bg-wine text-cream' : 'border border-wine/20 text-ink/80 hover:border-wine hover:text-wine',
+            'inline-flex min-h-11 shrink-0 items-center rounded-full px-5 py-2.5 text-sm font-bold transition',
+            c.slug === category ? 'bg-wine text-cream' : 'border border-wine/20 text-ink/80 hover:border-wine hover:bg-blush/35 hover:text-wine',
           ]}
         >
           {c.label}

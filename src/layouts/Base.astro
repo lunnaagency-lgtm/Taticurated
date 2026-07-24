@@ -109,6 +109,23 @@ const schema = [...baseSchema, ...jsonLd];
     background-image:
       radial-gradient(circle at 4% 8%, rgba(233, 198, 205, 0.28), transparent 25rem),
       radial-gradient(circle at 96% 32%, rgba(245, 228, 231, 0.42), transparent 27rem);
+    line-height: 1.6;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img {
+    display: block;
   }
 
   ::selection {
@@ -125,8 +142,16 @@ const schema = [...baseSchema, ...jsonLd];
     color: rgba(110, 36, 51, 0.8);
     font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.18em;
+    line-height: 1.4;
     text-transform: uppercase;
+  }
+
+  .scroll-row {
+    max-width: 100%;
+    overscroll-behavior-inline: contain;
+    scrollbar-color: rgba(110, 36, 51, 0.35) transparent;
+    scrollbar-width: thin;
   }
 
   .editorial-frame {
