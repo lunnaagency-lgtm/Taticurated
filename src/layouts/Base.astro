@@ -41,6 +41,7 @@ const baseSchema: Record<string, unknown>[] = [
     name: SITE.name,
     description: SITE.description,
     url: SITE.url,
+    ...(SITE.email ? { email: SITE.email } : {}),
     sameAs: [SITE.depop, SITE.instagram].filter(Boolean),
   },
   {

@@ -46,6 +46,7 @@ import { MARKETING, SITE } from '../config/brand';
           <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/60">Tati</p>
           <a href="/about" class="transition hover:text-wine">Our story</a>
           <a href="/faq" class="transition hover:text-wine">FAQ</a>
+          {SITE.email && <a href={`mailto:${SITE.email}`} class="transition hover:text-wine">Contact</a>}
           {SITE.depop && <a href={SITE.depop} class="transition hover:text-wine" rel="noopener noreferrer">Depop</a>}
           {SITE.instagram && <a href={SITE.instagram} class="transition hover:text-wine" rel="noopener noreferrer">Instagram</a>}
         </nav>

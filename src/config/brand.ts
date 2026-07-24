@@ -19,8 +19,8 @@ export const SITE = {
   // Warm, emoji-forward voice pulled from her Depop bio.
   bioVoice: "I'm selling unique cute finds. Every piece is hand-picked and one of a kind. Offers welcomed, ships in 1 to 3 days.",
   depop: 'https://www.depop.com/curatedbytati_/',
-  instagram: '', // TBA — add handle when ready
-  email: '', // TBA — order + support email
+  instagram: '', // add handle when ready
+  email: 'taticuratedshop@gmail.com', // official order and support inbox
 } as const;
 
 /**
