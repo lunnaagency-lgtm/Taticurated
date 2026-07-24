@@ -38,14 +38,16 @@ palette, and shipping rate. Change the domain in one place when it is chosen.
 > These require creating accounts and handling secret keys, so they are done by you,
 > not by an assistant. Never commit `.env`.
 
-### 1. Sanity (catalog)
-1. `cd studio && npm install`
-2. `npx sanity login` then `npx sanity init --env` (creates the project, prints a **project id**)
-3. Put the id in `.env` (`SANITY_PROJECT_ID`) and in `studio/.env` (`SANITY_STUDIO_PROJECT_ID`)
-4. `npm run deploy` in `studio/` -> hosted admin at `https://<name>.sanity.studio`
-5. Add real products there (photos, price in dollars, size, condition, status). Delete
-   `src/data/sampleProducts.ts` once real items exist, or leave it as a fallback.
-6. Create a write token (Sanity dashboard -> API -> Tokens, Editor role) -> `SANITY_WRITE_TOKEN`
+### 1. Sanity (catalog) — project already created: `9hd2noq7`
+The studio is pre-wired to this project. Do NOT run `sanity init` or create a new project.
+1. `cd studio && npm install && npx sanity login`
+2. `npm run deploy` (from `studio/`) -> hosted studio at `https://<name>.sanity.studio`
+3. Tati adds real pieces there: photos, price in dollars, size, condition, status. This is
+   what replaces `src/data/sampleProducts.ts`.
+4. Create a write token for the sold-out webhook: sanity.io -> project 9hd2noq7 -> API ->
+   Tokens -> Editor role -> `SANITY_WRITE_TOKEN`.
+5. Once she has real pieces, set `SANITY_PROJECT_ID=9hd2noq7` and `SANITY_DATASET=production`
+   in Vercel so the store reads live inventory. Until then it shows the sample catalog.
 
 ### 2. Stripe (payments)
 1. Create a Stripe account. Start in **test mode**.

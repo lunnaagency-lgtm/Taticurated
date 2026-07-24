@@ -11,7 +11,7 @@ import { schemaTypes } from './schemaTypes';
 export default defineConfig({
   name: 'curated-by-tati',
   title: 'Curated by Tati',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'REPLACE_WITH_PROJECT_ID',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || '9hd2noq7',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
   plugins: [structureTool(), visionTool()],
   schema: { types: schemaTypes },
