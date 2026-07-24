@@ -45,6 +45,10 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
+  // Stripe Tax stays off until the shop is registered for sales tax. Flip on with
+  // STRIPE_TAX_ENABLED=true; Stripe then calculates tax from the shipping address.
+  const taxEnabled = getEnv('STRIPE_TAX_ENABLED') === 'true';
+
   // Authoritative, uncached availability check for every item.
   const available = [] as NonNullable<Awaited<ReturnType<typeof getProductBySlug>>>[];
   const unavailable: string[] = [];
@@ -73,6 +77,7 @@ export const POST: APIRoute = async ({ request }) => {
     price_data: {
       currency: COMMERCE.currency,
       unit_amount: product.priceCents,
+      ...(taxEnabled ? { tax_behavior: 'exclusive' as const } : {}),
       product_data: {
         name: product.title,
         description:
@@ -100,6 +105,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
+    ...(taxEnabled ? { automatic_tax: { enabled: true } } : {}),
     ...discountConfig,
     line_items,
     shipping_address_collection: { allowed_countries: [...COMMERCE.shipToCountries] },
