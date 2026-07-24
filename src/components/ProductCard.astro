@@ -8,36 +8,55 @@ interface Props {
 const { product } = Astro.props;
 const img = product.images[0];
 const isSold = product.status === 'sold';
+const isReserved = product.status === 'reserved';
+const categoryLabel = product.category.charAt(0).toUpperCase() + product.category.slice(1);
 ---
 
-<a href={`/product/${product.slug}`} class="group block">
-  <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-blush">
+<a
+  href={`/product/${product.slug}`}
+  class="group block rounded-[1.6rem] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-wine"
+>
+  <div class="relative aspect-[4/5] overflow-hidden rounded-[1.6rem] bg-blush shadow-[0_8px_35px_rgba(81,24,36,0.05)] transition duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_18px_45px_rgba(81,24,36,0.13)]">
     {img ? (
       <img
         src={img.url}
         alt={img.alt}
         loading="lazy"
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
       />
     ) : (
       <!-- Branded placeholder until real Depop photos are uploaded in Sanity. Never stock. -->
-      <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-4 text-center">
-        <span class="font-display text-lg text-wine/70">{product.title}</span>
+      <div class="editorial-frame flex h-full w-full items-center justify-center bg-gradient-to-br from-blush via-cream to-blush-deep p-8 text-center">
+        <div>
+          <span class="mx-auto mb-5 block h-px w-12 bg-wine/30"></span>
+          <span class="font-display text-xl leading-snug text-wine/75">{product.title}</span>
+          <span class="mx-auto mt-5 block h-px w-12 bg-wine/30"></span>
+        </div>
       </div>
     )}
+    <span class="absolute left-3 top-3 z-10 rounded-full bg-cream/90 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-wine shadow-sm backdrop-blur">
+      {categoryLabel}
+    </span>
     {isSold && (
-      <div class="absolute inset-0 flex items-center justify-center bg-cream/70">
-        <span class="rounded-full bg-ink px-4 py-1 text-xs font-semibold uppercase tracking-wide text-cream">
+      <div class="absolute inset-0 z-20 flex items-center justify-center bg-cream/65 backdrop-blur-[1px]">
+        <span class="rounded-full bg-ink px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] text-cream">
           Sold
         </span>
       </div>
     )}
+    {isReserved && (
+      <span class="absolute bottom-3 right-3 rounded-full bg-gold px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-ink">
+        On hold
+      </span>
+    )}
   </div>
-  <div class="mt-3">
-    <p class="text-sm font-medium text-ink group-hover:text-wine">{product.title}</p>
-    <div class="mt-1 flex items-center gap-2 text-sm text-ink/60">
-      <span>{formatPrice(product.priceCents)}</span>
-      {product.size && <span>· {product.size}</span>}
+  <div class="px-1 pt-4">
+    {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-wine/55">{product.brand}</p>}
+    <p class="mt-1 font-display text-lg leading-snug text-ink transition group-hover:text-wine">{product.title}</p>
+    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink/60">
+      <span class="font-bold text-wine">{formatPrice(product.priceCents)}</span>
+      {product.size && <span>Size {product.size}</span>}
+      {product.condition && <span class="hidden sm:inline">{product.condition}</span>}
     </div>
   </div>
 </a>

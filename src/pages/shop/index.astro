@@ -7,20 +7,29 @@ import { CATEGORIES } from '../../lib/types';
 const products = await getAllProducts();
 ---
 
-<Base title="Shop all" path="/shop" description="Every one-of-a-kind piece in the Curated by Tati shop. Coquette dresses, y2k denim, statement heels, and trending sneakers.">
-  <section class="mx-auto max-w-6xl px-4 py-10 md:py-14">
-    <h1 class="font-display text-3xl text-wine md:text-4xl">Shop all</h1>
+<Base title="Shop all" path="/shop" description="Every one of a kind piece in the Curated by Tati shop. Coquette dresses, y2k denim, statement heels, and trending sneakers.">
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-16">
+    <div class="flex flex-col gap-4 border-b border-wine/10 pb-8 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="eyebrow">The full edit</p>
+        <h1 class="mt-3 font-display text-5xl text-wine md:text-6xl">Shop all finds.</h1>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-ink/60">
+          Coquette, y2k, and playful secondhand pieces. Each one was chosen by Tati, and there is only one.
+        </p>
+      </div>
+      <p class="text-sm font-bold text-wine">{products.length} unique pieces</p>
+    </div>
 
-    <div class="mt-6 flex flex-wrap gap-2">
-      <a href="/shop" class="rounded-full bg-wine px-4 py-1.5 text-sm font-medium text-cream">All</a>
+    <nav aria-label="Shop categories" class="mt-7 flex gap-2 overflow-x-auto pb-2">
+      <a href="/shop" aria-current="page" class="shrink-0 rounded-full bg-wine px-5 py-2.5 text-sm font-bold text-cream">All</a>
       {CATEGORIES.map((c) => (
-        <a href={`/shop/${c.slug}`} class="rounded-full border border-wine/25 px-4 py-1.5 text-sm text-ink/70 hover:border-wine hover:text-wine">
+        <a href={`/shop/${c.slug}`} class="shrink-0 rounded-full border border-wine/20 px-5 py-2.5 text-sm font-bold text-ink/65 transition hover:border-wine hover:text-wine">
           {c.label}
         </a>
       ))}
-    </div>
+    </nav>
 
-    <div class="mt-10">
+    <div class="mt-12">
       <ProductGrid products={products} />
     </div>
   </section>

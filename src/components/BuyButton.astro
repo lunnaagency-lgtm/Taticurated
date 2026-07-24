@@ -13,14 +13,14 @@ const available = product.status === 'available';
   <button
     data-buy
     data-slug={product.slug}
-    class="w-full rounded-full bg-wine px-6 py-4 text-base font-semibold text-cream transition hover:bg-wine-deep disabled:cursor-not-allowed disabled:opacity-60"
+    class="w-full rounded-full bg-wine px-6 py-4 text-base font-bold text-cream shadow-[0_10px_30px_rgba(110,36,51,0.18)] transition hover:-translate-y-0.5 hover:bg-wine-deep hover:shadow-[0_14px_34px_rgba(110,36,51,0.25)] disabled:cursor-not-allowed disabled:opacity-60"
   >
-    Buy now · {formatPrice(product.priceCents)}
+    Buy now. {formatPrice(product.priceCents)}
   </button>
 ) : (
   <button
     disabled
-    class="w-full cursor-not-allowed rounded-full bg-ink/20 px-6 py-4 text-base font-semibold text-ink/60"
+    class="w-full cursor-not-allowed rounded-full bg-ink/10 px-6 py-4 text-base font-bold text-ink/55"
   >
     {product.status === 'sold' ? 'Sold' : 'On hold'}
   </button>
@@ -37,7 +37,7 @@ const available = product.status === 'available';
 
       button.disabled = true;
       const original = button.textContent;
-      button.textContent = 'Taking you to checkout…';
+      button.textContent = 'Taking you to checkout...';
       if (errorEl) errorEl.classList.add('hidden');
 
       try {

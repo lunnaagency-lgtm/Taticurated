@@ -1,0 +1,252 @@
+---
+import { MARKETING } from '../config/brand';
+---
+
+{MARKETING.welcomeCapture && (
+  <div
+    data-welcome-modal
+    class="fixed inset-0 z-[80] hidden items-end justify-center bg-ink/45 p-3 backdrop-blur-sm sm:items-center sm:p-6"
+    aria-hidden="true"
+  >
+    <section
+      data-welcome-panel
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcome-title"
+      aria-describedby="welcome-description"
+      class="relative w-full max-w-3xl overflow-hidden rounded-[2rem] bg-cream shadow-[0_24px_80px_rgba(81,24,36,0.28)]"
+    >
+      <button
+        data-welcome-close
+        type="button"
+        class="absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full bg-cream/90 text-xl text-wine shadow-sm transition hover:bg-blush focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+        aria-label="Close welcome offer"
+      >
+        ×
+      </button>
+
+      <div class="grid sm:grid-cols-[0.78fr_1.22fr]">
+        <div class="relative hidden min-h-[31rem] overflow-hidden bg-blush p-8 sm:flex sm:flex-col sm:justify-between">
+          <div class="absolute -left-20 -top-16 size-64 rounded-full border border-wine/10"></div>
+          <div class="absolute -bottom-20 -right-20 size-72 rounded-full border border-wine/10"></div>
+          <div class="relative flex items-center gap-3 text-wine">
+            <span class="h-px w-10 bg-wine/40"></span>
+            <span class="text-[0.65rem] font-bold uppercase tracking-[0.24em]">A note from Tati</span>
+          </div>
+          <div class="relative">
+            <div class="mx-auto grid aspect-[4/5] max-w-52 place-items-center rounded-[7rem_7rem_1.5rem_1.5rem] border border-wine/15 bg-gradient-to-b from-cream/80 to-blush-deep/70 p-8 text-center shadow-sm">
+              <div>
+                <span class="block font-display text-5xl text-wine">C</span>
+                <span class="mt-2 block text-[0.6rem] font-bold uppercase tracking-[0.24em] text-wine/65">
+                  Curated for you
+                </span>
+              </div>
+            </div>
+          </div>
+          <p class="relative font-display text-2xl italic leading-snug text-wine">
+            Unique cute finds, chosen one at a time.
+          </p>
+        </div>
+
+        <div class="px-6 pb-8 pt-16 sm:px-10 sm:py-12">
+          <p class="eyebrow">Your first find is sweeter</p>
+          <h2 id="welcome-title" class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">
+            Take {MARKETING.welcomeDiscountPercent}% off your first order.
+          </h2>
+          <p id="welcome-description" class="mt-5 text-sm leading-7 text-ink/65">
+            Join Tati’s list for first looks at one of a kind finds. Your welcome code appears right here.
+          </p>
+
+          <form data-welcome-form class="mt-7">
+            <label class="sr-only" for="welcome-email">Email address</label>
+            <input
+              id="welcome-email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              placeholder="Email address"
+              class="min-h-[3.25rem] w-full rounded-full border border-wine/20 bg-white px-5 text-sm text-ink outline-none transition placeholder:text-ink/40 focus:border-wine focus:ring-4 focus:ring-blush-deep/50"
+            />
+            <button
+              type="submit"
+              class="mt-3 min-h-[3.25rem] w-full rounded-full bg-wine px-6 text-sm font-bold text-cream transition hover:bg-wine-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine disabled:cursor-wait disabled:opacity-60"
+            >
+              Reveal my {MARKETING.welcomeDiscountPercent}% code
+            </button>
+            <p data-welcome-error class="mt-3 min-h-5 text-sm text-wine" role="alert"></p>
+          </form>
+
+          <div data-welcome-success class="mt-7 hidden rounded-3xl border border-wine/15 bg-blush/60 p-5" aria-live="polite">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/65">Your welcome code</p>
+            <div class="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-cream p-3">
+              <strong data-welcome-code class="font-display text-2xl tracking-wider text-wine"></strong>
+              <button
+                data-copy-code
+                type="button"
+                class="rounded-full border border-wine/20 px-4 py-2 text-xs font-bold text-wine transition hover:border-wine"
+              >
+                Copy code
+              </button>
+            </div>
+            <p data-welcome-success-message class="mt-3 text-sm text-ink/65"></p>
+            <a href="/shop" class="mt-5 inline-flex text-sm font-bold text-wine underline decoration-2 underline-offset-4">
+              Find your piece
+            </a>
+          </div>
+
+          <button data-welcome-close type="button" class="mt-5 text-xs text-ink/50 underline underline-offset-4 hover:text-wine">
+            No thank you, I will keep browsing
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+)}
+
+<script>
+  const modal = document.querySelector<HTMLElement>('[data-welcome-modal]');
+  const panel = modal?.querySelector<HTMLElement>('[data-welcome-panel]');
+  const form = modal?.querySelector<HTMLFormElement>('[data-welcome-form]');
+  const email = form?.querySelector<HTMLInputElement>('input[name="email"]');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const error = modal?.querySelector<HTMLElement>('[data-welcome-error]');
+  const success = modal?.querySelector<HTMLElement>('[data-welcome-success]');
+  const code = modal?.querySelector<HTMLElement>('[data-welcome-code]');
+  const successMessage = modal?.querySelector<HTMLElement>('[data-welcome-success-message]');
+  const copyButton = modal?.querySelector<HTMLButtonElement>('[data-copy-code]');
+  const storageKey = 'tatiWelcomeSeen';
+  let previousFocus: HTMLElement | null = null;
+
+  const closeModal = () => {
+    if (!modal) return;
+    modal.classList.add('welcome-leaving');
+    window.setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex', 'welcome-leaving');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('overflow-hidden');
+      previousFocus?.focus();
+    }, 180);
+  };
+
+  const openModal = () => {
+    if (!modal || window.localStorage.getItem(storageKey)) return;
+    window.localStorage.setItem(storageKey, 'true');
+    previousFocus = document.activeElement as HTMLElement;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('overflow-hidden');
+    window.requestAnimationFrame(() => modal.classList.add('welcome-visible'));
+    window.setTimeout(() => email?.focus(), 180);
+  };
+
+  if (modal && !window.localStorage.getItem(storageKey)) {
+    window.setTimeout(openModal, 2200);
+  }
+
+  modal?.querySelectorAll<HTMLButtonElement>('[data-welcome-close]').forEach((button) => {
+    button.addEventListener('click', closeModal);
+  });
+
+  modal?.addEventListener('click', (event) => {
+    if (event.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal?.getAttribute('aria-hidden') === 'false') {
+      closeModal();
+    }
+
+    if (event.key !== 'Tab' || modal?.getAttribute('aria-hidden') !== 'false' || !panel) return;
+    const focusable = Array.from(
+      panel.querySelectorAll<HTMLElement>('button:not([disabled]), a[href], input:not([disabled])'),
+    );
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!email || !submit || !error || !success || !code || !successMessage) return;
+    submit.disabled = true;
+    const originalLabel = submit.textContent;
+    submit.textContent = 'Saving your spot...';
+    error.textContent = '';
+
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.value }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || 'Something went wrong. Please try again.');
+      }
+
+      code.textContent = data.code;
+      successMessage.textContent = `${data.percent}% off is ready for your first order. Enter this code at checkout.`;
+      form.classList.add('hidden');
+      success.classList.remove('hidden');
+      copyButton?.focus();
+    } catch (caught) {
+      error.textContent = (caught as Error).message;
+    } finally {
+      submit.disabled = false;
+      submit.textContent = originalLabel;
+    }
+  });
+
+  copyButton?.addEventListener('click', async () => {
+    const value = code?.textContent?.trim();
+    if (!value || !copyButton) return;
+    try {
+      await navigator.clipboard.writeText(value);
+      copyButton.textContent = 'Copied';
+    } catch {
+      copyButton.textContent = 'Select code';
+      window.getSelection()?.selectAllChildren(code);
+    }
+  });
+</script>
+
+<style>
+  [data-welcome-modal] {
+    opacity: 0;
+    transition: opacity 180ms ease;
+  }
+
+  [data-welcome-panel] {
+    transform: translateY(1rem) scale(0.985);
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  [data-welcome-modal].welcome-visible {
+    opacity: 1;
+  }
+
+  [data-welcome-modal].welcome-visible [data-welcome-panel] {
+    transform: translateY(0) scale(1);
+  }
+
+  [data-welcome-modal].welcome-leaving {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-welcome-modal],
+    [data-welcome-panel] {
+      transition: none;
+    }
+  }
+</style>

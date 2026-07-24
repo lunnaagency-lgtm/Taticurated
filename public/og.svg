@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Curated by Tati</title>
+  <desc id="description">Unique cute finds, chosen one at a time.</desc>
+  <defs>
+    <linearGradient id="blush" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FBF7F2"/>
+      <stop offset="0.52" stop-color="#F5E4E7"/>
+      <stop offset="1" stop-color="#E9C6CD"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#blush)"/>
+  <rect x="34" y="34" width="1132" height="562" rx="42" fill="none" stroke="#6E2433" stroke-opacity=".23" stroke-width="2"/>
+  <circle cx="157" cy="108" r="112" fill="none" stroke="#6E2433" stroke-opacity=".1" stroke-width="2"/>
+  <circle cx="1058" cy="540" r="152" fill="none" stroke="#6E2433" stroke-opacity=".1" stroke-width="2"/>
+  <path d="M600 155c-48-76-128-88-147-40-21 53 57 92 147 40Z" fill="#6E2433" fill-opacity=".88"/>
+  <path d="M600 155c48-76 128-88 147-40 21 53-57 92-147 40Z" fill="#6E2433" fill-opacity=".88"/>
+  <circle cx="600" cy="156" r="24" fill="#FBF7F2"/>
+  <text x="600" y="315" text-anchor="middle" fill="#6E2433" font-family="Georgia, serif" font-size="84">Curated by Tati</text>
+  <line x1="474" x2="726" y1="356" y2="356" stroke="#6E2433" stroke-opacity=".35" stroke-width="2"/>
+  <text x="600" y="424" text-anchor="middle" fill="#241C1E" font-family="Arial, sans-serif" font-size="27" letter-spacing="6">UNIQUE CUTE FINDS</text>
+  <text x="600" y="479" text-anchor="middle" fill="#6E2433" font-family="Georgia, serif" font-size="31" font-style="italic">Chosen one at a time.</text>
+</svg>

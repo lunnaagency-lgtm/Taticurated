@@ -5,6 +5,7 @@ import '@fontsource/open-sauce-sans/500.css';
 import '@fontsource/open-sauce-sans/700.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import WelcomeModal from '../components/WelcomeModal.astro';
 import { SITE } from '../config/brand';
 
 interface Props {
@@ -27,9 +28,9 @@ const {
   noindex = false,
 } = Astro.props;
 
-const pageTitle = title ? `${title} — ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+const pageTitle = title ? `${title}. ${SITE.name}` : `${SITE.name}. ${SITE.tagline}`;
 const canonical = new URL(path, SITE.url).toString();
-const ogImage = image ? new URL(image, SITE.url).toString() : undefined;
+const ogImage = new URL(image || '/og.svg', SITE.url).toString();
 
 // Baseline org + site schema on every page; product pages add their own via jsonLd.
 const baseSchema: Record<string, unknown>[] = [
@@ -58,7 +59,9 @@ const schema = [...baseSchema, ...jsonLd];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#FBF7F2" />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content="website" />
@@ -66,18 +69,89 @@ const schema = [...baseSchema, ...jsonLd];
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${SITE.name}, unique cute finds hand picked one at a time.`} />
+    <meta name="twitter:card" content="summary_large_image" />
 
     {schema.map((block) => (
       <script type="application/ld+json" set:html={JSON.stringify(block)} />
     ))}
   </head>
-  <body class="min-h-screen bg-cream font-sans text-ink antialiased flex flex-col">
+  <body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
+    <a
+      href="#main-content"
+      class="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-wine px-5 py-3 text-sm font-bold text-cream transition focus:translate-y-0"
+    >
+      Skip to content
+    </a>
     <Header />
-    <main class="flex-1">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
     <Footer />
+    <WelcomeModal />
   </body>
 </html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 4% 8%, rgba(233, 198, 205, 0.28), transparent 25rem),
+      radial-gradient(circle at 96% 32%, rgba(245, 228, 231, 0.42), transparent 27rem);
+  }
+
+  ::selection {
+    background: #e9c6cd;
+    color: #511824;
+  }
+
+  :focus-visible {
+    outline: 2px solid #6e2433;
+    outline-offset: 3px;
+  }
+
+  .eyebrow {
+    color: rgba(110, 36, 51, 0.72);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .editorial-frame {
+    position: relative;
+  }
+
+  .editorial-frame::before {
+    border: 1px solid rgba(110, 36, 51, 0.15);
+    border-radius: inherit;
+    content: '';
+    inset: 0.55rem;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

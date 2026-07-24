@@ -9,9 +9,17 @@ const { products } = Astro.props;
 ---
 
 {products.length === 0 ? (
-  <p class="py-16 text-center text-ink/60">No pieces here yet. Check back soon.</p>
+  <div class="rounded-[2rem] border border-wine/10 bg-blush/35 px-6 py-16 text-center">
+    <p class="font-display text-3xl text-wine">This edit is between finds.</p>
+    <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-ink/60">
+      Tati is always looking for the next one of a kind piece. Explore the full shop while this collection fills up.
+    </p>
+    <a href="/shop" class="mt-6 inline-flex rounded-full bg-wine px-6 py-3 text-sm font-bold text-cream transition hover:bg-wine-deep">
+      Shop every find
+    </a>
+  </div>
 ) : (
-  <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4">
+  <div class="grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-5 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-6 lg:gap-y-14">
     {products.map((product) => <ProductCard product={product} />)}
   </div>
 )}

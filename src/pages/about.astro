@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
 import { SITE } from '../config/brand';
+import { FAQ, faqSchema as buildFaqSchema } from '../lib/faq';
 
 // FAQ schema helps this page get surfaced and cited by AI answer engines.
 const faqSchema = {
@@ -33,36 +35,81 @@ const faqSchema = {
     },
   ],
 };
+
+const aboutFaq = [FAQ[0], FAQ[1], FAQ[2], FAQ[3], FAQ[9]];
 ---
 
-<Base title="The story" path="/about" description="The story behind Curated by Tati, a hand-picked one-of-a-kind secondhand shop." jsonLd={[faqSchema]}>
-  <section class="mx-auto max-w-2xl px-4 py-14 md:py-20">
-    <h1 class="font-display text-4xl text-wine md:text-5xl">Curated, not mass-produced.</h1>
-    <div class="mt-8 space-y-5 text-lg leading-relaxed text-ink/80">
-      <p>{SITE.bioVoice}</p>
-      <p>
-        Every piece here is chosen by hand, one at a time. No restocks, no duplicates, no algorithm
-        deciding what you see. If it speaks to you, it is probably the only one.
-      </p>
-      <p>
-        What started as sharing my favorite finds turned into a whole shop of them. Thank you for
-        being part of it.
-      </p>
+<Base title="The story" path="/about" description="Meet the point of view behind Curated by Tati, a hand picked secondhand shop for coquette, y2k, and playful style." jsonLd={[faqSchema, buildFaqSchema(aboutFaq)]}>
+  <section class="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 md:pb-24">
+    <div class="relative overflow-hidden rounded-[2rem] bg-wine px-6 py-16 text-cream sm:px-10 md:px-16 md:py-24">
+      <div class="absolute -right-32 -top-40 size-[32rem] rounded-full border border-cream/10"></div>
+      <div class="absolute -bottom-52 -left-40 size-[36rem] rounded-full border border-cream/10"></div>
+      <div class="relative max-w-4xl">
+        <p class="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-blush">A note from Tati</p>
+        <h1 class="mt-6 font-display text-5xl leading-[1.04] sm:text-6xl md:text-7xl">
+          Curated means I would want it in my own closet.
+        </h1>
+        <p class="mt-7 max-w-2xl text-base leading-8 text-cream/70 md:text-lg">
+          I built Curated by Tati for the pieces that make an outfit feel instantly more like you. Romantic, playful, a little nostalgic, and never pulled from a giant pile of the same thing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[0.8fr_1.2fr] md:gap-20 md:py-24">
+    <div>
+      <p class="eyebrow">The point of view</p>
+      <h2 class="mt-4 font-display text-4xl leading-tight text-wine md:text-5xl">
+        A smaller shop with a stronger feeling.
+      </h2>
+      <div class="mt-8 rounded-[2rem] bg-blush/55 p-7">
+        <p class="font-display text-2xl italic leading-snug text-wine">“{SITE.bioVoice}”</p>
+      </div>
     </div>
 
-    <div class="mt-12 rounded-2xl bg-blush/40 p-6">
-      <h2 class="font-display text-xl text-wine">Good to know</h2>
-      <ul class="mt-3 space-y-2 text-sm text-ink/75">
-        <li>· Every item is one of a kind. Once it sells, it is gone.</li>
-        <li>· Ships in 1 to 3 days, flat-rate shipping.</li>
-        <li>· All sales final. Offers always welcome.</li>
-      </ul>
-    </div>
-
-    <div class="mt-10">
-      <a href="/shop" class="rounded-full bg-wine px-7 py-3 text-sm font-semibold text-cream hover:bg-wine-deep">
-        Shop the finds
+    <div class="space-y-7 text-base leading-8 text-ink/70 md:text-lg md:leading-9">
+      <p>
+        When I say curated, I mean personal. I look for the pieces with a reason to stop scrolling. A tiny lace detail. The perfect washed color. A statement heel that does the work for the whole outfit. Each one has to feel special before it ever reaches the shop.
+      </p>
+      <p>
+        My taste lives where coquette romance, y2k nostalgia, soft girl style, and streetwear meet. That can be a dreamy dress one day and a colorful pair of sneakers the next. The mix changes, but the feeling stays playful, feminine, and easy to make your own.
+      </p>
+      <p>
+        Shopping here is different from finding one listing in a marketplace feed. The full edit lives together, every detail is easy to find, and you can understand the point of view behind what you are buying. It is still the same Tati behind the find, now with a home made for the brand.
+      </p>
+      <p>
+        Secondhand style should feel exciting, not like settling. I choose pieces one at a time because the best closets are built that way too. If something feels like you, do not wait too long. There is only one.
+      </p>
+      <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-full bg-wine px-7 text-sm font-bold text-cream transition hover:-translate-y-0.5 hover:bg-wine-deep">
+        Shop Tati’s latest finds
       </a>
     </div>
   </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
+    <div class="grid overflow-hidden rounded-[2rem] border border-wine/10 sm:grid-cols-3">
+      <div class="bg-cream p-7 md:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-wine/55">One at a time</p>
+        <p class="mt-4 font-display text-3xl text-wine">No duplicates.</p>
+        <p class="mt-3 text-sm leading-7 text-ink/60">Each listing is one real piece, selected for its own personality.</p>
+      </div>
+      <div class="border-y border-wine/10 bg-blush/45 p-7 sm:border-x sm:border-y-0 md:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-wine/55">Ready for more life</p>
+        <p class="mt-4 font-display text-3xl text-wine">Secondhand, seen freshly.</p>
+        <p class="mt-3 text-sm leading-7 text-ink/60">Good style deserves another outfit, another night, and another story.</p>
+      </div>
+      <div class="bg-cream p-7 md:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-wine/55">From Tati to you</p>
+        <p class="mt-4 font-display text-3xl text-wine">Personal by design.</p>
+        <p class="mt-3 text-sm leading-7 text-ink/60">A warm boutique experience, with the same eye behind every find.</p>
+      </div>
+    </div>
+  </section>
+
+  <Faq
+    items={aboutFaq}
+    eyebrow="Know the brand"
+    title="A little more about Tati Curated."
+    intro="The short answers behind the pieces, the process, and where to shop."
+  />
 </Base>

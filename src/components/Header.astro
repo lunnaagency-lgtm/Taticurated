@@ -1,23 +1,99 @@
 ---
-import { SITE } from '../config/brand';
+import { MARKETING, SITE } from '../config/brand';
 import { CATEGORIES } from '../lib/types';
 ---
 
-<header class="border-b border-blush-deep/40 bg-cream/90 backdrop-blur sticky top-0 z-40">
-  <div class="mx-auto max-w-6xl px-4">
-    <div class="flex items-center justify-between py-4">
-      <a href="/" class="font-display text-2xl tracking-tight text-wine">
+<header class="sticky top-0 z-40 border-b border-blush-deep/50 bg-cream/90 backdrop-blur-xl">
+  <a
+    href="#footer-newsletter"
+    class="block bg-wine px-4 py-2 text-center text-[0.68rem] font-bold uppercase tracking-[0.16em] text-cream transition hover:bg-wine-deep"
+  >
+    New here. Join the list for {MARKETING.welcomeDiscountPercent}% off your first order.
+  </a>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="flex h-[4.5rem] items-center justify-between">
+      <a href="/" class="relative z-10 font-display text-2xl tracking-tight text-wine sm:text-[1.7rem]">
         {SITE.name}
       </a>
-      <nav aria-label="Categories" class="hidden gap-6 md:flex">
-        <a href="/shop" class="text-sm font-medium hover:text-wine">Shop all</a>
+      <nav aria-label="Main navigation" class="hidden items-center gap-6 lg:flex">
+        <a href="/shop" class="text-sm font-bold text-ink transition hover:text-wine">Shop all</a>
         {CATEGORIES.map((c) => (
-          <a href={`/shop/${c.slug}`} class="text-sm text-ink/70 hover:text-wine">{c.label}</a>
+          <a href={`/shop/${c.slug}`} class="text-sm text-ink/65 transition hover:text-wine">{c.label}</a>
         ))}
+        <a href="/about" class="text-sm text-ink/65 transition hover:text-wine">Our story</a>
+        <a href="/faq" class="text-sm text-ink/65 transition hover:text-wine">FAQ</a>
       </nav>
-      <a href="/shop" class="rounded-full bg-wine px-4 py-2 text-sm font-medium text-cream hover:bg-wine-deep md:hidden">
-        Shop
-      </a>
+      <button
+        data-menu-button
+        type="button"
+        class="relative z-10 grid size-11 place-items-center rounded-full border border-wine/15 text-wine transition hover:bg-blush lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <span class="sr-only">Menu</span>
+        <span class="flex w-5 flex-col gap-1.5" aria-hidden="true">
+          <span class="h-px w-full bg-current transition"></span>
+          <span class="h-px w-full bg-current transition"></span>
+          <span class="h-px w-full bg-current transition"></span>
+        </span>
+      </button>
     </div>
   </div>
+
+  <div
+    id="mobile-menu"
+    data-mobile-menu
+    class="absolute left-0 right-0 top-full hidden max-h-[calc(100vh-6.5rem)] overflow-y-auto border-t border-wine/10 bg-cream shadow-[0_20px_50px_rgba(81,24,36,0.14)] lg:hidden"
+  >
+    <nav aria-label="Mobile navigation" class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      <div class="grid grid-cols-2 gap-2">
+        <a href="/shop" class="col-span-2 rounded-2xl bg-wine px-5 py-4 font-display text-xl text-cream">
+          Shop all pieces
+        </a>
+        {CATEGORIES.map((category) => (
+          <a
+            href={`/shop/${category.slug}`}
+            class="rounded-2xl border border-wine/10 bg-blush/35 px-4 py-4 text-sm font-bold text-ink transition hover:border-wine/30 hover:text-wine"
+          >
+            {category.label}
+          </a>
+        ))}
+      </div>
+      <div class="mt-5 flex gap-6 border-t border-wine/10 pt-5 text-sm">
+        <a href="/about" class="font-bold text-wine">Our story</a>
+        <a href="/faq" class="font-bold text-wine">FAQ</a>
+        {SITE.depop && <a href={SITE.depop} class="font-bold text-wine" rel="noopener noreferrer">Depop</a>}
+      </div>
+    </nav>
+  </div>
 </header>
+
+<script>
+  const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const mobileMenu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+
+  const setMenu = (open: boolean) => {
+    if (!menuButton || !mobileMenu) return;
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    mobileMenu.classList.toggle('hidden', !open);
+    document.body.classList.toggle('overflow-hidden', open);
+  };
+
+  menuButton?.addEventListener('click', () => {
+    setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenu(false);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) setMenu(false);
+  });
+</script>

@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="This find slipped away"
+  path="/404"
+  description="This Curated by Tati page could not be found. Explore the latest one of a kind secondhand pieces."
+  noindex={true}
+>
+  <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-16">
+    <div class="relative grid min-h-[38rem] place-items-center overflow-hidden rounded-[2rem] bg-blush/55 px-6 py-16 text-center">
+      <div class="absolute -left-40 -top-36 size-[30rem] rounded-full border border-wine/10"></div>
+      <div class="absolute -bottom-44 -right-32 size-[34rem] rounded-full border border-wine/10"></div>
+      <div class="relative max-w-2xl">
+        <p class="font-display text-8xl leading-none text-wine/15 md:text-9xl">404</p>
+        <p class="eyebrow mt-6">This one slipped away</p>
+        <h1 class="mt-4 font-display text-5xl leading-tight text-wine md:text-6xl">
+          The page is gone, but the good finds are still here.
+        </h1>
+        <p class="mx-auto mt-5 max-w-lg text-base leading-8 text-ink/65">
+          Just like a one of a kind piece, some pages do not come back. Let’s find you something even better.
+        </p>
+        <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-full bg-wine px-7 text-sm font-bold text-cream transition hover:-translate-y-0.5 hover:bg-wine-deep">
+            Shop the latest finds
+          </a>
+          <a href="/" class="inline-flex min-h-12 items-center justify-center rounded-full border border-wine/25 px-7 text-sm font-bold text-wine transition hover:border-wine hover:bg-cream">
+            Return home
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

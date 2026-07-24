@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import { FAQ, faqSchema } from '../lib/faq';
+import { SITE } from '../config/brand';
+---
+
+<Base
+  title="Frequently asked questions"
+  path="/faq"
+  description={`Answers about ${SITE.name}, secondhand condition, sizing, shipping, returns, discounts, and one of a kind availability.`}
+  jsonLd={[faqSchema()]}
+>
+  <section class="mx-auto max-w-7xl px-4 pb-4 pt-8 sm:px-6 md:pt-12">
+    <div class="relative overflow-hidden rounded-[2rem] bg-blush/55 px-6 py-14 text-center sm:px-10 md:py-20">
+      <div class="absolute -left-24 -top-32 size-80 rounded-full border border-wine/10"></div>
+      <div class="absolute -bottom-36 -right-24 size-96 rounded-full border border-wine/10"></div>
+      <div class="relative mx-auto max-w-3xl">
+        <p class="eyebrow">The full FAQ</p>
+        <h1 class="mt-5 font-display text-5xl leading-tight text-wine md:text-7xl">
+          Everything to know before your find becomes yours.
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-base leading-8 text-ink/65">
+          Straight answers about Tati Curated, the pieces, shipping, sizing, discounts, and what happens when an item sells.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Faq
+    items={FAQ}
+    eyebrow="All the details"
+    title="Questions, answered clearly."
+    intro="Still wondering about something. Visit Tati on Depop for another way to connect and shop."
+    showAllLink={false}
+  />
+
+  <section class="mx-auto max-w-4xl px-4 pb-20 sm:px-6 md:pb-28">
+    <div class="rounded-[2rem] bg-wine p-8 text-center text-cream md:p-12">
+      <p class="font-display text-3xl md:text-4xl">Ready to meet your next favorite piece.</p>
+      <div class="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-full bg-cream px-7 text-sm font-bold text-wine transition hover:bg-blush">
+          Shop the full edit
+        </a>
+        {SITE.depop && (
+          <a href={SITE.depop} rel="noopener noreferrer" class="inline-flex min-h-12 items-center justify-center rounded-full border border-cream/25 px-7 text-sm font-bold text-cream transition hover:border-cream">
+            Visit Tati on Depop
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+</Base>

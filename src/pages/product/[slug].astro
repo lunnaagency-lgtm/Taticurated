@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import BuyButton from '../../components/BuyButton.astro';
+import Faq from '../../components/Faq.astro';
 import { getAllProducts } from '../../lib/products';
+import { FAQ, faqSchema } from '../../lib/faq';
 import type { Product } from '../../lib/types';
 import { formatPrice } from '../../lib/types';
 import { SITE } from '../../config/brand';
@@ -42,6 +44,8 @@ const details = [
   ['Condition', product.condition],
   ['Color', product.colors.join(', ') || null],
 ].filter(([, v]) => v) as [string, string][];
+
+const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
 ---
 
 <Base
@@ -49,65 +53,193 @@ const details = [
   path={`/product/${product.slug}`}
   description={product.description}
   image={product.images[0]?.url}
-  jsonLd={[productSchema]}
+  jsonLd={[productSchema, faqSchema(productFaq)]}
 >
-  <section class="mx-auto grid max-w-6xl gap-10 px-4 py-8 md:grid-cols-2 md:py-14">
-    <!-- Gallery -->
-    <div class="space-y-3">
-      <div class="relative aspect-[4/5] overflow-hidden rounded-3xl bg-blush">
+  <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-14">
+    <nav aria-label="Breadcrumb" class="mb-6 text-xs text-ink/50">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="/" class="transition hover:text-wine">Home</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="/shop" class="transition hover:text-wine">Shop</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-ink/75" aria-current="page">{product.title}</li>
+      </ol>
+    </nav>
+
+    <div class="grid gap-9 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
+      <div data-gallery class="grid gap-3 sm:grid-cols-[5.5rem_1fr] sm:items-start">
+        {product.images.length > 1 && (
+          <div class="order-2 flex gap-2 overflow-x-auto pb-1 sm:order-1 sm:flex-col sm:overflow-visible">
+            {product.images.slice(0, 6).map((img, index) => (
+              <button
+                type="button"
+                data-gallery-thumb
+                data-src={img.url}
+                data-alt={img.alt}
+                aria-label={`View image ${index + 1} of ${product.images.length}`}
+                aria-pressed={index === 0 ? 'true' : 'false'}
+                class:list={[
+                  'aspect-square w-[4.5rem] shrink-0 overflow-hidden rounded-2xl border-2 bg-blush p-0.5 transition sm:w-full',
+                  index === 0 ? 'border-wine' : 'border-transparent hover:border-wine/35',
+                ]}
+              >
+                <img src={img.url} alt="" class="h-full w-full rounded-[0.8rem] object-cover" loading={index === 0 ? 'eager' : 'lazy'} />
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div class:list={['order-1 sm:order-2', product.images.length <= 1 && 'sm:col-span-2']}>
+          <div class="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-blush shadow-[0_18px_60px_rgba(81,24,36,0.09)]">
         {product.images[0] ? (
-          <img src={product.images[0].url} alt={product.images[0].alt} class="h-full w-full object-cover" />
+              <img
+                data-gallery-main
+                src={product.images[0].url}
+                alt={product.images[0].alt}
+                class="h-full w-full object-cover transition-opacity duration-200"
+              />
         ) : (
-          <div class="flex h-full w-full items-center justify-center bg-gradient-to-br from-blush to-blush-deep p-6 text-center">
-            <span class="font-display text-2xl text-wine/70">{product.title}</span>
+              <div class="editorial-frame flex h-full w-full items-center justify-center bg-gradient-to-br from-blush via-cream to-blush-deep p-10 text-center">
+                <div>
+                  <span class="mx-auto block h-px w-16 bg-wine/30"></span>
+                  <span class="mt-7 block font-display text-4xl leading-tight text-wine/75">{product.title}</span>
+                  <span class="mx-auto mt-7 block h-px w-16 bg-wine/30"></span>
+                  <span class="mt-5 block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-wine/50">
+                    Product photo coming soon
+                  </span>
+                </div>
           </div>
         )}
         {product.status === 'sold' && (
-          <div class="absolute inset-0 flex items-center justify-center bg-cream/70">
-            <span class="rounded-full bg-ink px-5 py-1.5 text-sm font-semibold uppercase tracking-wide text-cream">Sold</span>
+              <div class="absolute inset-0 flex items-center justify-center bg-cream/65 backdrop-blur-[1px]">
+                <span class="rounded-full bg-ink px-6 py-2 text-sm font-bold uppercase tracking-[0.16em] text-cream">Sold</span>
           </div>
         )}
       </div>
-      {product.images.length > 1 && (
-        <div class="grid grid-cols-4 gap-3">
-          {product.images.slice(1, 5).map((img) => (
-            <div class="aspect-square overflow-hidden rounded-xl bg-blush">
-              <img src={img.url} alt={img.alt} class="h-full w-full object-cover" loading="lazy" />
-            </div>
-          ))}
         </div>
-      )}
-    </div>
-
-    <!-- Details -->
-    <div class="md:pt-4">
-      {product.brand && <p class="text-xs uppercase tracking-[0.2em] text-wine/70">{product.brand}</p>}
-      <h1 class="mt-2 font-display text-3xl text-ink md:text-4xl">{product.title}</h1>
-      <p class="mt-3 text-2xl text-wine">{formatPrice(product.priceCents)}</p>
-
-      <div class="mt-6">
-        <BuyButton product={product} />
       </div>
 
-      <p class="mt-3 text-center text-xs text-ink/50">
-        Flat-rate shipping · Ships in 1 to 3 days · One of a kind, all sales final
-      </p>
-
-      {details.length > 0 && (
-        <dl class="mt-8 divide-y divide-blush-deep/40 border-t border-blush-deep/40 text-sm">
-          {details.map(([label, value]) => (
-            <div class="flex justify-between py-3">
-              <dt class="text-ink/60">{label}</dt>
-              <dd class="font-medium text-ink">{value}</dd>
+      <aside class="lg:sticky lg:top-32 lg:self-start">
+        <div class="rounded-[2rem] border border-wine/10 bg-cream/80 p-6 shadow-[0_18px_60px_rgba(81,24,36,0.06)] backdrop-blur sm:p-8">
+          <div class="flex items-start justify-between gap-5">
+            <div>
+              {product.brand && <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/60">{product.brand}</p>}
+              <h1 class="mt-2 font-display text-4xl leading-tight text-ink md:text-5xl">{product.title}</h1>
             </div>
-          ))}
-        </dl>
-      )}
+            <button
+              data-share
+              type="button"
+              class="grid size-11 shrink-0 place-items-center rounded-full border border-wine/15 text-lg text-wine transition hover:border-wine hover:bg-blush"
+              aria-label="Share this piece"
+            >
+              ↗
+            </button>
+          </div>
+          <p data-share-status class="mt-2 min-h-5 text-xs text-wine" aria-live="polite"></p>
 
-      <div class="mt-8">
-        <h2 class="font-display text-lg text-ink">Details</h2>
-        <p class="mt-2 whitespace-pre-line text-sm leading-relaxed text-ink/75">{product.description}</p>
-      </div>
+          <p class="mt-1 font-display text-3xl text-wine">{formatPrice(product.priceCents)}</p>
+
+          <div class="mt-6 flex flex-wrap gap-2">
+            {product.size && (
+              <span class="rounded-full border border-wine/15 bg-blush/45 px-4 py-2 text-xs font-bold text-wine">
+                Size {product.size}
+              </span>
+            )}
+            {product.condition && (
+              <span class="rounded-full border border-wine/15 bg-blush/45 px-4 py-2 text-xs font-bold text-wine">
+                {product.condition}
+              </span>
+            )}
+            <span class="rounded-full border border-wine/15 bg-blush/45 px-4 py-2 text-xs font-bold text-wine">
+              One of a kind
+            </span>
+          </div>
+
+          <div class="mt-7">
+            <BuyButton product={product} />
+          </div>
+
+          <div class="mt-5 grid grid-cols-3 gap-2 text-center text-[0.64rem] font-bold uppercase tracking-[0.08em] text-ink/55">
+            <span class="rounded-2xl bg-blush/35 px-2 py-3">Flat rate shipping</span>
+            <span class="rounded-2xl bg-blush/35 px-2 py-3">Ships in 1 to 3 days</span>
+            <span class="rounded-2xl bg-blush/35 px-2 py-3">All sales final</span>
+          </div>
+
+          {details.length > 0 && (
+            <dl class="mt-8 divide-y divide-wine/10 border-t border-wine/10 text-sm">
+              {details.map(([label, value]) => (
+                <div class="flex justify-between gap-6 py-3.5">
+                  <dt class="text-ink/55">{label}</dt>
+                  <dd class="text-right font-bold text-ink">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          <div class="mt-7 border-t border-wine/10 pt-7">
+            <h2 class="font-display text-2xl text-ink">The details</h2>
+            <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/70">{product.description}</p>
+          </div>
+
+          <p class="mt-7 rounded-2xl border border-wine/10 bg-blush/35 p-4 text-sm leading-6 text-ink/65">
+            This is the only one. If it feels like your piece, it will not be restocked after it sells.
+          </p>
+        </div>
+      </aside>
     </div>
   </section>
+
+  <Faq
+    items={productFaq}
+    eyebrow="Buying this piece"
+    title="Good to know before checkout."
+    intro="Clear answers about condition, sizing, shipping, and one of a kind availability."
+  />
+
+  <script>
+    document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((gallery) => {
+      const mainImage = gallery.querySelector<HTMLImageElement>('[data-gallery-main]');
+      const thumbs = gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-thumb]');
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          if (!mainImage || !thumb.dataset.src || !thumb.dataset.alt) return;
+          mainImage.classList.add('opacity-40');
+          window.setTimeout(() => {
+            mainImage.src = thumb.dataset.src || '';
+            mainImage.alt = thumb.dataset.alt || '';
+            mainImage.classList.remove('opacity-40');
+          }, 120);
+
+          thumbs.forEach((button) => {
+            const active = button === thumb;
+            button.setAttribute('aria-pressed', String(active));
+            button.classList.toggle('border-wine', active);
+            button.classList.toggle('border-transparent', !active);
+          });
+        });
+      });
+    });
+
+    const shareButton = document.querySelector<HTMLButtonElement>('[data-share]');
+    const shareStatus = document.querySelector<HTMLElement>('[data-share-status]');
+    shareButton?.addEventListener('click', async () => {
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: document.title,
+            text: 'Look at this one of a kind find from Curated by Tati.',
+            url: window.location.href,
+          });
+          return;
+        }
+        await navigator.clipboard.writeText(window.location.href);
+        if (shareStatus) shareStatus.textContent = 'Link copied.';
+      } catch (error) {
+        if ((error as DOMException).name !== 'AbortError' && shareStatus) {
+          shareStatus.textContent = 'Copy the page address to share this piece.';
+        }
+      }
+    });
+  </script>
 </Base>

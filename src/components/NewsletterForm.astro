@@ -1,0 +1,85 @@
+---
+interface Props {
+  idPrefix?: string;
+  buttonLabel?: string;
+  compact?: boolean;
+}
+
+const {
+  idPrefix = 'newsletter',
+  buttonLabel = 'Send my code',
+  compact = false,
+} = Astro.props;
+---
+
+<form
+  data-subscribe-form
+  class:list={[
+    'w-full',
+    compact ? 'max-w-xl' : '',
+  ]}
+>
+  <div class:list={['flex gap-2', compact ? 'flex-col sm:flex-row' : 'flex-col']}>
+    <label class="sr-only" for={`${idPrefix}-email`}>Email address</label>
+    <input
+      id={`${idPrefix}-email`}
+      name="email"
+      type="email"
+      autocomplete="email"
+      required
+      placeholder="Email address"
+      class="min-h-12 min-w-0 flex-1 rounded-full border border-wine/20 bg-cream px-5 text-sm text-ink outline-none transition placeholder:text-ink/40 focus:border-wine focus:ring-4 focus:ring-blush-deep/50"
+    />
+    <button
+      type="submit"
+      class="min-h-12 shrink-0 rounded-full bg-wine px-6 text-sm font-bold text-cream transition hover:bg-wine-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine disabled:cursor-wait disabled:opacity-60"
+    >
+      {buttonLabel}
+    </button>
+  </div>
+  <p data-subscribe-status class="mt-3 min-h-5 text-sm text-ink/70" aria-live="polite"></p>
+</form>
+
+<script>
+  const forms = document.querySelectorAll<HTMLFormElement>('[data-subscribe-form]');
+
+  forms.forEach((form) => {
+    if (form.dataset.ready === 'true') return;
+    form.dataset.ready = 'true';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('input[name="email"]');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const status = form.querySelector<HTMLElement>('[data-subscribe-status]');
+      if (!input || !button || !status) return;
+
+      const originalLabel = button.textContent;
+      button.disabled = true;
+      button.textContent = 'Joining...';
+      status.textContent = '';
+
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: input.value }),
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Something went wrong. Please try again.');
+        }
+
+        status.textContent = `You are in. Your ${data.percent}% off code is ${data.code}.`;
+        form.reset();
+      } catch (error) {
+        status.textContent = (error as Error).message;
+      } finally {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }
+    });
+  });
+</script>
+
