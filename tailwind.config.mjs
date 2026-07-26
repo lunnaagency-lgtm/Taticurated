@@ -16,10 +16,11 @@ export default {
         blush: '#EFD9DE',
         rose: '#D8B8BF',
         blue: '#DCE6EF',
+        sage: '#DDE5D8',
       },
       fontFamily: {
-        display: ['"Fraunces Variable"', 'Georgia', 'serif'],
-        sans: ['"Open Sauce Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Barlow Condensed"', '"Arial Narrow"', 'sans-serif'],
+        sans: ['Barlow', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         card: '0.75rem',

@@ -75,4 +75,5 @@ export const PALETTE = {
   blush: '#EFD9DE',
   rose: '#D8B8BF',
   blue: '#DCE6EF',
+  sage: '#DDE5D8',
 } as const;

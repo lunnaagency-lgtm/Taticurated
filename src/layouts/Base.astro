@@ -1,8 +1,4 @@
 ---
-import '@fontsource-variable/fraunces';
-import '@fontsource/open-sauce-sans/400.css';
-import '@fontsource/open-sauce-sans/500.css';
-import '@fontsource/open-sauce-sans/700.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WelcomeModal from '../components/WelcomeModal.astro';
@@ -62,6 +58,8 @@ const schema = [...baseSchema, ...jsonLd];
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#F8F4EC" />
+    <link rel="preload" href="/fonts/Barlow-Medium.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/BarlowCondensed-Bold.ttf" as="font" type="font/ttf" crossorigin />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -97,6 +95,22 @@ const schema = [...baseSchema, ...jsonLd];
 </html>
 
 <style is:global>
+  @font-face {
+    font-display: swap;
+    font-family: 'Barlow';
+    font-style: normal;
+    font-weight: 500;
+    src: url('/fonts/Barlow-Medium.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-display: swap;
+    font-family: 'Barlow Condensed';
+    font-style: normal;
+    font-weight: 700;
+    src: url('/fonts/BarlowCondensed-Bold.ttf') format('truetype');
+  }
+
   :root {
     color-scheme: light;
   }
@@ -111,9 +125,17 @@ const schema = [...baseSchema, ...jsonLd];
       radial-gradient(circle at 7% 10%, rgba(239, 217, 222, 0.32), transparent 28rem),
       radial-gradient(circle at 96% 36%, rgba(220, 230, 239, 0.35), transparent 30rem);
     background-attachment: fixed;
-    line-height: 1.6;
+    font-weight: 500;
+    line-height: 1.4;
     overflow-x: clip;
     text-rendering: optimizeLegibility;
+  }
+
+  .font-display {
+    font-weight: 700 !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1 !important;
+    text-transform: uppercase;
   }
 
   h1,

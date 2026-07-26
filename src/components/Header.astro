@@ -5,10 +5,10 @@ import { CATEGORIES } from '../lib/types';
 
 <header class="sticky top-0 z-40 border-b border-brown/15 bg-ivory/95 backdrop-blur-xl">
   <a
-    href="/shop"
+    href="#footer-newsletter"
     class="flex min-h-9 items-center justify-center border-b border-brown/10 bg-paper px-4 py-2 text-center text-[0.66rem] font-bold uppercase leading-5 tracking-[0.16em] text-ink transition hover:bg-parchment"
   >
-    Previously loved. Natural fibers first. New pieces added regularly.
+    10% off your first purchase.
   </a>
 
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
@@ -35,20 +35,19 @@ import { CATEGORIES } from '../lib/types';
         </span>
       </button>
 
-      <!-- Replace this wordmark span with /logo.svg or /logo.png when the final logo file is ready. -->
       <a
         href="/"
         aria-label={`${SITE.name}, home`}
-        class="group col-start-2 flex min-h-16 min-w-0 flex-col items-center justify-center px-2 text-center text-ink"
+        class="group col-start-2 flex min-h-20 min-w-0 items-center justify-center px-2 py-3"
       >
-        <span class="font-display text-[1.75rem] font-medium leading-none tracking-[-0.04em] sm:text-[2.15rem]">
-          Tati Curated
-        </span>
-        <span class="mt-2 flex items-center gap-2 text-[0.56rem] font-bold uppercase tracking-[0.3em] text-brown">
-          <span class="h-px w-6 bg-brown/45 transition group-hover:w-8"></span>
-          Shop
-          <span class="h-px w-6 bg-brown/45 transition group-hover:w-8"></span>
-        </span>
+        <img
+          src="/logo.webp"
+          alt="Tati Curated"
+          width="1100"
+          height="385"
+          class="h-auto w-[160px] transition-opacity group-hover:opacity-80 sm:w-[190px] lg:w-[220px]"
+          decoding="async"
+        />
       </a>
 
       <div class="col-start-3 flex items-center justify-end gap-1 sm:gap-2">

@@ -11,11 +11,42 @@ const { product, createdIndex = 0 } = Astro.props;
 const img = product.images[0];
 const isSold = product.status === 'sold';
 const isReserved = product.status === 'reserved';
+const pastelFields = ['bg-blush', 'bg-rose', 'bg-blue', 'bg-sage'];
+const pastelField = pastelFields[createdIndex % pastelFields.length];
 const normalizeFacet = (value: string | null) => value?.trim().toLocaleLowerCase('en-US') ?? '';
 const colorTokens = product.colors
   .map((color) => encodeURIComponent(normalizeFacet(color)))
   .filter(Boolean)
   .join(' ');
+
+const searchableCopy = `${product.title} ${product.description}`.toLocaleLowerCase('en-US');
+const fibers = [
+  ['cashmere', 'Cashmere'],
+  ['linen', 'Linen'],
+  ['silk', 'Silk'],
+  ['wool', 'Wool'],
+  ['cotton', 'Cotton'],
+  ['leather', 'Leather'],
+] as const;
+const fitNotes = [
+  ['relaxed', 'Relaxed fit'],
+  ['bias cut', 'Bias cut'],
+  ['straight leg', 'Straight leg'],
+  ['high rise', 'High rise'],
+  ['unisex', 'Unisex fit'],
+  ['classic shape', 'Classic fit'],
+  ['long line', 'Long line'],
+] as const;
+const fiber = fibers.find(([term]) => searchableCopy.includes(term))?.[1];
+const fit = fitNotes.find(([term]) => searchableCopy.includes(term))?.[1];
+const fallbackDetails = [product.brand, product.condition].filter(Boolean);
+const editorialDetails = [fiber, fit].filter(Boolean) as string[];
+fallbackDetails.forEach((detail) => {
+  if (editorialDetails.length < 2 && detail && !editorialDetails.includes(detail)) {
+    editorialDetails.push(detail);
+  }
+});
+const subline = editorialDetails.join(' • ') || 'Previously loved • Condition reviewed';
 ---
 
 <a
@@ -29,57 +60,57 @@ const colorTokens = product.colors
   data-price={product.priceCents}
   data-status={product.status}
   data-created-index={createdIndex}
-  class="group block focus-visible:rounded-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+  class="group block rounded-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
 >
-  <div class="relative aspect-[4/5] overflow-hidden rounded-card border border-brown/10 bg-ivory transition duration-500 group-hover:-translate-y-1 group-hover:shadow-card-hover">
-    {img ? (
-      <img
-        src={img.url}
-        alt={img.alt}
-        width={img.width}
-        height={img.height}
-        loading={createdIndex === 0 ? 'eager' : 'lazy'}
-        fetchpriority={createdIndex === 0 ? 'high' : 'auto'}
-        decoding="async"
-        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-      />
-    ) : (
-      <div class="editorial-frame flex h-full w-full items-center justify-center bg-ivory p-7 text-center">
-        <div class="w-full">
-          <span class="mx-auto block h-px w-12 bg-brown/35"></span>
-          <span class="mt-6 block font-display text-2xl leading-snug text-ink">{product.title}</span>
-          <span class="mx-auto mt-6 block h-px w-12 bg-brown/35"></span>
-          <span class="mt-4 block text-[0.58rem] font-bold uppercase tracking-[0.2em] text-brown">The Tati edit</span>
+  <article class:list={['rounded-card p-3 transition duration-300 group-hover:-translate-y-1 group-hover:shadow-card-hover sm:p-4', pastelField]}>
+    <div class="relative aspect-[4/5] overflow-hidden rounded-[0.55rem] border border-brown/10 bg-soft-white">
+      {img ? (
+        <img
+          src={img.url}
+          alt={img.alt}
+          width={img.width}
+          height={img.height}
+          loading={createdIndex === 0 ? 'eager' : 'lazy'}
+          fetchpriority={createdIndex === 0 ? 'high' : 'auto'}
+          decoding="async"
+          class:list={[
+            'h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.025]',
+            isSold && 'saturate-[0.7]',
+          ]}
+        />
+      ) : (
+        <div class="editorial-frame flex h-full w-full items-center justify-center bg-soft-white p-6 text-center">
+          <div class="w-full">
+            <span class="mx-auto block h-px w-12 bg-brown/35"></span>
+            <span class="mt-6 block font-display text-xl text-ink sm:text-2xl">{product.title}</span>
+            <span class="mx-auto mt-6 block h-px w-12 bg-brown/35"></span>
+            <span class="mt-4 block text-[0.58rem] font-bold uppercase tracking-[0.2em] text-brown">The Tati edit</span>
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
-    <span class="absolute left-3 top-3 z-10 rounded-md border border-brown/10 bg-ivory/95 px-2.5 py-1.5 text-[0.58rem] font-bold uppercase tracking-[0.14em] text-ink backdrop-blur">
-      One of one
-    </span>
+      {isSold && (
+        <div class="absolute inset-0 z-20 flex items-end justify-center bg-ivory/45 p-4">
+          <span class="bg-ivory/95 px-4 py-2 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-ink">
+            Sold
+          </span>
+        </div>
+      )}
 
-    {isSold && (
-      <div class="absolute inset-0 z-20 flex items-center justify-center bg-ivory/70 backdrop-blur-[1px]">
-        <span class="rounded-md bg-ink px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] text-ivory">
-          Sold
+      {isReserved && (
+        <span class="absolute bottom-3 right-3 bg-ivory/95 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-ink">
+          On hold
         </span>
-      </div>
-    )}
-
-    {isReserved && (
-      <span class="absolute bottom-3 right-3 rounded-md bg-blue px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-ink">
-        On hold
-      </span>
-    )}
-  </div>
-
-  <div class="pt-4">
-    {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-brown">{product.brand}</p>}
-    <p class="mt-1 text-[0.95rem] font-medium leading-snug text-ink transition group-hover:text-brown">{product.title}</p>
-    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brown">
-      <span class="font-bold text-ink">{formatPrice(product.priceCents)}</span>
-      {product.size && <span>Size {product.size}</span>}
-      {product.condition && <span>{product.condition}</span>}
+      )}
     </div>
-  </div>
+
+    <div class="px-1 pb-1 pt-4">
+      <h3 class="font-display text-xl text-ink sm:text-2xl">{product.title}</h3>
+      <p class="mt-2 text-xs leading-[1.4] text-brown sm:text-sm">{subline}</p>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-ink/15 pt-3 text-sm">
+        <span class="font-bold text-ink">{formatPrice(product.priceCents)}</span>
+        {product.size && <span class="text-brown">Size {product.size}</span>}
+      </div>
+    </div>
+  </article>
 </a>
