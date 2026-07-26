@@ -179,8 +179,8 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
           </div>
 
           <div class="mt-5 grid grid-cols-2 gap-2 text-center text-[0.68rem] font-bold uppercase leading-5 tracking-[0.08em] text-ink/80 min-[420px]:grid-cols-3">
-            <span class="rounded-2xl bg-blush/35 px-2 py-3">Flat rate shipping</span>
-            <span class="rounded-2xl bg-blush/35 px-2 py-3">Ships in 1 to 3 days</span>
+            <span class="rounded-2xl bg-blush/35 px-2 py-3">Natural fibers only</span>
+            <span class="rounded-2xl bg-blush/35 px-2 py-3">Ships in 1 to 2 days</span>
             <span class="col-span-2 rounded-2xl bg-blush/35 px-2 py-3 min-[420px]:col-span-1">All sales final</span>
           </div>
 
@@ -210,9 +210,9 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
 
   <Faq
     items={productFaq}
-    eyebrow="Buying this piece"
+    eyebrow="One of a kind"
     title="Good to know before checkout."
-    intro="Clear answers about condition, sizing, shipping, and one of a kind availability."
+    intro="Clear answers about natural fibers, condition, sizing, shipping, and availability."
   />
 
   <script>
@@ -247,7 +247,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
         if (navigator.share) {
           await navigator.share({
             title: document.title,
-            text: 'Look at this one of a kind find from Tati Curated.',
+            text: 'The missing piece to your next fit, hand sourced by Tati Curated.',
             url: window.location.href,
           });
           return;

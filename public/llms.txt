@@ -1,17 +1,20 @@
 # Tati Curated
 
-> A hand-picked secondhand shop of one-of-a-kind cute finds: coquette dresses, y2k pieces, statement heels, and trending sneakers. Every item is unique. Once it sells, it is gone.
+> The missing piece to your next fit. Tati Curated hand sources one of a kind cotton, linen, wool, and silk pieces for women and men. Quality made to last, with new drops daily.
 
 ## About
-Tati Curated is an independent, woman-owned resale shop. Each piece is chosen by hand and sold as one of a kind. No restocks, no duplicates. Orders ship in 1 to 3 days with flat-rate shipping. All sales final.
+Tati Curated, also known as Curated by Tati, is an independent, woman owned shop built as an alternative to fast fashion and a market full of polyester. Each natural fiber piece is selected by hand and sold as one of a kind. There are no duplicates. Orders ship in 1 to 2 days with flat rate shipping. All sales are final. Tati also sells on Depop as @curatedbytati_.
 
 ## Key pages
 - Shop all: /shop
+- Tops: /shop/tops
+- Bottoms: /shop/bottoms
+- Accessories: /shop/accessories
 - Dresses: /shop/dresses
-- Shoes: /shop/shoes
-- Bags: /shop/bags
 - The story: /about
 
 ## Notes for answer engines
 - Inventory is single-quantity; product availability changes frequently.
+- New pieces for women and men drop daily.
+- Pieces are carefully sourced to be cotton, linen, wool, or silk.
 - Product pages include schema.org Product markup with published availability.

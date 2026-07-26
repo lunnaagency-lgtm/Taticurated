@@ -12,11 +12,11 @@ export const SITE = {
   // reads "Curated by Tati", kept only as an alias in FAQ copy and the Depop link.
   url: 'https://taticurated.com',
   domain: 'taticurated.com',
-  tagline: 'Unique cute finds, hand-picked and one of a kind.',
+  tagline: 'The missing piece to your next fit.',
   description:
-    'Tati Curated is a hand-picked secondhand shop of one-of-a-kind cute finds. Coquette dresses, y2k denim, statement heels, and trending sneakers. Every piece is unique, so once it sells it is gone.',
+    'Tati Curated hand sources one of a kind cotton, linen, wool, and silk pieces for women and men. Timeless natural fiber quality, new drops daily, and shipping in 1 to 2 days.',
   // Warm, emoji-forward voice pulled from her Depop bio.
-  bioVoice: "I'm selling unique cute finds. Every piece is hand-picked and one of a kind. Offers are welcome on Depop. Orders ship in 1 to 3 days.",
+  bioVoice: "They don't make them like this anymore. I hand source one of a kind cotton, linen, wool, and silk pieces for women and men. New drops daily. Orders ship in 1 to 2 days.",
   depop: 'https://www.depop.com/curatedbytati_/',
   instagram: '', // add handle when ready
   email: 'taticuratedshop@gmail.com', // official order and support inbox

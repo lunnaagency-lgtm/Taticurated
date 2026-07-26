@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
   <title id="title">Tati Curated</title>
-  <desc id="description">Unique cute finds, chosen one at a time.</desc>
+  <desc id="description">The missing piece to your next fit. Natural fiber pieces for women and men.</desc>
   <defs>
     <linearGradient id="blush" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#FBF7F2"/>
@@ -17,6 +17,6 @@
   <circle cx="600" cy="156" r="24" fill="#FBF7F2"/>
   <text x="600" y="315" text-anchor="middle" fill="#6E2433" font-family="Georgia, serif" font-size="84">Tati Curated</text>
   <line x1="474" x2="726" y1="356" y2="356" stroke="#6E2433" stroke-opacity=".35" stroke-width="2"/>
-  <text x="600" y="424" text-anchor="middle" fill="#241C1E" font-family="Arial, sans-serif" font-size="27" letter-spacing="6">UNIQUE CUTE FINDS</text>
-  <text x="600" y="479" text-anchor="middle" fill="#6E2433" font-family="Georgia, serif" font-size="31" font-style="italic">Chosen one at a time.</text>
+  <text x="600" y="424" text-anchor="middle" fill="#241C1E" font-family="Arial, sans-serif" font-size="27" letter-spacing="6">THE MISSING PIECE</text>
+  <text x="600" y="479" text-anchor="middle" fill="#6E2433" font-family="Georgia, serif" font-size="31" font-style="italic">To your next fit.</text>
 </svg>

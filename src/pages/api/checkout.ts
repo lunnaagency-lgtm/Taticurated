@@ -128,7 +128,7 @@ export const POST: APIRoute = async ({ request }) => {
         shipping_rate_data: {
           type: 'fixed_amount',
           fixed_amount: { amount: COMMERCE.shippingFlatRateCents, currency: COMMERCE.currency },
-          display_name: 'Standard shipping (1 to 3 days)',
+          display_name: 'Standard shipping (1 to 2 days)',
         },
       },
     ],
