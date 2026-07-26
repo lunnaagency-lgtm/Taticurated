@@ -1,70 +1,77 @@
 ---
 import NewsletterForm from './NewsletterForm.astro';
-import { MARKETING, SITE } from '../config/brand';
+import { SITE } from '../config/brand';
 ---
 
-<footer id="footer" class="mt-20 border-t border-blush-deep/50 bg-blush/35">
-  {MARKETING.bundle.enabled && (
-    <a
-      href="/shop"
-      class="group block overflow-hidden bg-wine px-4 py-5 text-cream transition hover:bg-wine-deep"
-    >
-      <div class="mx-auto flex max-w-7xl flex-col items-center justify-center gap-2 text-center sm:flex-row sm:gap-5">
-        <span class="text-[0.65rem] font-bold uppercase tracking-[0.24em] text-blush">A sweeter trio</span>
-        <span class="font-display text-xl sm:text-2xl">{MARKETING.bundle.message}</span>
-        <span class="text-sm font-bold underline decoration-blush/50 underline-offset-4 group-hover:decoration-blush">
-          Shop the edit
-        </span>
-      </div>
-    </a>
-  )}
-
-  <div id="footer-newsletter" class="mx-auto max-w-7xl scroll-mt-32 px-4 py-14 sm:px-6 md:py-20">
-    <div class="grid gap-12 lg:grid-cols-[1.25fr_0.75fr] lg:gap-24">
-      <div>
-        <p class="eyebrow">First look access</p>
-        <h2 class="mt-4 max-w-2xl font-display text-4xl leading-tight text-wine md:text-5xl">
-          The best finds do not wait around.
+<footer id="footer" class="mt-20 border-t border-brown/15 bg-ivory">
+  <div id="footer-newsletter" class="mx-auto max-w-7xl scroll-mt-36 px-4 py-14 sm:px-6 md:py-20">
+    <div class="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+      <div class="max-w-2xl">
+        <p class="eyebrow">First access</p>
+        <h2 class="mt-4 font-display text-4xl leading-[1.06] text-ink md:text-5xl">
+          The good ones go once.
         </h2>
-        <p class="mt-4 max-w-xl text-sm leading-7 text-ink/80">
-          Join for new daily drops, natural fiber finds, and {MARKETING.welcomeDiscountPercent}% off your first order.
+        <p class="mt-4 max-w-xl text-sm leading-7 text-brown">
+          Join for first access to new drops, rare finds, and private edits.
         </p>
         <div class="mt-7">
-          <NewsletterForm idPrefix="footer" buttonLabel="Join Tati’s list" compact={true} />
+          <NewsletterForm idPrefix="footer" buttonLabel="Join the list" compact={true} />
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-8 border-t border-wine/15 pt-8 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
+      <div class="grid grid-cols-2 gap-x-8 gap-y-10 border-t border-brown/15 pt-8 sm:grid-cols-3 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0">
         <nav aria-label="Shop links" class="flex flex-col gap-1 text-sm">
-          <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Browse</p>
-          <a href="/shop" class="inline-flex min-h-11 items-center transition hover:text-wine">Shop all</a>
-          <a href="/shop/dresses" class="inline-flex min-h-11 items-center transition hover:text-wine">Dresses</a>
-          <a href="/shop/shoes" class="inline-flex min-h-11 items-center transition hover:text-wine">Shoes</a>
-          <a href="/shop/bags" class="inline-flex min-h-11 items-center transition hover:text-wine">Bags</a>
+          <p class="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-brown">Shop</p>
+          <a href="/shop" class="footer-link">New arrivals</a>
+          <a href="/shop/dresses" class="footer-link">Dresses</a>
+          <a href="/shop/tops" class="footer-link">Tops</a>
+          <a href="/shop/bottoms" class="footer-link">Bottoms</a>
         </nav>
         <nav aria-label="Brand links" class="flex flex-col gap-1 text-sm">
-          <p class="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Tati</p>
-          <a href="/about" class="inline-flex min-h-11 items-center transition hover:text-wine">Our story</a>
-          <a href="/faq" class="inline-flex min-h-11 items-center transition hover:text-wine">FAQ</a>
-          {SITE.email && <a href={`mailto:${SITE.email}`} class="inline-flex min-h-11 items-center transition hover:text-wine">Contact</a>}
-          {SITE.depop && <a href={SITE.depop} class="inline-flex min-h-11 items-center transition hover:text-wine" rel="noopener noreferrer">Depop</a>}
-          {SITE.instagram && <a href={SITE.instagram} class="inline-flex min-h-11 items-center transition hover:text-wine" rel="noopener noreferrer">Instagram</a>}
+          <p class="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-brown">Tati</p>
+          <a href="/about" class="footer-link">About</a>
+          <a href="/faq" class="footer-link">FAQ</a>
+          {SITE.email && <a href={`mailto:${SITE.email}`} class="footer-link">Contact</a>}
+          {SITE.depop && <a href={SITE.depop} class="footer-link" rel="noopener noreferrer">Depop</a>}
+          {SITE.instagram && <a href={SITE.instagram} class="footer-link" rel="noopener noreferrer">Instagram</a>}
         </nav>
-        <nav aria-label="Policy links" class="col-span-2 border-t border-wine/15 pt-6">
-          <p class="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Policies</p>
-          <div class="flex flex-wrap gap-x-5 text-sm">
-            <a href="/privacy" class="inline-flex min-h-11 items-center transition hover:text-wine">Privacy</a>
-            <a href="/terms" class="inline-flex min-h-11 items-center transition hover:text-wine">Terms</a>
-            <a href="/shipping" class="inline-flex min-h-11 items-center transition hover:text-wine">Shipping</a>
-            <a href="/returns" class="inline-flex min-h-11 items-center transition hover:text-wine">Returns</a>
-          </div>
+        <nav aria-label="Policy links" class="col-span-2 flex flex-col gap-1 text-sm sm:col-span-1">
+          <p class="mb-2 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-brown">Details</p>
+          <a href="/shipping" class="footer-link">Shipping</a>
+          <a href="/returns" class="footer-link">Returns</a>
+          <a href="/privacy" class="footer-link">Privacy</a>
+          <a href="/terms" class="footer-link">Terms</a>
         </nav>
       </div>
     </div>
 
-    <div class="mt-14 flex flex-col gap-3 border-t border-wine/15 pt-6 text-xs text-ink/80 sm:flex-row sm:items-center sm:justify-between">
-      <p>© {new Date().getFullYear()} {SITE.name}. The missing piece to your next fit.</p>
-      <p>Natural fibers only. Women and men. New drops daily.</p>
+    <div class="mt-16 grid gap-8 border-t border-brown/15 pt-8 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <!-- Final logo image can replace this wordmark without changing the footer grid. -->
+        <a href="/" class="font-display text-3xl font-medium tracking-[-0.04em] text-ink">Tati Curated</a>
+        <p class="mt-3 max-w-md text-sm leading-7 text-brown">
+          Previously loved natural fiber clothing, thoughtfully sourced in Fort Lauderdale.
+        </p>
+      </div>
+      <div class="text-xs leading-6 text-brown md:text-right">
+        <p>© {new Date().getFullYear()} {SITE.name}.</p>
+        <p>They don't make them like this no more.</p>
+      </div>
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-link {
+    align-items: center;
+    color: #574a45;
+    display: inline-flex;
+    min-height: 2.75rem;
+    transition: color 180ms ease;
+  }
+
+  .footer-link:hover,
+  .footer-link:focus-visible {
+    color: #2f2a28;
+  }
+</style>

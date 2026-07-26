@@ -14,7 +14,7 @@ const available = product.status === 'available';
     data-buy
     data-slug={product.slug}
     type="button"
-    class="w-full rounded-full border-2 border-wine bg-transparent px-6 py-3.5 text-base font-bold text-wine transition hover:bg-wine hover:text-cream disabled:cursor-not-allowed disabled:opacity-60"
+    class="w-full rounded-lg border border-ink bg-transparent px-6 py-3.5 text-base font-bold text-ink transition hover:bg-paper disabled:cursor-not-allowed disabled:opacity-60"
   >
     Buy it now. {formatPrice(product.priceCents)}
   </button>
@@ -22,12 +22,12 @@ const available = product.status === 'available';
   <button
     type="button"
     disabled
-    class="w-full cursor-not-allowed rounded-full bg-ink/10 px-6 py-4 text-base font-bold text-ink/80"
+    class="w-full cursor-not-allowed rounded-lg bg-paper px-6 py-4 text-base font-bold text-brown"
   >
     {product.status === 'sold' ? 'Sold' : 'On hold'}
   </button>
 )}
-<p data-buy-error class="mt-2 hidden text-sm text-wine" role="alert"></p>
+<p data-buy-error class="mt-2 hidden text-sm font-medium text-ink" role="alert"></p>
 
 <script>
   document.querySelectorAll('button[data-buy]').forEach((btn) => {

@@ -24,14 +24,14 @@ const {
   <div class="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
     <div class="lg:sticky lg:top-36 lg:self-start">
       <p class="eyebrow">{eyebrow}</p>
-      <h2 class="mt-4 max-w-md font-display text-4xl leading-tight text-wine md:text-5xl">
+      <h2 class="mt-4 max-w-md font-display text-4xl leading-tight text-ink md:text-5xl">
         {title}
       </h2>
-      <p class="mt-5 max-w-sm text-base leading-relaxed text-ink/80">{intro}</p>
+      <p class="mt-5 max-w-sm text-base leading-relaxed text-brown">{intro}</p>
       {showAllLink && (
         <a
           href="/faq"
-          class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-wine underline decoration-blush-deep decoration-2 underline-offset-4 transition hover:decoration-wine"
+          class="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-bold text-ink underline decoration-rose decoration-2 underline-offset-4 transition hover:decoration-ink"
         >
           Visit the full FAQ
           <span aria-hidden="true">→</span>
@@ -39,19 +39,19 @@ const {
       )}
     </div>
 
-    <div class="border-t border-wine/15">
+    <div class="border-t border-brown/15">
       {items.map((item, index) => (
-        <details class="faq-item group border-b border-wine/15" open={index === 0}>
+        <details class="faq-item group border-b border-brown/15" open={index === 0}>
           <summary class="flex min-h-11 cursor-pointer list-none items-start justify-between gap-6 py-6 text-left">
             <span class="font-display text-xl leading-snug text-ink md:text-2xl">{item.q}</span>
             <span
-              class="mt-1 grid size-8 shrink-0 place-items-center rounded-full border border-wine/20 text-lg text-wine transition group-open:rotate-45 group-open:bg-wine group-open:text-cream"
+              class="mt-1 grid size-8 shrink-0 place-items-center rounded-md border border-brown/25 text-lg text-ink transition group-open:rotate-45 group-open:bg-ink group-open:text-ivory"
               aria-hidden="true"
             >
               +
             </span>
           </summary>
-          <p class="max-w-2xl pb-7 pr-12 text-sm leading-7 text-ink/80 md:text-base">
+          <p class="max-w-2xl pb-7 pr-12 text-sm leading-7 text-brown md:text-base">
             {item.a}
           </p>
         </details>

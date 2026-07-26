@@ -14,47 +14,47 @@ import { MARKETING } from '../config/brand';
       aria-modal="true"
       aria-labelledby="welcome-title"
       aria-describedby="welcome-description"
-      class="relative w-full max-w-3xl overflow-hidden rounded-panel bg-cream shadow-overlay"
+      class="relative w-full max-w-3xl overflow-hidden rounded-panel bg-ivory shadow-overlay"
     >
       <button
         data-welcome-close
         type="button"
-        class="absolute right-4 top-4 z-10 grid size-11 place-items-center rounded-full border border-wine/10 bg-cream/90 text-xl text-wine shadow-card transition hover:border-wine hover:bg-blush focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine"
+        class="absolute right-4 top-4 z-10 grid size-11 place-items-center rounded-lg border border-brown/15 bg-ivory/95 text-xl text-ink transition hover:bg-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         aria-label="Close welcome offer"
       >
         ×
       </button>
 
       <div class="grid sm:grid-cols-[0.78fr_1.22fr]">
-        <div class="relative hidden min-h-[31rem] overflow-hidden bg-blush p-8 sm:flex sm:flex-col sm:justify-between">
-          <div class="absolute -left-20 -top-16 size-64 rounded-full border border-wine/10"></div>
-          <div class="absolute -bottom-20 -right-20 size-72 rounded-full border border-wine/10"></div>
-          <div class="relative flex items-center gap-3 text-wine">
-            <span class="h-px w-10 bg-wine/40"></span>
+        <div class="relative hidden min-h-[31rem] overflow-hidden bg-blush/65 p-8 sm:flex sm:flex-col sm:justify-between">
+          <div class="absolute -left-20 -top-16 size-64 rounded-full border border-brown/10"></div>
+          <div class="absolute -bottom-20 -right-20 size-72 rounded-full border border-brown/10"></div>
+          <div class="relative flex items-center gap-3 text-brown">
+            <span class="h-px w-10 bg-brown/40"></span>
             <span class="text-[0.65rem] font-bold uppercase tracking-[0.24em]">A note from Tati</span>
           </div>
           <div class="relative">
-            <div class="mx-auto grid aspect-[4/5] max-w-52 place-items-center rounded-[7rem_7rem_1.5rem_1.5rem] border border-wine/15 bg-gradient-to-b from-cream/80 to-blush-deep/70 p-8 text-center shadow-sm">
+            <div class="mx-auto grid aspect-[4/5] max-w-52 place-items-center rounded-[7rem_7rem_0.75rem_0.75rem] border border-brown/15 bg-ivory p-8 text-center shadow-card">
               <div>
-                <span class="block font-display text-5xl text-wine">C</span>
-                <span class="mt-2 block text-[0.6rem] font-bold uppercase tracking-[0.24em] text-wine/85">
-                  Curated for you
+                <span class="block font-display text-5xl text-ink">TC</span>
+                <span class="mt-2 block text-[0.6rem] font-bold uppercase tracking-[0.24em] text-brown">
+                  The private edit
                 </span>
               </div>
             </div>
           </div>
-          <p class="relative font-display text-2xl italic leading-snug text-wine">
-            The missing piece to your next fit.
+          <p class="relative font-display text-2xl italic leading-snug text-ink">
+            They don't make them like this no more.
           </p>
         </div>
 
         <div class="px-6 pb-8 pt-16 sm:px-10 sm:py-12">
           <p class="eyebrow">Your first find is sweeter</p>
-          <h2 id="welcome-title" class="mt-4 font-display text-4xl leading-tight text-wine sm:text-5xl">
+          <h2 id="welcome-title" class="mt-4 font-display text-4xl leading-tight text-ink sm:text-5xl">
             Take {MARKETING.welcomeDiscountPercent}% off your first order.
           </h2>
-          <p id="welcome-description" class="mt-5 text-sm leading-7 text-ink/80">
-            Join Tati’s list for first looks at new natural fiber drops. Your welcome code appears right here.
+          <p id="welcome-description" class="mt-5 text-sm leading-7 text-brown">
+            Join Tati’s list for first looks at newly sourced pieces. Your welcome code appears right here.
           </p>
 
           <form data-welcome-form class="mt-7">
@@ -66,36 +66,36 @@ import { MARKETING } from '../config/brand';
               autocomplete="email"
               required
               placeholder="Email address"
-              class="min-h-[3.25rem] w-full rounded-full border border-wine/20 bg-white px-5 text-sm text-ink outline-none transition placeholder:text-ink/65 focus:border-wine focus:ring-4 focus:ring-blush-deep/50"
+              class="min-h-[3.25rem] w-full rounded-lg border border-brown/25 bg-soft-white px-5 text-sm text-ink outline-none transition placeholder:text-brown/75 focus:border-ink focus:ring-4 focus:ring-blue/65"
             />
             <button
               type="submit"
-              class="mt-3 min-h-[3.25rem] w-full rounded-full bg-wine px-6 text-sm font-bold text-cream transition hover:bg-wine-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine disabled:cursor-wait disabled:opacity-60"
+              class="mt-3 min-h-[3.25rem] w-full rounded-lg bg-ink px-6 text-sm font-bold text-ivory transition hover:bg-brown focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:cursor-wait disabled:opacity-60"
             >
               Reveal my {MARKETING.welcomeDiscountPercent}% code
             </button>
-            <p data-welcome-error class="mt-3 min-h-5 text-sm text-wine" role="alert"></p>
+            <p data-welcome-error class="mt-3 min-h-5 text-sm font-medium text-ink" role="alert"></p>
           </form>
 
-          <div data-welcome-success class="mt-7 hidden rounded-3xl border border-wine/15 bg-blush/60 p-5" aria-live="polite">
-            <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/80">Your welcome code</p>
-            <div class="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-cream p-3">
-              <strong data-welcome-code class="font-display text-2xl tracking-wider text-wine"></strong>
+          <div data-welcome-success class="mt-7 hidden rounded-lg border border-brown/15 bg-blue/60 p-5" aria-live="polite">
+            <p class="text-xs font-bold uppercase tracking-[0.2em] text-brown">Your welcome code</p>
+            <div class="mt-3 flex items-center justify-between gap-3 rounded-md bg-ivory p-3">
+              <strong data-welcome-code class="font-display text-2xl tracking-wider text-ink"></strong>
               <button
                 data-copy-code
                 type="button"
-                class="inline-flex min-h-11 items-center rounded-full border border-wine/20 px-4 py-2 text-xs font-bold text-wine transition hover:border-wine hover:bg-cream"
+                class="inline-flex min-h-11 items-center rounded-md border border-brown/25 px-4 py-2 text-xs font-bold text-ink transition hover:bg-paper"
               >
                 Copy code
               </button>
             </div>
-            <p data-welcome-success-message class="mt-3 text-sm text-ink/80"></p>
-            <a href="/shop" class="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-wine underline decoration-2 underline-offset-4">
+            <p data-welcome-success-message class="mt-3 text-sm text-brown"></p>
+            <a href="/shop" class="mt-3 inline-flex min-h-11 items-center text-sm font-bold text-ink underline decoration-rose decoration-2 underline-offset-4">
               Find your piece
             </a>
           </div>
 
-          <button data-welcome-close type="button" class="mt-3 inline-flex min-h-11 items-center text-xs text-ink/80 underline underline-offset-4 hover:text-wine">
+          <button data-welcome-close type="button" class="mt-3 inline-flex min-h-11 items-center text-xs text-brown underline underline-offset-4 hover:text-ink">
             No thank you, I will keep browsing
           </button>
         </div>

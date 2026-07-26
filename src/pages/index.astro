@@ -1,128 +1,325 @@
 ---
 import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import ProductGrid from '../components/ProductGrid.astro';
-import { getFeaturedProducts } from '../lib/products';
+import { getAllProducts, getFeaturedProducts } from '../lib/products';
 import { FAQ, faqSchema } from '../lib/faq';
+import { CATEGORIES } from '../lib/types';
 import { SITE } from '../config/brand';
 
-const featured = await getFeaturedProducts(8);
-const homeFaq = [FAQ[0], FAQ[1], FAQ[3], FAQ[7], FAQ[9]];
+const allProducts = await getAllProducts();
+const available = allProducts.filter((product) => product.status === 'available');
+const featured = await getFeaturedProducts(4);
+const everyday = [...available].sort((a, b) => a.priceCents - b.priceCents).slice(0, 4);
+const rare = [...available].sort((a, b) => b.priceCents - a.priceCents).slice(0, 4);
+const homeFaq = [FAQ[0], FAQ[1], FAQ[2], FAQ[4], FAQ[6]];
+const fibers = [
+  ['Cotton', 'Soft structure for every day.', '01'],
+  ['Linen', 'Easy texture that wears in beautifully.', '02'],
+  ['Silk', 'Light, fluid, and made to move.', '03'],
+  ['Wool', 'Warmth with lasting shape.', '04'],
+  ['Cashmere', 'The softest layer in the edit.', '05'],
+  ['Leather', 'Character that gets better with wear.', '06'],
+];
 ---
 
 <Base
-  title="Natural fiber pieces for women and men"
+  title="Previously loved clothing, thoughtfully sourced"
   path="/"
-  description="Tati Curated hand sources one of a kind cotton, linen, wool, and silk pieces for women and men. New drops daily, with quality made to last."
+  description={SITE.description}
   jsonLd={[faqSchema(homeFaq)]}
 >
-  <section class="mx-auto max-w-7xl px-4 pb-12 pt-5 sm:px-6 md:pb-20 md:pt-8">
-    <div class="relative overflow-hidden rounded-[2rem] border border-wine/10 bg-blush/40">
-      <div class="grid min-h-[39rem] md:grid-cols-[1.12fr_0.88fr]">
-        <div class="relative z-10 flex flex-col justify-center px-6 py-14 sm:px-10 md:px-14 lg:px-20">
-          <p class="eyebrow">Natural fibers only. New drops daily.</p>
-          <h1 class="mt-5 max-w-3xl font-display text-[2.75rem] leading-[1.02] text-wine sm:text-6xl lg:text-7xl">
-            The missing piece to your next fit.
+  <section class="mx-auto max-w-7xl px-4 pb-14 pt-5 sm:px-6 md:pb-24 md:pt-8">
+    <div class="relative overflow-hidden rounded-panel border border-brown/15 bg-ivory">
+      <div class="grid min-h-[42rem] lg:grid-cols-[0.92fr_1.08fr]">
+        <div class="relative z-10 flex flex-col justify-center px-6 py-14 sm:px-10 md:px-14 lg:px-16 lg:py-20">
+          <p class="eyebrow">The Tati edit, Fort Lauderdale</p>
+          <h1 class="mt-6 max-w-3xl font-display text-[3.2rem] leading-[0.94] tracking-[-0.045em] text-ink sm:text-6xl md:text-7xl lg:text-[5.4rem]">
+            They don't make them like this no more.
           </h1>
-          <p class="mt-6 max-w-xl text-base leading-7 text-ink/80 md:text-lg md:leading-8">
-            They do not make them like this anymore. I hand source one of a kind cotton, linen, wool, and silk pieces for women and men, with quality meant to be worn for years.
+          <p class="mt-7 max-w-xl text-base leading-8 text-brown md:text-lg">
+            Previously loved clothing made primarily from natural fibers, thoughtfully sourced one piece at a time.
           </p>
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-full bg-wine px-7 text-sm font-bold text-cream shadow-[0_10px_30px_rgba(110,36,51,0.18)] transition hover:-translate-y-0.5 hover:bg-wine-deep">
-              Shop the latest finds
-            </a>
-            <a href="/about" class="inline-flex min-h-12 items-center justify-center rounded-full border border-wine/25 px-7 text-sm font-bold text-wine transition hover:border-wine hover:bg-cream/70">
-              Meet Tati’s point of view
-            </a>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="/shop" class="button-primary">Explore the latest edit</a>
+            <a href="/about" class="button-secondary">How Tati curates</a>
           </div>
-          <div class="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-xs font-bold uppercase tracking-[0.12em] text-wine/80">
+          <div class="mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 border-t border-brown/15 pt-5 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-brown sm:grid-cols-4">
+            <span>Hand sourced</span>
+            <span>One of one</span>
+            <span>Condition reviewed</span>
             <span>Ships in 1 to 2 days</span>
-            <span>Women and men</span>
-            <span>Only one of each</span>
           </div>
         </div>
 
-        <div class="relative min-h-[29rem] overflow-hidden bg-gradient-to-br from-blush via-cream to-blush-deep md:min-h-full">
-          <div class="absolute -right-24 -top-24 size-80 rounded-full border border-wine/10"></div>
-          <div class="absolute -bottom-32 -left-28 size-96 rounded-full border border-wine/10"></div>
-          <div class="absolute inset-0 grid place-items-center p-8">
-            <div class="editorial-frame relative aspect-[3/4] w-[76%] max-w-[23rem] rounded-[10rem_10rem_2rem_2rem] bg-cream/75 shadow-[0_24px_70px_rgba(81,24,36,0.15)]">
-              <div class="absolute inset-0 z-10 flex flex-col items-center justify-center p-8 text-center">
-                <span class="font-display text-7xl leading-none text-wine">C</span>
-                <span class="mt-5 h-px w-16 bg-wine/35"></span>
-                <span class="mt-5 text-[0.65rem] font-bold uppercase tracking-[0.28em] text-wine/85">The Tati edit</span>
-                <p class="mt-4 font-display text-2xl italic leading-snug text-wine">Quality you can feel.</p>
+        <div class="relative min-h-[34rem] overflow-hidden border-t border-brown/15 bg-paper lg:min-h-full lg:border-l lg:border-t-0">
+          <div class="absolute left-5 top-5 z-10 rounded-md border border-brown/15 bg-ivory/95 px-3 py-2 text-[0.58rem] font-bold uppercase tracking-[0.18em] text-brown">
+            Sourcing note 001
+          </div>
+
+          <div class="absolute inset-0 grid place-items-center p-8 sm:p-12">
+            <div class="relative aspect-[3/4] w-[74%] max-w-[27rem] overflow-hidden rounded-[10rem_10rem_0.75rem_0.75rem] border border-brown/15 bg-soft-white shadow-panel">
+              <div class="absolute inset-5 border border-brown/10"></div>
+              <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                <span class="font-display text-6xl font-medium leading-none text-ink">TC</span>
+                <span class="mt-6 h-px w-16 bg-brown/40"></span>
+                <span class="mt-5 text-[0.6rem] font-bold uppercase tracking-[0.24em] text-brown">Photo placeholder</span>
+                <p class="mt-4 max-w-48 font-display text-2xl italic leading-snug text-ink">The fabric comes first.</p>
               </div>
             </div>
           </div>
-          <p class="absolute bottom-5 left-0 right-0 text-center text-[0.6rem] font-bold uppercase tracking-[0.25em] text-wine/85">
-            Real product photos are coming soon
-          </p>
+
+          <div aria-hidden="true" class="absolute bottom-5 right-5 flex items-end gap-2">
+            <span class="block h-16 w-10 rotate-[-4deg] rounded-sm border border-brown/10 bg-blush"></span>
+            <span class="block h-12 w-10 rotate-[3deg] rounded-sm border border-brown/10 bg-blue"></span>
+            <span class="block h-20 w-10 rotate-[-1deg] rounded-sm border border-brown/10 bg-parchment"></span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
     <div class="mb-9 flex items-end justify-between gap-6">
       <div>
-        <p class="eyebrow">New drops daily</p>
-        <h2 class="mt-3 font-display text-4xl text-ink md:text-5xl">Just in.</h2>
+        <p class="eyebrow">Fresh from the rack</p>
+        <h2 class="mt-3 font-display text-4xl tracking-[-0.03em] text-ink md:text-6xl">Just Sourced</h2>
       </div>
-      <a href="/shop" class="inline-flex min-h-11 shrink-0 items-center text-sm font-bold text-wine underline decoration-blush-deep decoration-2 underline-offset-4 hover:decoration-wine">
-        See everything
-      </a>
+      <a href="/shop" class="text-link">See every piece</a>
     </div>
     <ProductGrid products={featured} />
   </section>
 
-  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
-    <div class="grid overflow-hidden rounded-[2rem] bg-wine text-cream md:grid-cols-3">
-      <div class="border-b border-cream/15 p-7 md:border-b-0 md:border-r md:p-10">
-        <p class="font-display text-3xl">One means one.</p>
-        <p class="mt-3 text-sm leading-7 text-cream/85">Every piece is individually sourced. Once it sells, it belongs in someone’s wardrobe.</p>
+  <section class="border-y border-brown/15 bg-ivory">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24">
+      <div class="grid gap-7 md:grid-cols-[0.75fr_1.25fr] md:items-end">
+        <div>
+          <p class="eyebrow">Material notes</p>
+          <h2 class="mt-3 max-w-md font-display text-4xl leading-[1.02] tracking-[-0.03em] text-ink md:text-6xl">
+            Shop by what it's made of
+          </h2>
+        </div>
+        <p class="max-w-xl text-sm leading-7 text-brown md:justify-self-end md:text-base">
+          Natural fibers lead the edit. Every listing tells you the full composition, including blends and linings, so you can choose with clear information.
+        </p>
       </div>
-      <div class="border-b border-cream/15 p-7 md:border-b-0 md:border-r md:p-10">
-        <p class="font-display text-3xl">Natural fibers only.</p>
-        <p class="mt-3 text-sm leading-7 text-cream/85">Cotton, linen, wool, and silk selected for feel, construction, and lasting quality.</p>
-      </div>
-      <div class="p-7 md:p-10">
-        <p class="font-display text-3xl">For women and men.</p>
-        <p class="mt-3 text-sm leading-7 text-cream/85">Timeless pieces for every wardrobe, each one ready to complete a new fit.</p>
+
+      <!-- Real fiber filtering requires a product fiber field. This is a follow-up data enhancement. -->
+      <div class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+        {fibers.map(([name, copy, number], index) => (
+          <a
+            href="/shop"
+            class:list={[
+              'group flex min-h-56 flex-col justify-between rounded-card border border-brown/15 p-5 transition hover:-translate-y-1 hover:border-brown/30 hover:shadow-card',
+              index % 3 === 0 ? 'bg-blush/55' : index % 3 === 1 ? 'bg-blue/65' : 'bg-paper',
+            ]}
+          >
+            <span class="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-brown">{number}</span>
+            <div>
+              <h3 class="font-display text-3xl text-ink">{name}</h3>
+              <p class="mt-2 text-xs leading-5 text-brown">{copy}</p>
+              <span class="mt-4 block text-sm font-bold text-ink transition group-hover:translate-x-1" aria-hidden="true">Explore →</span>
+            </div>
+          </a>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
+    <div class="mb-9 grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+      <div>
+        <p class="eyebrow">Everyday pieces</p>
+        <h2 class="mt-3 font-display text-4xl tracking-[-0.03em] text-ink md:text-6xl">Everyday Pieces</h2>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-brown">
+          The same eye for fabric and character, at prices made for regular rotation.
+        </p>
+      </div>
+      <a href="/shop" class="text-link">Shop the full edit</a>
+    </div>
+    <ProductGrid products={everyday} />
+  </section>
+
+  <section class="border-y border-brown/15 bg-paper/55">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-24">
+      <div class="mb-9 grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+        <div>
+          <p class="eyebrow">Worth a closer look</p>
+          <h2 class="mt-3 font-display text-4xl tracking-[-0.03em] text-ink md:text-6xl">Rare Finds</h2>
+          <p class="mt-4 max-w-xl text-sm leading-7 text-brown">
+            Exceptional construction, memorable materials, and pieces that rarely come around twice.
+          </p>
+        </div>
+        <a href="/shop" class="text-link">See all pieces</a>
+      </div>
+      <ProductGrid products={rare} />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
+    <div class="grid overflow-hidden rounded-panel border border-brown/15 bg-ivory lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="flex min-h-80 flex-col justify-between bg-ink p-8 text-ivory sm:p-12">
+        <p class="text-[0.65rem] font-bold uppercase tracking-[0.2em] text-paper">Why it exists</p>
+        <p class="max-w-md font-display text-4xl leading-[1.03] tracking-[-0.03em] md:text-5xl">
+          Natural fibers in a synthetic world.
+        </p>
+      </div>
+      <div class="p-8 sm:p-12 lg:p-16">
+        <p class="max-w-2xl text-lg leading-9 text-brown">
+          Most clothing today is made quickly and heavily dependent on synthetic fibers. Tati Curated looks for something different. Previously loved pieces selected for their material, construction, character, and ability to stay in a wardrobe for years.
+        </p>
+        <p class="mt-6 max-w-2xl text-sm leading-7 text-brown">
+          From affordable everyday pieces to rare vintage finds, everything is selected with the same eye for quality, material, and lasting wear.
+        </p>
+        <p class="mt-8 font-display text-2xl italic text-ink">Already made. Still worth wearing.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
+    <div class="max-w-3xl">
+      <p class="eyebrow">The Tati filter</p>
+      <h2 class="mt-3 font-display text-4xl leading-[1.02] tracking-[-0.03em] text-ink md:text-6xl">
+        What every piece goes through
+      </h2>
+    </div>
+    <ol class="mt-10 grid border-y border-brown/15 md:grid-cols-5">
       {[
-        ['Dresses', 'Silk, cotton, and linen silhouettes selected to last.', '/shop/dresses'],
-        ['Shoes', 'One of a kind footwear, selected with the same careful eye.', '/shop/shoes'],
-        ['Bags', 'The finishing piece that brings the whole fit together.', '/shop/bags'],
-        ['The full edit', 'Women and men pieces, all in one place.', '/shop'],
-      ].map(([name, copy, href], index) => (
+        ['01', 'Fabric checked', 'Material and feel come first.'],
+        ['02', 'Condition reviewed', 'Wear is looked over and disclosed.'],
+        ['03', 'Measurements taken', 'Useful details help you judge the fit.'],
+        ['04', 'Composition disclosed', 'Fibers, blends, and linings are shared honestly.'],
+        ['05', 'Personally selected', 'Every piece is chosen by Tati.'],
+      ].map(([number, title, copy]) => (
+        <li class="border-b border-brown/15 p-6 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 lg:p-8">
+          <span class="text-[0.62rem] font-bold tracking-[0.18em] text-brown">{number}</span>
+          <h3 class="mt-10 font-display text-2xl leading-tight text-ink">{title}</h3>
+          <p class="mt-3 text-sm leading-6 text-brown">{copy}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
+    <div class="mb-9 flex items-end justify-between gap-6">
+      <div>
+        <p class="eyebrow">Find your section</p>
+        <h2 class="mt-3 font-display text-4xl tracking-[-0.03em] text-ink md:text-6xl">Shop by category</h2>
+      </div>
+      <a href="/shop" class="text-link">View all</a>
+    </div>
+    <div class="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+      {CATEGORIES.map((category, index) => (
         <a
-          href={href}
+          href={`/shop/${category.slug}`}
           class:list={[
-            'group flex min-h-64 flex-col justify-between overflow-hidden rounded-card border p-6 shadow-card transition hover:-translate-y-1 hover:shadow-card-hover',
-            index % 2 === 0 ? 'border-wine/10 bg-blush/45' : 'border-wine/10 bg-cream',
+            'group flex min-h-48 flex-col justify-between rounded-card border border-brown/15 p-5 transition hover:-translate-y-1 hover:border-brown/30',
+            index % 3 === 0 ? 'bg-blue/65' : index % 3 === 1 ? 'bg-ivory' : 'bg-blush/55',
           ]}
         >
-          <span class="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-wine/80">Shop the edit</span>
-          <div>
-            <h3 class="font-display text-3xl text-wine">{name}</h3>
-            <p class="mt-2 text-sm leading-6 text-ink/80">{copy}</p>
-            <span class="mt-5 inline-flex text-sm font-bold text-wine transition group-hover:translate-x-1" aria-hidden="true">Explore →</span>
-          </div>
+          <span class="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-brown">The edit</span>
+          <h3 class="font-display text-3xl text-ink">{category.label}</h3>
         </a>
       ))}
+      <a href="/shop" class="group flex min-h-48 flex-col justify-between rounded-card border border-brown/15 bg-ink p-5 text-ivory transition hover:-translate-y-1">
+        <span class="text-[0.6rem] font-bold uppercase tracking-[0.18em] text-paper">All together</span>
+        <h3 class="font-display text-3xl">The full edit</h3>
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
+    <div class="grid gap-8 border-y border-brown/15 py-12 md:grid-cols-[0.7fr_1.3fr] md:py-16">
+      <div>
+        <p class="eyebrow">A note from Tati</p>
+        <p class="mt-5 font-display text-3xl italic leading-tight text-ink">Chosen for what it is made of and how it was made.</p>
+      </div>
+      <div>
+        <h2 class="font-display text-4xl leading-[1.05] tracking-[-0.03em] text-ink md:text-5xl">
+          Every piece is sourced by Tati.
+        </h2>
+        <p class="mt-6 max-w-2xl text-base leading-8 text-brown">
+          Chosen not only for how it looks, but for what it is made of, how it feels, how it was constructed, and how it can be worn now.
+        </p>
+        <a href="/about" class="text-link mt-6">Read Tati’s story</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
+    <div class="grid overflow-hidden rounded-panel border border-brown/15 bg-blush/50 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="p-8 sm:p-12 lg:p-16">
+        <p class="eyebrow">The private edit</p>
+        <h2 class="mt-4 font-display text-5xl leading-[0.98] tracking-[-0.04em] text-ink md:text-6xl">
+          The good ones go once.
+        </h2>
+        <p class="mt-5 max-w-xl text-sm leading-7 text-brown md:text-base">
+          Join for first access to new drops, rare finds, and private edits.
+        </p>
+      </div>
+      <div class="flex items-center border-t border-brown/15 bg-ivory p-8 sm:p-12 lg:border-l lg:border-t-0 lg:p-16">
+        <NewsletterForm idPrefix="home" buttonLabel="Join for first access" compact={true} />
+      </div>
     </div>
   </section>
 
   <Faq
     items={homeFaq}
-    eyebrow="The details"
-    title="Before you fall for a find."
-    intro={`${SITE.name} keeps shopping simple, personal, and clear.`}
+    eyebrow="Before you choose"
+    title="A few useful details."
+    intro={`${SITE.name} keeps material, condition, fit, and availability clear.`}
   />
 </Base>
+
+<style>
+  .button-primary,
+  .button-secondary {
+    align-items: center;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    font-size: 0.875rem;
+    font-weight: 700;
+    justify-content: center;
+    min-height: 3rem;
+    padding-inline: 1.75rem;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  .button-primary {
+    background: #2f2a28;
+    color: #fcfaf7;
+  }
+
+  .button-primary:hover {
+    background: #574a45;
+    transform: translateY(-2px);
+  }
+
+  .button-secondary {
+    border: 1px solid rgba(87, 74, 69, 0.35);
+    color: #2f2a28;
+  }
+
+  .button-secondary:hover {
+    background: #eee5d8;
+    border-color: #574a45;
+  }
+
+  .text-link {
+    align-items: center;
+    color: #2f2a28;
+    display: inline-flex;
+    font-size: 0.875rem;
+    font-weight: 700;
+    min-height: 2.75rem;
+    text-decoration: underline;
+    text-decoration-color: #d8b8bf;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  .text-link:hover {
+    text-decoration-color: #2f2a28;
+  }
+</style>

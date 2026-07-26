@@ -10,12 +10,12 @@ const { products, filterable = false } = Astro.props;
 ---
 
 {products.length === 0 ? (
-  <div class="rounded-[2rem] border border-wine/10 bg-blush/35 px-6 py-16 text-center">
-    <p class="font-display text-3xl text-wine">This edit is between finds.</p>
-    <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-ink/80">
-      Tati adds new natural fiber pieces daily. Explore the full shop while this collection fills up.
+  <div class="rounded-panel border border-brown/15 bg-ivory px-6 py-16 text-center">
+    <p class="font-display text-3xl text-ink">This edit is between finds.</p>
+    <p class="mx-auto mt-3 max-w-md text-sm leading-7 text-brown">
+      Tati adds new, previously loved pieces regularly. Explore the full shop while this collection fills up.
     </p>
-    <a href="/shop" class="mt-6 inline-flex rounded-full bg-wine px-6 py-3 text-sm font-bold text-cream transition hover:bg-wine-deep">
+    <a href="/shop" class="mt-6 inline-flex rounded-lg bg-ink px-6 py-3 text-sm font-bold text-ivory transition hover:bg-brown">
       Shop every find
     </a>
   </div>
@@ -23,7 +23,7 @@ const { products, filterable = false } = Astro.props;
   <div
     data-product-grid={filterable ? '' : undefined}
     class:list={[
-      'grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-5 lg:gap-x-6 lg:gap-y-14',
+      'grid grid-cols-2 gap-x-3 gap-y-10 sm:gap-x-5 lg:gap-x-7 lg:gap-y-14',
       filterable ? 'xl:grid-cols-3' : 'md:grid-cols-3 lg:grid-cols-4',
     ]}
   >

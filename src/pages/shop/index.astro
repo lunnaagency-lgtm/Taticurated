@@ -7,23 +7,23 @@ import { CATEGORIES } from '../../lib/types';
 const products = await getAllProducts();
 ---
 
-<Base title="Shop all" path="/shop" description="Shop one of a kind cotton, linen, wool, and silk pieces for women and men at Tati Curated. Hand sourced quality, with new drops daily.">
+<Base title="Shop all" path="/shop" description="Shop previously loved, one of a kind clothing made primarily from natural fibers at Tati Curated. Hand sourced for fabric, construction, character, and lasting wear.">
   <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:py-16">
-    <div class="flex flex-col gap-4 border-b border-wine/10 pb-8 md:flex-row md:items-end md:justify-between">
+    <div class="flex flex-col gap-4 border-b border-brown/15 pb-8 md:flex-row md:items-end md:justify-between">
       <div>
-        <p class="eyebrow">Natural fibers only</p>
-        <h1 class="mt-3 font-display text-5xl text-wine md:text-6xl">Shop all finds.</h1>
-        <p class="mt-4 max-w-xl text-sm leading-7 text-ink/80">
-          Cotton, linen, wool, and silk pieces for women and men. Each one is hand sourced by Tati, and there is only one.
+        <p class="eyebrow">The full edit</p>
+        <h1 class="mt-3 font-display text-5xl tracking-[-0.03em] text-ink md:text-6xl">Shop all finds.</h1>
+        <p class="mt-4 max-w-xl text-sm leading-7 text-brown">
+          Previously loved clothing, made primarily from natural fibers and selected one piece at a time. Full composition is always disclosed honestly.
         </p>
       </div>
-      <p class="text-sm font-bold text-wine">{products.length} unique pieces</p>
+      <p class="text-sm font-bold text-ink">{products.length} unique pieces</p>
     </div>
 
     <nav aria-label="Shop categories" class="scroll-row mt-7 flex max-w-full gap-2 overflow-x-auto pb-2">
-      <a href="/shop" aria-current="page" class="inline-flex min-h-11 shrink-0 items-center rounded-full bg-wine px-5 py-2.5 text-sm font-bold text-cream">All</a>
+      <a href="/shop" aria-current="page" class="inline-flex min-h-11 shrink-0 items-center rounded-md bg-ink px-5 py-2.5 text-sm font-bold text-ivory">All</a>
       {CATEGORIES.map((c) => (
-        <a href={`/shop/${c.slug}`} class="inline-flex min-h-11 shrink-0 items-center rounded-full border border-wine/20 px-5 py-2.5 text-sm font-bold text-ink/80 transition hover:border-wine hover:bg-blush/35 hover:text-wine">
+        <a href={`/shop/${c.slug}`} class="inline-flex min-h-11 shrink-0 items-center rounded-md border border-brown/20 px-5 py-2.5 text-sm font-bold text-brown transition hover:border-brown hover:bg-paper hover:text-ink">
           {c.label}
         </a>
       ))}

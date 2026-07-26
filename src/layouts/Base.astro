@@ -1,5 +1,5 @@
 ---
-import '@fontsource-variable/playfair-display';
+import '@fontsource-variable/fraunces';
 import '@fontsource/open-sauce-sans/400.css';
 import '@fontsource/open-sauce-sans/500.css';
 import '@fontsource/open-sauce-sans/700.css';
@@ -31,7 +31,7 @@ const {
 
 const pageTitle = title ? `${title}. ${SITE.name}` : `${SITE.name}. ${SITE.tagline}`;
 const canonical = new URL(path, SITE.url).toString();
-const ogImage = new URL(image || '/og.svg', SITE.url).toString();
+const ogImage = new URL(image || '/og.png', SITE.url).toString();
 
 // Baseline org + site schema on every page; product pages add their own via jsonLd.
 const baseSchema: Record<string, unknown>[] = [
@@ -61,7 +61,7 @@ const schema = [...baseSchema, ...jsonLd];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#FBF7F2" />
+    <meta name="theme-color" content="#F8F4EC" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -72,7 +72,7 @@ const schema = [...baseSchema, ...jsonLd];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={`${SITE.name}, the missing piece to your next fit. Natural fiber pieces for women and men.`} />
+    <meta property="og:image:alt" content={`${SITE.name}. Previously loved clothing, thoughtfully sourced one piece at a time.`} />
     <meta name="twitter:card" content="summary_large_image" />
 
     {schema.map((block) => (
@@ -82,7 +82,7 @@ const schema = [...baseSchema, ...jsonLd];
   <body class="flex min-h-screen flex-col bg-cream font-sans text-ink antialiased">
     <a
       href="#main-content"
-      class="fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-wine px-5 py-3 text-sm font-bold text-cream transition focus:translate-y-0"
+      class="fixed left-4 top-4 z-[100] -translate-y-24 rounded-lg bg-ink px-5 py-3 text-sm font-bold text-ivory transition focus:translate-y-0"
     >
       Skip to content
     </a>
@@ -107,8 +107,10 @@ const schema = [...baseSchema, ...jsonLd];
 
   body {
     background-image:
-      radial-gradient(circle at 4% 8%, rgba(233, 198, 205, 0.28), transparent 25rem),
-      radial-gradient(circle at 96% 32%, rgba(245, 228, 231, 0.42), transparent 27rem);
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.024'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 7% 10%, rgba(239, 217, 222, 0.32), transparent 28rem),
+      radial-gradient(circle at 96% 36%, rgba(220, 230, 239, 0.35), transparent 30rem);
+    background-attachment: fixed;
     line-height: 1.6;
     overflow-x: clip;
     text-rendering: optimizeLegibility;
@@ -129,17 +131,17 @@ const schema = [...baseSchema, ...jsonLd];
   }
 
   ::selection {
-    background: #e9c6cd;
-    color: #511824;
+    background: #d8b8bf;
+    color: #2f2a28;
   }
 
   :focus-visible {
-    outline: 2px solid #6e2433;
+    outline: 2px solid #2f2a28;
     outline-offset: 3px;
   }
 
   .eyebrow {
-    color: rgba(110, 36, 51, 0.8);
+    color: #574a45;
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.18em;
@@ -150,7 +152,7 @@ const schema = [...baseSchema, ...jsonLd];
   .scroll-row {
     max-width: 100%;
     overscroll-behavior-inline: contain;
-    scrollbar-color: rgba(110, 36, 51, 0.35) transparent;
+    scrollbar-color: rgba(87, 74, 69, 0.45) transparent;
     scrollbar-width: thin;
   }
 
@@ -159,7 +161,7 @@ const schema = [...baseSchema, ...jsonLd];
   }
 
   .editorial-frame::before {
-    border: 1px solid rgba(110, 36, 51, 0.15);
+    border: 1px solid rgba(87, 74, 69, 0.2);
     border-radius: inherit;
     content: '';
     inset: 0.55rem;

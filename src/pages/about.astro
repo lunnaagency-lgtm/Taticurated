@@ -4,74 +4,85 @@ import Faq from '../components/Faq.astro';
 import { SITE } from '../config/brand';
 import { FAQ, faqSchema as buildFaqSchema } from '../lib/faq';
 
-// One FAQPage block, generated from the FAQ actually rendered on this page, so the
-// schema always matches the visible content.
 const aboutFaq = [FAQ[0], FAQ[1], FAQ[2], FAQ[3], FAQ[9]];
 ---
 
-<Base title="The story" path="/about" description="Meet Tati and the story behind her hand sourced natural fiber edit for women and men, with one of a kind pieces made to last." jsonLd={[buildFaqSchema(aboutFaq)]}>
-  <section class="mx-auto max-w-7xl px-4 pb-14 pt-8 sm:px-6 md:pb-24">
-    <div class="relative overflow-hidden rounded-[2rem] bg-wine px-6 py-16 text-cream sm:px-10 md:px-16 md:py-24">
-      <div class="absolute -right-32 -top-40 size-[32rem] rounded-full border border-cream/10"></div>
-      <div class="absolute -bottom-52 -left-40 size-[36rem] rounded-full border border-cream/10"></div>
-      <div class="relative max-w-4xl">
-        <p class="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-blush">A note from Tati</p>
-        <h1 class="mt-6 font-display text-5xl leading-[1.04] sm:text-6xl md:text-7xl">
-          They do not make them like this anymore.
-        </h1>
-        <p class="mt-7 max-w-2xl text-base leading-8 text-cream/85 md:text-lg">
-          I built Tati Curated to bring back the feeling of clothing made with real care. Natural fibers, beautiful construction, and one of a kind pieces for women and men.
-        </p>
+<Base
+  title="About Tati Curated"
+  path="/about"
+  description="Meet Tati and the point of view behind her hand sourced edit of previously loved clothing, selected for material, construction, character, and lasting wear."
+  jsonLd={[buildFaqSchema(aboutFaq)]}
+>
+  <section class="mx-auto max-w-7xl px-4 pb-14 pt-7 sm:px-6 md:pb-24">
+    <div class="grid overflow-hidden rounded-panel border border-brown/15 bg-ivory lg:grid-cols-[1.08fr_0.92fr]">
+      <div class="flex min-h-[34rem] flex-col justify-between p-7 sm:p-12 md:min-h-[42rem] lg:p-16">
+        <p class="eyebrow">A note from Tati</p>
+        <div class="max-w-3xl">
+          <h1 class="font-display text-5xl leading-[0.96] tracking-[-0.04em] text-ink sm:text-6xl md:text-7xl">
+            They don't make them like this no more.
+          </h1>
+          <p class="mt-7 max-w-2xl text-base leading-8 text-brown md:text-lg">
+            I built Tati Curated for clothing that deserves another chapter. Pieces with better fabric, thoughtful construction, character, and plenty of wear still ahead.
+          </p>
+        </div>
+      </div>
+      <div class="relative min-h-[28rem] border-t border-brown/15 bg-blush/60 p-8 lg:border-l lg:border-t-0">
+        <div class="absolute inset-8 border border-brown/15"></div>
+        <div class="relative flex h-full min-h-[24rem] flex-col items-center justify-center text-center">
+          <span class="font-display text-7xl text-ink">TC</span>
+          <span class="mt-6 h-px w-16 bg-brown/40"></span>
+          <p class="mt-6 max-w-56 font-display text-2xl italic leading-snug text-ink">Better materials, already in existence.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[0.8fr_1.2fr] md:gap-20 md:py-24">
+  <section class="mx-auto grid max-w-6xl gap-12 px-4 py-14 sm:px-6 md:grid-cols-[0.75fr_1.25fr] md:gap-20 md:py-24">
     <div>
       <p class="eyebrow">Why I curate</p>
-      <h2 class="mt-4 font-display text-4xl leading-tight text-wine md:text-5xl">
-        Better fibers. Fewer compromises.
+      <h2 class="mt-4 font-display text-4xl leading-[1.04] tracking-[-0.03em] text-ink md:text-5xl">
+        The fabric comes first.
       </h2>
-      <div class="mt-8 rounded-[2rem] bg-blush/55 p-7">
-        <p class="font-display text-2xl italic leading-snug text-wine">“{SITE.bioVoice}”</p>
+      <div class="mt-8 rounded-card border border-brown/15 bg-blue/65 p-7">
+        <p class="font-display text-2xl italic leading-snug text-ink">“{SITE.bioVoice}”</p>
       </div>
     </div>
 
-    <div class="max-w-[68ch] space-y-7 text-base leading-8 text-ink/80 md:text-lg md:leading-9">
+    <div class="max-w-[68ch] space-y-7 text-base leading-8 text-brown md:text-lg md:leading-9">
       <p>
-        I kept seeing the same problem. So much of the clothing around us is made from polyester and designed to be replaced. I wanted a shop built around the opposite idea. Pieces with substance, character, and a reason to stay in your wardrobe.
+        Most clothing today is made quickly and relies heavily on synthetic fibers. I wanted to build a shop around a different instinct. Look at what already exists, notice what was made well, and give the best pieces more years in a wardrobe.
       </p>
       <p>
-        I source every piece by hand and look first at the fabric. Cotton, linen, wool, and silk. Then I look at the construction, the feel, and the details that make it worth choosing. If I would not want to wear it or see someone I love wear it, it does not make the edit.
+        I source every piece by hand. I look at the fabric first, then the construction, condition, feel, and the details that give it character. Natural fibers lead the edit, but I will never hide a blend or synthetic lining. The full composition is part of the story.
       </p>
       <p>
-        Tati Curated is for women and men who want more from what they wear. Not more clothing, but better clothing. The kind that feels good in your hands, works hard in your closet, and makes the whole fit click.
+        A $25 cotton tank can be every bit as good as a rare leather jacket. Price does not decide how carefully something is photographed, measured, described, or presented here. Every piece gets the same attention.
       </p>
       <p>
-        I add new pieces daily, but I still choose them one at a time. There are no duplicates and no endless restocks. If you find the piece your wardrobe was missing, that one is yours alone.
+        Tati Curated is meant to become the place you check first. Not because there is an endless amount to scroll through, but because each piece was chosen with a real point of view.
       </p>
-      <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-full bg-wine px-7 text-sm font-bold text-cream transition hover:-translate-y-0.5 hover:bg-wine-deep">
-        Shop Tati’s latest finds
+      <a href="/shop" class="inline-flex min-h-12 items-center justify-center rounded-lg bg-ink px-7 text-sm font-bold text-ivory transition hover:-translate-y-0.5 hover:bg-brown">
+        Shop the latest edit
       </a>
     </div>
   </section>
 
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:py-20">
-    <div class="grid overflow-hidden rounded-[2rem] border border-wine/10 sm:grid-cols-3">
-      <div class="bg-cream p-7 md:p-10">
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Hand sourced</p>
-        <p class="mt-4 font-display text-3xl text-wine">No duplicates.</p>
-        <p class="mt-3 text-sm leading-7 text-ink/80">Each listing is one real piece, selected for its fabric, quality, and character.</p>
+    <div class="grid overflow-hidden rounded-panel border border-brown/15 sm:grid-cols-3">
+      <div class="bg-ivory p-7 md:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brown">Hand sourced</p>
+        <p class="mt-5 font-display text-3xl text-ink">One at a time.</p>
+        <p class="mt-3 text-sm leading-7 text-brown">Each listing is one real piece, chosen personally for its material, quality, and character.</p>
       </div>
-      <div class="border-y border-wine/10 bg-blush/45 p-7 sm:border-x sm:border-y-0 md:p-10">
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-wine/80">Natural fibers only</p>
-        <p class="mt-4 font-display text-3xl text-wine">Made to last.</p>
-        <p class="mt-3 text-sm leading-7 text-ink/80">Cotton, linen, wool, and silk bring quality back to the everyday wardrobe.</p>
+      <div class="border-y border-brown/15 bg-paper p-7 sm:border-x sm:border-y-0 md:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brown">Natural fibers first</p>
+        <p class="mt-5 font-display text-3xl text-ink">Honest composition.</p>
+        <p class="mt-3 text-sm leading-7 text-brown">Fibers, blends, and linings are shared clearly so you know what you are choosing.</p>
       </div>
-      <div class="bg-cream p-7 md:p-10">
-        <p class="text-xs font-bold uppercase tracking-[0.18em] text-wine/80">For women and men</p>
-        <p class="mt-4 font-display text-3xl text-wine">A fit for you.</p>
-        <p class="mt-3 text-sm leading-7 text-ink/80">A warm boutique experience with the same careful eye behind every piece.</p>
+      <div class="bg-ivory p-7 md:p-10">
+        <p class="text-xs font-bold uppercase tracking-[0.18em] text-brown">Ready to wear again</p>
+        <p class="mt-5 font-display text-3xl text-ink">Good clothing lasts.</p>
+        <p class="mt-3 text-sm leading-7 text-brown">Condition, measurements, and useful details are reviewed before a piece meets the shop.</p>
       </div>
     </div>
   </section>

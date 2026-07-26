@@ -12,11 +12,10 @@ export const SITE = {
   // reads "Curated by Tati", kept only as an alias in FAQ copy and the Depop link.
   url: 'https://taticurated.com',
   domain: 'taticurated.com',
-  tagline: 'The missing piece to your next fit.',
+  tagline: "They don't make them like this no more.",
   description:
-    'Tati Curated hand sources one of a kind cotton, linen, wool, and silk pieces for women and men. Timeless natural fiber quality, new drops daily, and shipping in 1 to 2 days.',
-  // Warm, emoji-forward voice pulled from her Depop bio.
-  bioVoice: "They don't make them like this anymore. I hand source one of a kind cotton, linen, wool, and silk pieces for women and men. New drops daily. Orders ship in 1 to 2 days.",
+    'Tati Curated is an elevated boutique for previously loved clothing made primarily from natural fibers. Every one of a kind piece is hand sourced for its fabric, construction, character, and ability to be worn for years to come.',
+  bioVoice: "They don't make them like this no more. Every piece is sourced by me, with the fabric, construction, character, and years ahead of it in mind.",
   depop: 'https://www.depop.com/curatedbytati_/',
   instagram: '', // add handle when ready
   email: 'taticuratedshop@gmail.com', // official order and support inbox
@@ -61,15 +60,19 @@ export const MARKETING = {
 } as const;
 
 /**
- * Palette derived from her burgundy serif badge + coquette / y2k product mix.
+ * Warm editorial palette built around the black script logo and natural materials.
  * Consumed by tailwind.config.mjs. Codex styles against these tokens.
  */
 export const PALETTE = {
-  wine: '#6E2433', // brand mark burgundy
-  wineDeep: '#511824',
-  blush: '#F5E4E7', // soft coquette pink
-  blushDeep: '#E9C6CD',
-  cream: '#FBF7F2', // editorial off-white background
-  ink: '#241C1E', // near-black text, warm
-  gold: '#C9A227', // sparing accent
+  cream: '#F8F4EC',
+  ivory: '#FCFAF7',
+  softWhite: '#FFFDFC',
+  paper: '#EEE5D8',
+  parchment: '#E5DACB',
+  ink: '#2F2A28',
+  brown: '#574A45',
+  taupe: '#8B817B',
+  blush: '#EFD9DE',
+  rose: '#D8B8BF',
+  blue: '#DCE6EF',
 } as const;

@@ -6,12 +6,11 @@ interface Props {
   product: Product;
   createdIndex?: number;
 }
+
 const { product, createdIndex = 0 } = Astro.props;
 const img = product.images[0];
 const isSold = product.status === 'sold';
 const isReserved = product.status === 'reserved';
-const categoryWords = product.category.replaceAll('-', ' ');
-const categoryLabel = categoryWords.charAt(0).toUpperCase() + categoryWords.slice(1);
 const normalizeFacet = (value: string | null) => value?.trim().toLocaleLowerCase('en-US') ?? '';
 const colorTokens = product.colors
   .map((color) => encodeURIComponent(normalizeFacet(color)))
@@ -30,9 +29,9 @@ const colorTokens = product.colors
   data-price={product.priceCents}
   data-status={product.status}
   data-created-index={createdIndex}
-  class="group block rounded-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-wine"
+  class="group block focus-visible:rounded-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
 >
-  <div class="relative aspect-[4/5] overflow-hidden rounded-card border border-wine/10 bg-blush shadow-card transition duration-500 group-hover:-translate-y-1 group-hover:shadow-card-hover">
+  <div class="relative aspect-[4/5] overflow-hidden rounded-card border border-brown/10 bg-ivory transition duration-500 group-hover:-translate-y-1 group-hover:shadow-card-hover">
     {img ? (
       <img
         src={img.url}
@@ -42,41 +41,45 @@ const colorTokens = product.colors
         loading={createdIndex === 0 ? 'eager' : 'lazy'}
         fetchpriority={createdIndex === 0 ? 'high' : 'auto'}
         decoding="async"
-        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+        class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
       />
     ) : (
-      <!-- Branded placeholder until real Depop photos are uploaded in Sanity. Never stock. -->
-      <div class="editorial-frame flex h-full w-full items-center justify-center bg-gradient-to-br from-blush via-cream to-blush-deep p-8 text-center">
-        <div>
-          <span class="mx-auto mb-5 block h-px w-12 bg-wine/30"></span>
-          <span class="font-display text-xl leading-snug text-wine/85">{product.title}</span>
-          <span class="mx-auto mt-5 block h-px w-12 bg-wine/30"></span>
+      <div class="editorial-frame flex h-full w-full items-center justify-center bg-ivory p-7 text-center">
+        <div class="w-full">
+          <span class="mx-auto block h-px w-12 bg-brown/35"></span>
+          <span class="mt-6 block font-display text-2xl leading-snug text-ink">{product.title}</span>
+          <span class="mx-auto mt-6 block h-px w-12 bg-brown/35"></span>
+          <span class="mt-4 block text-[0.58rem] font-bold uppercase tracking-[0.2em] text-brown">The Tati edit</span>
         </div>
       </div>
     )}
-    <span class="absolute left-3 top-3 z-10 rounded-full bg-cream/90 px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-wine shadow-sm backdrop-blur">
-      {categoryLabel}
+
+    <span class="absolute left-3 top-3 z-10 rounded-md border border-brown/10 bg-ivory/95 px-2.5 py-1.5 text-[0.58rem] font-bold uppercase tracking-[0.14em] text-ink backdrop-blur">
+      One of one
     </span>
+
     {isSold && (
-      <div class="absolute inset-0 z-20 flex items-center justify-center bg-cream/65 backdrop-blur-[1px]">
-        <span class="rounded-full bg-ink px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] text-cream">
+      <div class="absolute inset-0 z-20 flex items-center justify-center bg-ivory/70 backdrop-blur-[1px]">
+        <span class="rounded-md bg-ink px-5 py-2 text-xs font-bold uppercase tracking-[0.15em] text-ivory">
           Sold
         </span>
       </div>
     )}
+
     {isReserved && (
-      <span class="absolute bottom-3 right-3 rounded-full bg-gold px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-ink">
+      <span class="absolute bottom-3 right-3 rounded-md bg-blue px-3 py-1.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-ink">
         On hold
       </span>
     )}
   </div>
-  <div class="px-1 pt-4">
-    {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-wine/80">{product.brand}</p>}
-    <p class="mt-1 font-display text-lg leading-snug text-ink transition group-hover:text-wine">{product.title}</p>
-    <div class="mt-2 flex flex-col items-start gap-1 text-sm text-ink/80 min-[375px]:flex-row min-[375px]:flex-wrap min-[375px]:items-center min-[375px]:gap-x-3">
-      <span class="font-bold text-wine">{formatPrice(product.priceCents)}</span>
+
+  <div class="pt-4">
+    {product.brand && <p class="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-brown">{product.brand}</p>}
+    <p class="mt-1 text-[0.95rem] font-medium leading-snug text-ink transition group-hover:text-brown">{product.title}</p>
+    <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brown">
+      <span class="font-bold text-ink">{formatPrice(product.priceCents)}</span>
       {product.size && <span>Size {product.size}</span>}
-      {product.condition && <span class="hidden md:inline">{product.condition}</span>}
+      {product.condition && <span>{product.condition}</span>}
     </div>
   </div>
 </a>

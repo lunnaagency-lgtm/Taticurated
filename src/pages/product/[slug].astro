@@ -48,7 +48,7 @@ const details = [
   ['Size', product.size],
   ['Condition', product.condition],
   ['Color', product.colors.join(', ') || null],
-].filter(([, v]) => v) as [string, string][];
+].filter(([, value]) => value) as [string, string][];
 
 const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
 ---
@@ -60,22 +60,22 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
   image={product.images[0]?.url}
   jsonLd={[productSchema, faqSchema(productFaq)]}
 >
-  <section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-14">
-    <nav aria-label="Breadcrumb" class="mb-6 text-xs text-ink/80">
+  <section class="mx-auto max-w-7xl px-4 py-7 sm:px-6 md:py-12">
+    <nav aria-label="Breadcrumb" class="mb-7 text-xs text-brown">
       <ol class="flex flex-wrap items-center gap-2">
-        <li><a href="/" class="transition hover:text-wine">Home</a></li>
+        <li><a href="/" class="transition hover:text-ink">Home</a></li>
         <li aria-hidden="true">/</li>
-        <li><a href="/shop" class="transition hover:text-wine">Shop</a></li>
+        <li><a href="/shop" class="transition hover:text-ink">Shop</a></li>
         <li aria-hidden="true">/</li>
-        <li class="text-ink/80" aria-current="page">{product.title}</li>
+        <li class="text-ink" aria-current="page">{product.title}</li>
       </ol>
     </nav>
 
-    <div class="grid gap-9 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
+    <div class="grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:gap-16">
       <div data-gallery class="grid gap-3 sm:grid-cols-[5.5rem_1fr] sm:items-start">
         {product.images.length > 1 && (
           <div class="scroll-row order-2 flex max-w-full gap-2 overflow-x-auto pb-2 sm:order-1 sm:flex-col sm:overflow-visible">
-            {product.images.slice(0, 6).map((img, index) => (
+            {product.images.slice(0, 8).map((img, index) => (
               <button
                 type="button"
                 data-gallery-thumb
@@ -84,8 +84,8 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
                 aria-label={`View image ${index + 1} of ${product.images.length}`}
                 aria-pressed={index === 0 ? 'true' : 'false'}
                 class:list={[
-                  'aspect-square min-h-11 w-[4.5rem] shrink-0 overflow-hidden rounded-2xl border-2 bg-blush p-0.5 transition sm:w-full',
-                  index === 0 ? 'border-wine' : 'border-transparent hover:border-wine/35',
+                  'aspect-square min-h-11 w-[4.5rem] shrink-0 overflow-hidden rounded-md border bg-ivory p-0.5 transition sm:w-full',
+                  index === 0 ? 'border-ink' : 'border-brown/15 hover:border-brown/45',
                 ]}
               >
                 <img
@@ -93,7 +93,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
                   alt=""
                   width={img.width}
                   height={img.height}
-                  class="h-full w-full rounded-xl object-cover"
+                  class="h-full w-full rounded object-cover"
                   loading="lazy"
                   decoding="async"
                 />
@@ -103,8 +103,8 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
         )}
 
         <div class:list={['order-1 sm:order-2', product.images.length <= 1 && 'sm:col-span-2']}>
-          <div class="relative aspect-[4/5] overflow-hidden rounded-panel border border-wine/10 bg-blush shadow-panel">
-        {product.images[0] ? (
+          <div class="relative aspect-[4/5] overflow-hidden rounded-panel border border-brown/15 bg-ivory">
+            {product.images[0] ? (
               <img
                 data-gallery-main
                 src={product.images[0].url}
@@ -116,60 +116,69 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
                 decoding="async"
                 class="h-full w-full object-cover transition-opacity duration-200"
               />
-        ) : (
-              <div class="editorial-frame flex h-full w-full items-center justify-center bg-gradient-to-br from-blush via-cream to-blush-deep p-10 text-center">
+            ) : (
+              <div class="editorial-frame flex h-full w-full items-center justify-center bg-ivory p-10 text-center">
                 <div>
-                  <span class="mx-auto block h-px w-16 bg-wine/30"></span>
-                  <span class="mt-7 block font-display text-4xl leading-tight text-wine/75">{product.title}</span>
-                  <span class="mx-auto mt-7 block h-px w-16 bg-wine/30"></span>
-                  <span class="mt-5 block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-wine/85">
+                  <span class="mx-auto block h-px w-16 bg-brown/35"></span>
+                  <span class="mt-7 block font-display text-4xl leading-tight text-ink">{product.title}</span>
+                  <span class="mx-auto mt-7 block h-px w-16 bg-brown/35"></span>
+                  <span class="mt-5 block text-[0.62rem] font-bold uppercase tracking-[0.2em] text-brown">
                     Product photo coming soon
                   </span>
                 </div>
+              </div>
+            )}
+
+            <span class="absolute left-4 top-4 rounded-md border border-brown/15 bg-ivory/95 px-3 py-2 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-ink backdrop-blur">
+              One of one
+            </span>
+
+            {product.status === 'sold' && (
+              <div class="absolute inset-0 flex items-center justify-center bg-ivory/70 backdrop-blur-[1px]">
+                <span class="rounded-md bg-ink px-6 py-2 text-sm font-bold uppercase tracking-[0.16em] text-ivory">Sold</span>
+              </div>
+            )}
           </div>
-        )}
-        {product.status === 'sold' && (
-              <div class="absolute inset-0 flex items-center justify-center bg-cream/65 backdrop-blur-[1px]">
-                <span class="rounded-full bg-ink px-6 py-2 text-sm font-bold uppercase tracking-[0.16em] text-cream">Sold</span>
-          </div>
-        )}
-      </div>
+
+          {product.images.length > 1 && (
+            <p class="mt-3 text-xs leading-5 text-brown">Open each image to inspect the fabric, condition, and construction details.</p>
+          )}
         </div>
       </div>
 
-      <aside class="lg:sticky lg:top-32 lg:self-start">
-        <div class="rounded-panel border border-wine/10 bg-cream/80 p-6 shadow-panel backdrop-blur sm:p-8">
+      <aside class="lg:sticky lg:top-40 lg:self-start">
+        <div class="border-y border-brown/15 bg-ivory/70 py-7 backdrop-blur sm:px-2 lg:border-y-0 lg:bg-transparent lg:py-0">
           <div class="flex items-start justify-between gap-5">
             <div>
-              {product.brand && <p class="text-xs font-bold uppercase tracking-[0.2em] text-wine/80">{product.brand}</p>}
-              <h1 class="mt-2 font-display text-4xl leading-tight text-ink md:text-5xl">{product.title}</h1>
+              {product.brand && <p class="text-xs font-bold uppercase tracking-[0.2em] text-brown">{product.brand}</p>}
+              <h1 class="mt-3 font-display text-4xl leading-[1.02] tracking-[-0.035em] text-ink md:text-5xl">{product.title}</h1>
             </div>
             <button
               data-share
               type="button"
-              class="grid size-11 shrink-0 place-items-center rounded-full border border-wine/15 text-lg text-wine transition hover:border-wine hover:bg-blush"
+              class="grid size-11 shrink-0 place-items-center rounded-lg border border-brown/20 text-lg text-ink transition hover:bg-paper"
               aria-label="Share this piece"
             >
               ↗
             </button>
           </div>
-          <p data-share-status class="mt-2 min-h-5 text-xs text-wine" aria-live="polite"></p>
 
-          <p class="mt-1 font-display text-3xl text-wine">{formatPrice(product.priceCents)}</p>
+          <p data-share-status class="mt-2 min-h-5 text-xs text-brown" aria-live="polite"></p>
+          <p class="mt-1 text-xl font-bold text-ink">{formatPrice(product.priceCents)}</p>
 
           <div class="mt-6 flex flex-wrap gap-2">
             {product.size && (
-              <span class="rounded-full border border-wine/15 bg-blush/45 px-4 py-2 text-xs font-bold text-wine">
+              <span class="rounded-md border border-brown/15 bg-paper px-3.5 py-2 text-xs font-bold text-ink">
                 Size {product.size}
               </span>
             )}
             {product.condition && (
-              <span class="rounded-full border border-wine/15 bg-blush/45 px-4 py-2 text-xs font-bold text-wine">
+              <span class="rounded-md border border-brown/15 bg-blue/70 px-3.5 py-2 text-xs font-bold text-ink">
                 {product.condition}
               </span>
             )}
-            <span class="rounded-full border border-wine/15 bg-blush/45 px-4 py-2 text-xs font-bold text-wine">
-              One of a kind
+            <span class="rounded-md border border-brown/15 bg-blush/65 px-3.5 py-2 text-xs font-bold text-ink">
+              {product.status === 'available' ? 'Only one available' : product.status === 'reserved' ? 'On hold' : 'Sold'}
             </span>
           </div>
 
@@ -178,31 +187,54 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
             {product.status === 'available' && <BuyButton product={product} />}
           </div>
 
-          <div class="mt-5 grid grid-cols-2 gap-2 text-center text-[0.68rem] font-bold uppercase leading-5 tracking-[0.08em] text-ink/80 min-[420px]:grid-cols-3">
-            <span class="rounded-2xl bg-blush/35 px-2 py-3">Natural fibers only</span>
-            <span class="rounded-2xl bg-blush/35 px-2 py-3">Ships in 1 to 2 days</span>
-            <span class="col-span-2 rounded-2xl bg-blush/35 px-2 py-3 min-[420px]:col-span-1">All sales final</span>
+          <div class="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-brown/15 bg-brown/15 text-center text-[0.64rem] font-bold uppercase leading-5 tracking-[0.08em] text-ink sm:grid-cols-4 lg:grid-cols-2">
+            <span class="bg-ivory px-2 py-3">Hand sourced</span>
+            <span class="bg-ivory px-2 py-3">Condition reviewed</span>
+            <span class="bg-ivory px-2 py-3">Composition disclosed</span>
+            <span class="bg-ivory px-2 py-3">One of one</span>
+          </div>
+
+          <div class="mt-9 border-t border-brown/15 pt-8">
+            <p class="eyebrow">Why it made the edit</p>
+            <h2 class="mt-3 font-display text-3xl text-ink">Material, feel, and character</h2>
+            <p class="mt-4 whitespace-pre-line text-sm leading-7 text-brown">{product.description}</p>
           </div>
 
           {details.length > 0 && (
-            <dl class="mt-8 divide-y divide-wine/10 border-t border-wine/10 text-sm">
+            <dl class="mt-8 divide-y divide-brown/15 border-y border-brown/15 text-sm">
               {details.map(([label, value]) => (
                 <div class="flex justify-between gap-6 py-3.5">
-                  <dt class="text-ink/80">{label}</dt>
+                  <dt class="text-brown">{label}</dt>
                   <dd class="text-right font-bold text-ink">{value}</dd>
                 </div>
               ))}
             </dl>
           )}
 
-          <div class="mt-7 border-t border-wine/10 pt-7">
-            <h2 class="font-display text-2xl text-ink">The details</h2>
-            <p class="mt-3 whitespace-pre-line text-sm leading-7 text-ink/80">{product.description}</p>
+          <div class="mt-8 space-y-7 text-sm leading-7 text-brown">
+            <section>
+              <h2 class="font-display text-2xl text-ink">Fit and measurements</h2>
+              <p class="mt-2">
+                Review the listing details and photos for available measurements and fit notes. Compare them with a piece you already own before ordering.
+              </p>
+            </section>
+            <section>
+              <h2 class="font-display text-2xl text-ink">Material and construction</h2>
+              <p class="mt-2">
+                Full fabric composition is shared honestly when known, including blends and synthetic linings. Detail photos show the construction and condition up close.
+              </p>
+            </section>
+            <section class="grid gap-4 rounded-lg bg-paper p-5 sm:grid-cols-2">
+              <div>
+                <p class="font-bold text-ink">Shipping</p>
+                <p class="mt-1">Ships in 1 to 2 business days.</p>
+              </div>
+              <div>
+                <p class="font-bold text-ink">Final sale</p>
+                <p class="mt-1">Because this is the only one, please review every detail before making it yours.</p>
+              </div>
+            </section>
           </div>
-
-          <p class="mt-7 rounded-2xl border border-wine/10 bg-blush/35 p-4 text-sm leading-6 text-ink/80">
-            This is the only one. If it feels like your piece, it will not be restocked after it sells.
-          </p>
         </div>
       </aside>
     </div>
@@ -210,9 +242,9 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
 
   <Faq
     items={productFaq}
-    eyebrow="One of a kind"
+    eyebrow="One of one"
     title="Good to know before checkout."
-    intro="Clear answers about natural fibers, condition, sizing, shipping, and availability."
+    intro="Clear answers about composition, condition, sizing, shipping, and availability."
   />
 
   <script>
@@ -233,8 +265,8 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
           thumbs.forEach((button) => {
             const active = button === thumb;
             button.setAttribute('aria-pressed', String(active));
-            button.classList.toggle('border-wine', active);
-            button.classList.toggle('border-transparent', !active);
+            button.classList.toggle('border-ink', active);
+            button.classList.toggle('border-brown/15', !active);
           });
         });
       });
@@ -247,7 +279,7 @@ const productFaq = [FAQ[2], FAQ[3], FAQ[4], FAQ[5], FAQ[6], FAQ[8]];
         if (navigator.share) {
           await navigator.share({
             title: document.title,
-            text: 'The missing piece to your next fit, hand sourced by Tati Curated.',
+            text: "They don't make them like this no more. Hand sourced by Tati Curated.",
             url: window.location.href,
           });
           return;

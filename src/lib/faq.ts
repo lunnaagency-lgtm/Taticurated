@@ -15,23 +15,23 @@ export interface FaqItem {
 export const FAQ: FaqItem[] = [
   {
     q: 'What is Tati Curated?',
-    a: 'Tati Curated, also known as Curated by Tati, is a hand sourced shop for one of a kind natural fiber fashion. Tati selects cotton, linen, wool, and silk pieces for women and men, with a focus on timeless quality made to last. New pieces drop daily.',
+    a: 'Tati Curated, also known as Curated by Tati, is an elevated boutique for previously loved clothing made primarily from natural fibers. Every one of a kind piece is selected for its fabric, construction, character, and ability to be worn for years to come.',
   },
   {
     q: 'What kind of clothing does Tati Curated sell?',
-    a: 'Tati Curated sells women and men pieces made from cotton, linen, wool, or silk. The edit can include shirts, dresses, knitwear, outerwear, denim, bottoms, and accessories. Every piece is chosen for its fabric, construction, character, and staying power.',
+    a: 'The edit can include affordable everyday pieces, rare vintage finds, shirts, dresses, knitwear, outerwear, denim, bottoms, and accessories. Natural fibers come first, but some pieces include blends or synthetic linings. Full composition is disclosed honestly in each listing when known.',
   },
   {
     q: 'Are the pieces secondhand or new?',
-    a: 'The collection is centered on one of a kind and secondhand pieces, hand sourced as an alternative to fast fashion. Each listing shows its condition, fabric, and available details so you know exactly what you are getting.',
+    a: 'The collection is centered on previously loved, one of a kind pieces. Each listing shares its condition, composition, photos, and available measurements so you can choose with clear information.',
   },
   {
     q: 'Do you restock items?',
-    a: 'No. Every piece is one of a kind, so once it sells it will not come back. New pieces drop daily, which means there is always something new to discover even though individual items are never restocked.',
+    a: 'No. Every piece is one of a kind, so once it sells it will not come back. New pieces are added regularly, which means there is always something new to discover even though individual items are never restocked.',
   },
   {
     q: 'How does sizing work?',
-    a: 'The shop carries pieces for women and men. Each listing shows the labeled size and any available measurements. Because every piece is unique, check the listing details and compare the measurements with something you already own before buying.',
+    a: 'Each listing shows the labeled size and any available measurements or fit notes. Because every piece is unique, compare the measurements with something you already own before buying.',
   },
   {
     q: 'How much is shipping and how fast will my order arrive?',
@@ -39,7 +39,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: 'Do you accept returns or exchanges?',
-    a: 'Because every piece is one of a kind, all sales are final. Please review the fabric, condition, measurements, photos, and listing details before ordering.',
+    a: 'Because every piece is one of a kind, all sales are final. Please review the composition, condition, measurements, photos, and listing details before ordering. If anything is unclear, contact Tati before making the piece yours.',
   },
   {
     q: 'How can I get a discount?',
@@ -51,7 +51,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: 'Where else can I shop Tati Curated?',
-    a: 'Tati also sells on Depop as @curatedbytati_. The website carries the full Tati Curated experience and its own hand sourced natural fiber pieces.',
+    a: 'Tati also sells on Depop as @curatedbytati_. The website carries the full Tati Curated experience and its own hand sourced, previously loved pieces.',
   },
 ];
 
