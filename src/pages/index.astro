@@ -29,62 +29,41 @@ const fibers = [
   description={SITE.description}
   jsonLd={[faqSchema(homeFaq)]}
 >
-  <section class="mx-auto max-w-7xl px-4 pb-14 pt-5 sm:px-6 md:pb-24 md:pt-8">
-    <div class="relative overflow-hidden rounded-panel border border-brown/15 bg-ivory">
-      <div class="grid min-h-[42rem] lg:grid-cols-[0.88fr_1.12fr]">
-        <div class="relative z-10 flex flex-col justify-center bg-blush/35 px-6 py-14 sm:px-10 md:px-14 lg:px-16 lg:py-20">
-          <p class="eyebrow">The Tati edit, Fort Lauderdale</p>
-          <h1 class="mt-6 max-w-3xl font-display text-[3.35rem] text-ink sm:text-6xl md:text-7xl lg:text-[5.6rem]">
-            They don't make them like this no more
-          </h1>
-          <p class="mt-7 max-w-xl text-base leading-[1.4] text-brown md:text-lg">
-            Previously loved clothing made primarily from natural fibers, hand sourced for quality, character, and lasting wear.
-          </p>
-          <p class="mt-3 max-w-xl text-sm leading-[1.4] text-brown md:text-base">
-            From affordable everyday pieces to rare vintage finds.
-          </p>
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="/shop" class="button-primary">Explore the latest edit</a>
-            <a href="/about" class="button-secondary">How Tati curates</a>
-          </div>
-          <div class="mt-10 grid max-w-xl grid-cols-2 gap-x-6 gap-y-3 border-t border-brown/15 pt-5 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-brown sm:grid-cols-4">
-            <span>Hand sourced</span>
-            <span>One of one</span>
-            <span>Condition reviewed</span>
-            <span>Ships in 1 to 2 days</span>
-          </div>
+  <section class="relative">
+    <div class="relative min-h-[34rem] overflow-hidden md:min-h-[42rem]">
+      <img
+        src="/images/hero-natural-fibers.webp"
+        alt="Three people standing close together in previously loved cotton, linen, and silk pieces in soft lilac, sage, and blue."
+        width="1013"
+        height="1800"
+        class="absolute inset-0 h-full w-full object-cover"
+        style="object-position: center 25%;"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/25 to-ink/50"></div>
+      <div class="relative z-10 mx-auto flex min-h-[34rem] max-w-4xl flex-col items-center justify-center px-6 py-16 text-center md:min-h-[42rem]">
+        <p class="on-photo text-[0.68rem] font-bold uppercase tracking-[0.24em] text-ivory/90">The Tati edit, Fort Lauderdale</p>
+        <h1 class="on-photo mt-6 font-display text-[2.9rem] leading-[1] text-ivory sm:text-6xl md:text-7xl lg:text-[5.4rem]">
+          They don't make them like this no more
+        </h1>
+        <p class="on-photo mt-6 max-w-xl text-base leading-[1.4] text-ivory md:text-lg">
+          Previously loved clothing made primarily from natural fibers, hand sourced for quality, character, and lasting wear.
+        </p>
+        <p class="on-photo mt-3 max-w-xl text-sm leading-[1.4] text-ivory md:text-base">
+          From affordable everyday pieces to rare vintage finds.
+        </p>
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a href="/shop" class="button-on-photo-primary">Explore the latest edit</a>
+          <a href="/about" class="button-on-photo-secondary">How Tati curates</a>
         </div>
-
-        <!-- Replace the placeholder inside this figure with the future editorial hero image. -->
-        <figure class="relative min-h-[36rem] overflow-hidden border-t border-brown/15 bg-paper lg:min-h-full lg:border-l lg:border-t-0">
-          <div aria-hidden="true" class="absolute inset-0 grid grid-cols-3 opacity-70">
-            <span class="bg-rose"></span>
-            <span class="bg-blue"></span>
-            <span class="bg-sage"></span>
-          </div>
-          <div class="absolute inset-0 grid place-items-center p-6 sm:p-10">
-            <div class="relative h-full min-h-[30rem] w-full overflow-hidden border border-brown/15 bg-soft-white shadow-panel">
-              <div class="absolute inset-5 border border-brown/10"></div>
-              <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                <img
-                  src="/logo.webp"
-                  alt=""
-                  width="1100"
-                  height="385"
-                  class="h-auto w-52 max-w-[70%]"
-                  decoding="async"
-                />
-                <span class="mt-7 h-px w-16 bg-brown/40"></span>
-                <span class="mt-5 text-[0.6rem] font-bold uppercase tracking-[0.24em] text-brown">Editorial photo coming soon</span>
-                <p class="mt-4 max-w-56 font-display text-2xl text-ink">The fabric comes first</p>
-              </div>
-            </div>
-          </div>
-          <figcaption class="absolute bottom-5 right-5 bg-ivory/95 px-3 py-2 text-[0.58rem] font-bold uppercase tracking-[0.18em] text-brown">
-            Hand sourced by Tati
-          </figcaption>
-        </figure>
       </div>
+    </div>
+    <div class="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-3 px-4 py-5 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-brown sm:grid-cols-4 sm:px-6">
+      <span>Hand sourced</span>
+      <span>One of one</span>
+      <span>Condition reviewed</span>
+      <span>Ships in 1 to 2 days</span>
     </div>
   </section>
 
@@ -264,23 +243,27 @@ const fibers = [
   </section>
 
   <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 md:py-24">
-    <!-- This band is sized so future campaign photography can replace the pastel placeholder directly. -->
-    <div class="relative min-h-[22rem] overflow-hidden rounded-panel border border-brown/15 bg-rose">
-      <div aria-hidden="true" class="absolute inset-0 grid grid-cols-[1.1fr_0.8fr_1fr]">
-        <span class="bg-blush"></span>
-        <span class="bg-blue"></span>
-        <span class="bg-sage"></span>
-      </div>
-      <div aria-hidden="true" class="absolute inset-5 border border-ink/15"></div>
-      <div class="relative z-10 flex min-h-[22rem] flex-col items-center justify-center px-6 py-14 text-center">
-        <p class="eyebrow">A welcome from Tati</p>
-        <h2 class="mt-5 max-w-4xl font-display text-5xl text-ink sm:text-6xl md:text-7xl">
+    <div class="relative min-h-[24rem] overflow-hidden rounded-panel border border-brown/15">
+      <img
+        src="/images/offer-first-order.webp"
+        alt="Three people resting on a pale studio floor in sage, lilac, and blue natural fiber pieces."
+        width="1013"
+        height="1800"
+        class="absolute inset-0 h-full w-full object-cover"
+        style="object-position: center 28%;"
+        loading="lazy"
+        decoding="async"
+      />
+      <div aria-hidden="true" class="absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/25 to-ink/50"></div>
+      <div class="relative z-10 flex min-h-[24rem] flex-col items-center justify-center px-6 py-16 text-center">
+        <p class="on-photo text-[0.68rem] font-bold uppercase tracking-[0.24em] text-ivory/90">A welcome from Tati</p>
+        <h2 class="on-photo mt-5 max-w-4xl font-display text-5xl text-ivory sm:text-6xl md:text-7xl">
           Receive 10% off your first order
         </h2>
-        <p class="mt-5 max-w-xl text-sm leading-[1.4] text-brown md:text-base">
+        <p class="on-photo mt-5 max-w-xl text-sm leading-[1.4] text-ivory md:text-base">
           Join the list for your welcome code and first access to new edits.
         </p>
-        <a href="#footer-newsletter" class="button-primary mt-8">Sign me up</a>
+        <a href="#footer-newsletter" class="button-on-photo-primary mt-8">Sign me up</a>
       </div>
     </div>
   </section>
@@ -325,6 +308,43 @@ const fibers = [
   .button-secondary:hover {
     background: #eee5d8;
     border-color: #574a45;
+  }
+
+  .button-on-photo-primary,
+  .button-on-photo-secondary {
+    align-items: center;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    font-size: 0.875rem;
+    font-weight: 700;
+    justify-content: center;
+    min-height: 3rem;
+    padding-inline: 1.75rem;
+    transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+  }
+
+  .button-on-photo-primary {
+    background: #fcfaf7;
+    color: #2f2a28;
+  }
+
+  .button-on-photo-primary:hover {
+    background: #eee5d8;
+    transform: translateY(-2px);
+  }
+
+  .button-on-photo-secondary {
+    border: 1px solid rgba(252, 250, 247, 0.65);
+    color: #fcfaf7;
+  }
+
+  .button-on-photo-secondary:hover {
+    background: rgba(252, 250, 247, 0.14);
+    border-color: #fcfaf7;
+  }
+
+  .on-photo {
+    text-shadow: 0 2px 22px rgba(20, 16, 14, 0.72), 0 1px 4px rgba(20, 16, 14, 0.7);
   }
 
   .text-link {
